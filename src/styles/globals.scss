@@ -22,6 +22,13 @@
     rgba(255, 255, 255, 0)
   );
 
+  --details-glow: radial-gradient(
+    circle,
+    rgba(36, 25, 0, 0.8827906162464986) 0%,
+    rgba(129, 91, 14, 1) 35%,
+    rgba(255, 119, 0, 0.6895133053221288) 100%
+  );
+
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;
   --tile-border: conic-gradient(
@@ -54,6 +61,13 @@
       rgba(1, 65, 255, 0.3)
     );
 
+    --details-glow: radial-gradient(
+      circle,
+      rgba(124, 94, 1, 0.7959558823529411) 0%,
+      rgba(129, 91, 14, 0.8743872549019608) 34%,
+      rgba(255, 119, 0, 0.6895133053221288) 100%
+    );
+
     --tile-start-rgb: 2, 13, 46;
     --tile-end-rgb: 2, 5, 19;
     --tile-border: conic-gradient(
@@ -81,11 +95,12 @@
 
 html,
 body {
-  max-width: 100vw;
   overflow-x: hidden;
 }
 
 body {
+  max-width: 100vw;
+  min-height: 100dvh;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -95,9 +110,32 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+body > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
+  /* TODO: check this later */
+  & > :last-child {
+    flex-grow: 1;
+  }
+}
 a {
   color: inherit;
   text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: var(--details-glow);
+  border-radius: 0.2rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-image: var(--primary-glow);
 }
 
 @media (prefers-color-scheme: dark) {

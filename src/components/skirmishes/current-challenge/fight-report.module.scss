@@ -1,0 +1,110 @@
+$reportBaseDetailsHeight: 12%;
+$fightReportDetailsHeight: 40%;
+$fightReportLogsHeight: 38dvh;
+.fightReportWrapper {
+  min-width: 95%;
+  max-width: 95%;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 2px 3px 1px white;
+  position: relative;
+
+  &.expandedLogs {
+    div.fightReportLogsWrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: darkgreen;
+      background-image: var(--details-glow);
+      opacity: 1;
+      max-height: 95%;
+      min-height: 95%;
+    }
+  }
+  &.expandedStats {
+    // TODO expanded stats
+  }
+
+  .reportBaseDetails {
+    max-height: $reportBaseDetailsHeight;
+    min-height: $reportBaseDetailsHeight;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 1px 2px 3px 1px white;
+
+    & > div {
+      height: 100%;
+      padding: 0.5rem;
+      max-width: 50%;
+      min-width: 50%;
+      background-image: var(--details-glow);
+    }
+    .lootDetails {
+      display: flex;
+      flex-wrap: wrap;
+      overflow-x: hidden;
+
+      .itemLootWrapper {
+        box-shadow: 1px 1px 4px 1px yellow;
+        margin-left: 0.5rem;
+        max-height: 100%;
+      }
+
+      & > div {
+        margin-left: 0.1rem;
+        max-width: $reportBaseDetailsHeight;
+      }
+    }
+  }
+
+  .fightReportDetails {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+
+    max-height: $fightReportDetailsHeight;
+    min-height: $fightReportDetailsHeight;
+    .participantsDetails {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid gainsboro;
+
+      & > div {
+        max-width: 50%;
+        min-width: 50%;
+        height: 100%;
+      }
+    }
+  }
+
+  .fightReportLogsWrapper {
+    padding-top: 0.1rem;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: $fightReportLogsHeight;
+    min-height: $fightReportLogsHeight;
+    overflow-x: hidden;
+
+    .expandButtonWrapper {
+      width: 100%;
+      padding: 0 0.2rem 0.2rem;
+      position: sticky;
+      top: 0;
+      & > button {
+        width: 100%;
+      }
+    }
+
+    * {
+      font-size: 1.1dvw;
+    }
+  }
+}

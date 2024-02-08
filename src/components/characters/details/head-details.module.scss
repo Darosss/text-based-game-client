@@ -1,0 +1,35 @@
+.characterHeadWrapper {
+  display: flex;
+  & > div {
+    display: flex;
+    max-width: 50%;
+    min-width: 50%;
+    img {
+      padding: 0.1rem;
+      border-radius: 0.5rem;
+    }
+  }
+
+  .characterAvatar {
+    display: flex;
+    position: relative;
+    max-width: 70%;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    &:hover {
+      .characterAdditionalStatisticsWrapper {
+        display: block;
+      }
+    }
+
+    .characterAdditionalStatisticsWrapper {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-x: hidden;
+    }
+  }
+}

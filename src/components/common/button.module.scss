@@ -1,0 +1,35 @@
+.button {
+  border: 0;
+  padding: 5px;
+  border-radius: 0.25rem;
+  cursor: pointer;
+
+  &:hover {
+    filter: hue-rotate(20deg);
+  }
+
+  &.primary {
+    background: linear-gradient(to bottom, #3498db, #2980b9);
+    color: #ffffff;
+  }
+
+  &.secondary {
+    background: linear-gradient(to bottom, #2ecc71, #27ae60);
+    color: #ffffff;
+  }
+
+  &.danger {
+    background: linear-gradient(to bottom, #e74c3c, #c0392b);
+    color: #ffffff;
+  }
+
+  &.info {
+    background: linear-gradient(to bottom, #9b59b6, #8e44ad);
+    color: #ffffff;
+  }
+
+  &.success {
+    background: linear-gradient(to bottom, #27ae60, #2ecc71);
+    color: #ffffff;
+  }
+}

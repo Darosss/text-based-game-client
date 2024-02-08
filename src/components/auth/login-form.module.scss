@@ -1,0 +1,21 @@
+.form {
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid green;
+  box-shadow: 1px 3px 5px 1px green;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    input {
+      text-align: center;
+      font-size: 2dvw;
+    }
+
+    * {
+      font-size: 2dvw;
+    }
+  }
+}

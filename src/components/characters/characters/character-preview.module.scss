@@ -1,0 +1,22 @@
+.characterPreviewWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  background-image: var(--details-glow);
+  border-radius: 0.25rem;
+
+  .characterHeadDetailsWrapper {
+    padding: 0 0.5rem 0.5rem 0.5rem;
+    box-shadow: 1px 1px 1px 1px gray;
+    max-height: 5dvh;
+    display: flex;
+    flex-direction: column;
+
+    & > div {
+      display: flex;
+    }
+  }
+}
