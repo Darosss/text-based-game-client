@@ -1,4 +1,8 @@
-import { EnemyType, FightReportStatus } from "./enums";
+import {
+  CharacterEquipmentFields,
+  EnemyType,
+  FightReportStatus,
+} from "./enums";
 
 export type NpcEnemy = {
   health: number;
@@ -10,7 +14,7 @@ export type NpcEnemy = {
 };
 
 export type Character = {
-  equipment: any;
+  equipment: CharacterEquipment;
   experience: number;
   health: number;
   id: { date: string; timestamp: number };
@@ -18,6 +22,15 @@ export type Character = {
   mainCharacter: boolean;
   name: string;
   stats: HeroStats;
+};
+
+export type CharacterEquipment = {
+  id: { date: string; timestamp: number };
+  slots: CharacterEquipmentSlots;
+};
+
+export type CharacterEquipmentSlots = {
+  [slot in CharacterEquipmentFields]?: Item;
 };
 
 export type HeroStats = {
@@ -90,13 +103,22 @@ export type Item = {
   nameWithPrefixAndSuffix: string;
   prefix: string;
   suffix: string;
-  rarity: string; //TODO: later enum / types
+  rarity: ItemRarity; //TODO: later enum / types
   statistics: ItemStatistics;
   type: string; //TODO: later enum / types
   upgradePoints: number;
   value: number;
   weight: number;
 };
+
+export type ItemRarity =
+  | "COMMON"
+  | "UNCOMMON"
+  | "RARE"
+  | "VERY_RARE"
+  | "EPIC"
+  | "LEGENDARY"
+  | "MYTHIC";
 
 export type ItemStatistics = {
   //TODO: here shoould be an enum or type depends on statistic
@@ -121,4 +143,16 @@ export type FightReportType = {
   loot: Item[];
   status: FightReportStatus;
   turnsReports: ReportTurn[];
+};
+
+export type Inventory = {
+  id: { date: string; timestamp: number };
+  items?: InventoryItems;
+  maxItems: number;
+  maxWeight: number;
+  currentWeight: number;
+};
+
+export type InventoryItems = {
+  [id: string]: Item;
 };

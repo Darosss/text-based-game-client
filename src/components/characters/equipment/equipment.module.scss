@@ -1,0 +1,51 @@
+.equipmentWrapper {
+  border: 1px solid blue;
+  width: 100%;
+  padding: 0.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  & > div {
+    width: 100%;
+  }
+  .head {
+    grid-area: head;
+  }
+  .left_hand {
+    grid-area: left-hand;
+  }
+  .neck {
+    grid-area: neck;
+  }
+  .right_hand {
+    grid-area: right-hand;
+  }
+  .chest {
+    grid-area: chest;
+  }
+  .foots {
+    grid-area: foots;
+  }
+  .arms {
+    grid-area: arms;
+  }
+  .equipmentContainer {
+    max-width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: 8em 5em 8em 4em 4em;
+    grid-template-areas:
+      ". head ."
+      ". neck ."
+      "left-hand chest right-hand"
+      "arms . ."
+      ". foots .";
+    & > div {
+      border: 1px solid red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+  }
+}

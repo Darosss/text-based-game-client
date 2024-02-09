@@ -8,3 +8,13 @@ export enum FightReportStatus {
   FIGHT = "FIGHT",
   DRAW = "DRAW",
 }
+
+export enum CharacterEquipmentFields {
+  HEAD = "HEAD",
+  LEFT_HAND = "LEFT_HAND",
+  NECK = "NECK",
+  RIGHT_HAND = "RIGHT_HAND",
+  CHEST = "CHEST",
+  ARMS = "ARMS",
+  FOOTS = "FOOTS",
+}

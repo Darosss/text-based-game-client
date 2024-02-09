@@ -14,6 +14,12 @@ export const MenuLinks: () => JSX.Element = () => {
           <p>Register</p>
         </Link>
       </li>
+
+      <li>
+        <Link href="/overview">
+          <p>Overview</p>
+        </Link>
+      </li>
       <li>
         <Link href="/skirmishes">
           <p>Skirmishes</p>

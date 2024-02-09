@@ -1,49 +1,33 @@
 import { Item, ItemStatisticStatsList } from "@/api/types";
-import { Tooltip } from "react-tooltip";
 import styles from "./item-display.module.scss";
 import Image from "next/image";
 import React from "react";
+import { Tooltip } from "react-tooltip";
 type ItemDisplayProps = {
   item: Item;
+  tooltipId: string;
+  onHover: (item: Item) => void;
 };
 
-export const ItemDisplay = ({ item }: ItemDisplayProps) => {
-  const itemId = `${item.id.timestamp}`;
-
+export const ItemDisplay = ({ item, tooltipId, onHover }: ItemDisplayProps) => {
+  const itemId = `${item.id.timestamp + item.type}`;
+  //TODO: change to id
   return (
-    <>
-      <div data-tooltip-id={itemId} className={styles.itemDisplayWrapper}>
-        <Image src="/images/image-placeholder.png" alt="item" fill />
+    <div
+      data-tooltip-id={tooltipId}
+      className={styles.itemDisplayWrapper}
+      onMouseEnter={() => onHover(item)}
+    >
+      <div
+        className={`${styles.levelDisplay} ${
+          styles[item.rarity.toLowerCase()]
+        }`}
+      >
+        {item.level}
       </div>
-
-      <Tooltip id={itemId} clickable className={styles.tooltipHead} opacity={1}>
-        <div className={styles.itemTooltipWrapper}>
-          <div>{item.nameWithPrefixAndSuffix}</div>
-          <div className={styles.itemStatisticsWrapper}>
-            <div>
-              <ItemStatistics statistics={item.statistics.baseStatistics} />
-            </div>
-            <div>
-              <ItemStatistics
-                statistics={item.statistics.additionalStatistics}
-              />
-            </div>
-          </div>
-          <div className={styles.itemBasicDetailsWrapper}>
-            <div>
-              <div>Level: {item.level}</div>
-              <div>Value: {item.value}</div>
-              <div>Type: {item.type}</div>
-            </div>
-            <div>
-              <div>Rarity: {item.rarity}</div>
-              <div>Upgrade points: {item.upgradePoints}</div>
-              <div>Weight: {item.weight.toFixed(1)}</div>
-            </div>
-          </div>
-        </div>
-      </Tooltip>
-    </>
+      <div className={styles.itemDisplayBackground}></div>
+      <Image src="/images/item-placeholder.png" alt="item" fill />
+    </div>
   );
 };
 
@@ -52,7 +36,7 @@ type ItemStatisticsProps<StatNameType extends string> = {
 };
 
 //TODO: here shoould be an enum or type depends on statistic
-const ItemStatistics = ({ statistics }: ItemStatisticsProps<string>) => {
+export const ItemStatistics = ({ statistics }: ItemStatisticsProps<string>) => {
   return Object.entries(statistics)
     .sort()
     .map(([name, stat]) => {
@@ -89,4 +73,50 @@ const ItemStatistics = ({ statistics }: ItemStatisticsProps<string>) => {
         </React.Fragment>
       );
     });
+};
+
+type ItemTooltipContentProps = { item: Item };
+
+export const ItemTooltipContent = ({ item }: ItemTooltipContentProps) => {
+  return (
+    <div className={styles.itemTooltipContentWrapper}>
+      <div>{item.nameWithPrefixAndSuffix}</div>
+      <div className={styles.itemStatisticsWrapper}>
+        <div>
+          <ItemStatistics statistics={item.statistics.baseStatistics} />
+        </div>
+        <div>
+          <ItemStatistics statistics={item.statistics.additionalStatistics} />
+        </div>
+      </div>
+      <div className={styles.itemBasicDetailsWrapper}>
+        <div>
+          <div>Level: {item.level}</div>
+          <div>Value: {item.value}</div>
+          <div>Type: {item.type}</div>
+        </div>
+        <div>
+          <div>Rarity: {item.rarity}</div>
+          <div>Upgrade points: {item.upgradePoints}</div>
+          <div>Weight: {item.weight.toFixed(1)}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+type ItemTooltipContentWrapperProps = {
+  item: Item | null;
+  tooltipId: string;
+};
+
+export const ItemTooltipContentWrapper = ({
+  item,
+  tooltipId,
+}: ItemTooltipContentWrapperProps) => {
+  return (
+    <Tooltip className={styles.itemsTooltip} id={tooltipId} opacity={1}>
+      {item ? <ItemTooltipContent item={item} /> : null}
+    </Tooltip>
+  );
 };
