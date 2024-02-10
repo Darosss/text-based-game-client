@@ -17,7 +17,7 @@ type FetchDataParams<BodyType = unknown> = {
   customBody?: BodyType;
 };
 
-type UseFetchReturnType<ResponseT, BodyT> = {
+export type UseFetchReturnType<ResponseT, BodyT> = {
   api: ApiResponse<ResponseT>;
   fetchData: (
     params?: FetchDataParams<BodyT>

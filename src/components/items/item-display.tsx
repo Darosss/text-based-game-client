@@ -1,22 +1,32 @@
+"use client";
+
 import { Item, ItemStatisticStatsList } from "@/api/types";
 import styles from "./item-display.module.scss";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 type ItemDisplayProps = {
   item: Item;
   tooltipId: string;
   onHover: (item: Item) => void;
+  refForWrapper?: React.LegacyRef<HTMLDivElement> | undefined;
+  opacity?: number;
 };
 
-export const ItemDisplay = ({ item, tooltipId, onHover }: ItemDisplayProps) => {
-  const itemId = `${item.id.timestamp + item.type}`;
-  //TODO: change to id
+export const ItemDisplay = ({
+  item,
+  tooltipId,
+  onHover,
+  refForWrapper,
+  opacity,
+}: ItemDisplayProps) => {
   return (
     <div
       data-tooltip-id={tooltipId}
       className={styles.itemDisplayWrapper}
       onMouseEnter={() => onHover(item)}
+      ref={refForWrapper}
+      style={{ opacity }}
     >
       <div
         className={`${styles.levelDisplay} ${
@@ -108,14 +118,22 @@ export const ItemTooltipContent = ({ item }: ItemTooltipContentProps) => {
 type ItemTooltipContentWrapperProps = {
   item: Item | null;
   tooltipId: string;
+  opacity?: number;
+  customClassName?: string;
 };
 
 export const ItemTooltipContentWrapper = ({
   item,
   tooltipId,
+  opacity,
+  customClassName,
 }: ItemTooltipContentWrapperProps) => {
   return (
-    <Tooltip className={styles.itemsTooltip} id={tooltipId} opacity={1}>
+    <Tooltip
+      className={`${styles.itemsTooltip} ${customClassName}`}
+      id={tooltipId}
+      opacity={opacity !== 0 ? opacity : 0}
+    >
       {item ? <ItemTooltipContent item={item} /> : null}
     </Tooltip>
   );

@@ -5,6 +5,15 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  &:active {
+    transition: opacity 2s;
+
+    & > .equipmentTooltip {
+      opacity: 0;
+      visibility: hidden;
+      background-color: transparent;
+    }
+  }
   & > div {
     width: 100%;
   }
@@ -40,12 +49,35 @@
       "left-hand chest right-hand"
       "arms . ."
       ". foots .";
+    position: relative;
     & > div {
+      //styles[eqField.toLowerCase()] // head, left_hand, next etc
+
       border: 1px solid red;
       display: flex;
-      justify-content: center;
-      align-items: center;
       position: relative;
+      .equipedField {
+        width: 100%;
+        height: 100%;
+      }
+      .emptyEquipmentSlot {
+        z-index: 10;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .background {
+        position: absolute;
+        opacity: 0.4;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: var(--details-glow);
+      }
     }
   }
 }

@@ -2,30 +2,33 @@ import {
   CharacterEquipmentFields,
   EnemyType,
   FightReportStatus,
+  ItemType,
 } from "./enums";
 
-export type NpcEnemy = {
+type CommonFieldTypes = {
+  id: string;
+  //TODO: createdAt updatedAt and others?
+};
+
+export type NpcEnemy = CommonFieldTypes & {
   health: number;
-  id: { date: string; timestamp: number };
   level: number;
   name: string;
   type: EnemyType;
   stats: HeroStats;
 };
 
-export type Character = {
+export type Character = CommonFieldTypes & {
   equipment: CharacterEquipment;
   experience: number;
   health: number;
-  id: { date: string; timestamp: number };
   level: number;
   mainCharacter: boolean;
   name: string;
   stats: HeroStats;
 };
 
-export type CharacterEquipment = {
-  id: { date: string; timestamp: number };
+export type CharacterEquipment = CommonFieldTypes & {
   slots: CharacterEquipmentSlots;
 };
 
@@ -95,17 +98,16 @@ export type ReportTurnActionMoveDefend = {
   parryAttack: ReportTurnAction | null;
 };
 
-export type Item = {
+export type Item = CommonFieldTypes & {
   name: string;
   description: string;
   level: number;
-  id: { date: string; timestamp: number };
   nameWithPrefixAndSuffix: string;
   prefix: string;
   suffix: string;
-  rarity: ItemRarity; //TODO: later enum / types
+  rarity: ItemRarity;
   statistics: ItemStatistics;
-  type: string; //TODO: later enum / types
+  type: ItemType;
   upgradePoints: number;
   value: number;
   weight: number;
@@ -145,8 +147,7 @@ export type FightReportType = {
   turnsReports: ReportTurn[];
 };
 
-export type Inventory = {
-  id: { date: string; timestamp: number };
+export type Inventory = CommonFieldTypes & {
   items?: InventoryItems;
   maxItems: number;
   maxWeight: number;

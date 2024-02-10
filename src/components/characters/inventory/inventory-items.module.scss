@@ -4,6 +4,16 @@
   width: 100%;
   height: 100%;
 
+  &:active {
+    transition: opacity 2s;
+
+    & > .inventoryTooltip {
+      opacity: 0;
+      visibility: hidden;
+      background-color: transparent;
+    }
+  }
+
   & > div.oneItemWrapper {
     display: flex;
     min-width: 66px;

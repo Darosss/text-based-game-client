@@ -1,10 +1,16 @@
+"use client";
+
 import { CharacterManagement } from "@/components/characters";
 import styles from "./overview.module.scss";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-export default async function Overview() {
+export default function Overview() {
   return (
     <div className={styles.overview}>
-      <CharacterManagement />
+      <DndProvider backend={HTML5Backend}>
+        <CharacterManagement />
+      </DndProvider>
     </div>
   );
 }
