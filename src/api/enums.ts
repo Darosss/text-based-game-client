@@ -22,6 +22,7 @@ export enum CharacterEquipmentFields {
 export enum ItemType {
   WEAPON_MELEE = "WEAPON_MELEE",
   WEAPON_RANGED = "WEAPON_RANGED",
+  SHIELD = "SHIELD",
   CHEST_ARMOR = "CHEST_ARMOR",
   HELMET = "HELMET",
   GLOVES = "GLOVES",
