@@ -3,6 +3,7 @@ import { useDrop, DropTargetMonitor } from "react-dnd";
 import { equipmentFieldToItemType } from "./slot-mapping";
 import styles from "./equipment.module.scss";
 import dndStyles from "../dnd.module.scss";
+import { useInventoryControlContext } from "../inventory/inventory-control-context";
 
 type EmptyEquipmentSlotProps = {
   equipmentField: CharacterEquipmentFields;
@@ -13,6 +14,7 @@ export const EmptyEquipmentSlot = ({
   equipmentField,
   characterId,
 }: EmptyEquipmentSlotProps) => {
+  const { setFilter } = useInventoryControlContext();
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
       accept: equipmentFieldToItemType[equipmentField],
@@ -34,6 +36,12 @@ export const EmptyEquipmentSlot = ({
       className={`${styles.emptyEquipmentSlot} ${
         isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""
       }`}
+      onClick={() =>
+        setFilter((prevState) => ({
+          ...prevState,
+          showType: equipmentFieldToItemType[equipmentField],
+        }))
+      }
     >
       {equipmentField}
     </div>

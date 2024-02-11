@@ -52,8 +52,7 @@
     position: relative;
     & > div {
       //styles[eqField.toLowerCase()] // head, left_hand, next etc
-
-      border: 1px solid red;
+      margin: 0.1rem;
       display: flex;
       position: relative;
       .equipedField {
@@ -67,9 +66,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+        &:hover {
+          background-image: var(--primary-glow);
+        }
       }
 
       .background {
+        box-shadow: 1px 1px 3px 2px green;
+        border-radius: 0.25rem;
         position: absolute;
         opacity: 0.4;
         top: 0;

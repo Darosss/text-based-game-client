@@ -1,11 +1,16 @@
 import { Item, InventoryItems as InventoryItemsType } from "@/api/types";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ItemTooltipContentWrapper } from "../../items/item-display";
 import styles from "./inventory-items.module.scss";
 import { useFetch } from "@/hooks/useFetch";
 import { CharacterEquipmentFields } from "@/api/enums";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { InventoryItem } from "./inventory-item";
+import {
+  InventoryControlContext,
+  SortByType,
+  useInventoryControlContext,
+} from "./inventory-control-context";
 
 type InventoryItemsProps = {
   items: InventoryItemsType;
@@ -19,7 +24,45 @@ type EquipParameters = {
   slot: CharacterEquipmentFields;
 };
 
+type EquipResponseType = {
+  success: boolean;
+  message: string;
+};
+
+const filterItemsEntries = (
+  items: InventoryItemsType,
+  filter: InventoryControlContext
+) => {
+  return Object.entries(items).filter(([_, itemToFilter]) => {
+    const { showType, name } = filter;
+    let itemFiltered = true;
+    if (showType)
+      itemFiltered =
+        showType.length === 0 ? true : showType.includes(itemToFilter.type);
+    if (name && itemFiltered)
+      itemFiltered = itemToFilter.nameWithPrefixAndSuffix
+        .toLowerCase()
+        .includes(name);
+    return itemFiltered;
+  });
+};
+const getSortedItems = (items: [string, Item][], sort: SortByType) => {
+  const sortedItems = items.sort(([, itemA], [, itemB]) => {
+    if (itemA[sort.sortBy] < itemB[sort.sortBy]) {
+      return -1;
+    }
+    if (itemA[sort.sortBy] > itemB[sort.sortBy]) {
+      return 1;
+    }
+    return 0;
+  });
+
+  if (sort.descending) return sortedItems.reverse();
+  return sortedItems;
+};
+
 export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
+  const { filter, sort } = useInventoryControlContext();
   const {
     apiCharacter: { fetchData: fetchCharacterData },
     apiInventory: { fetchData: fetchInventoryData },
@@ -29,7 +72,7 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
   const {
     api: { isPending, error, data },
     fetchData,
-  } = useFetch<boolean>(
+  } = useFetch<EquipResponseType>(
     {
       url: equipParameters
         ? `equip/${equipParameters.characterId}/${equipParameters.itemId}/${equipParameters.slot}`
@@ -52,7 +95,15 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     }
   }, [equipParameters, fetchCharacterData, fetchData, fetchInventoryData]);
 
+  console.log(data, "jak tam");
+
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
+
+  const itemsToRender = useMemo(
+    () => getSortedItems(filterItemsEntries(items, filter), sort),
+    [items, filter, sort]
+  );
+
   return (
     <div className={styles.itemsWrapper}>
       <ItemTooltipContentWrapper
@@ -60,7 +111,7 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
         item={currentItem}
         tooltipId={tooltipId}
       />
-      {Object.entries(items).map((val) => (
+      {itemsToRender.map((val) => (
         <div key={val[0]} className={styles.oneItemWrapper}>
           <InventoryItem
             key={val[0]}

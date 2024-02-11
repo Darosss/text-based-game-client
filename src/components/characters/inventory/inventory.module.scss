@@ -1,21 +1,33 @@
+$sidebarWidth: 50px;
+$inventoryBottomHeight: 55dvh;
+
 .inventoryWrapper {
   width: 100%;
   height: 100%;
+  .inventoryMenu {
+    min-height: 5dvh;
+  }
 
-  .inventoryItems {
+  .inventoryBottom {
     display: flex;
     width: 100%;
     padding: 0.2rem;
-    height: 90%;
+    overflow: hidden;
+    align-items: flex-start;
+    max-height: $inventoryBottomHeight;
+    .inventoryItems {
+      max-width: calc(100% - $sidebarWidth);
+      min-width: calc(100% - $sidebarWidth);
+      overflow-x: hidden;
+      max-height: $inventoryBottomHeight;
+    }
 
-    justify-content: space-between;
-    flex-wrap: wrap;
-    overflow-x: hidden;
-    .itemWrapper {
-      display: flex;
-      width: 70px;
-      height: 70px;
-      border: 1px solid blue;
+    .sidebar {
+      padding: 0.2rem;
+      max-width: $sidebarWidth;
+      min-width: $sidebarWidth;
+      background-image: var(--primary-glow);
+      overflow-x: hidden;
     }
   }
 }

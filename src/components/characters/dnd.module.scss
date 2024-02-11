@@ -1,5 +1,6 @@
 .active {
   background-image: var(--primary-glow);
+  filter: brightness(180%);
 }
 
 .canDrop {

@@ -1,13 +1,14 @@
 "use client";
 
 import styles from "./inventory.module.scss";
-
 import dndStyles from "../dnd.module.scss";
 import { InventoryItems } from "./inventory-items";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { ItemType } from "@/api/enums";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { dropAcceptTypePrefix } from "../dndHelpers";
+import { InventoryMenu } from "./inventory-menu";
+import { InventorySidebar } from "./inventory-sidebar";
 
 type InventoryProps = {};
 
@@ -37,14 +38,21 @@ export const Inventory = ({}: InventoryProps) => {
       }`}
       ref={drop}
     >
-      <div> Menu inventory</div>
-      <div className={styles.inventoryItems}>
-        {data.items ? (
-          <InventoryItems
-            items={data.items}
-            tooltipId="inventory-item-tooltip"
-          />
-        ) : null}
+      <div className={styles.inventoryMenu}>
+        <InventoryMenu />
+      </div>
+      <div className={styles.inventoryBottom}>
+        <div className={styles.inventoryItems}>
+          {data.items ? (
+            <InventoryItems
+              items={data.items}
+              tooltipId="inventory-item-tooltip"
+            />
+          ) : null}
+        </div>
+        <div className={styles.sidebar}>
+          <InventorySidebar />
+        </div>
       </div>
     </div>
   );
