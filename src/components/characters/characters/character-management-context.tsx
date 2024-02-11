@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext } from "react";
+import { createContext, useContext } from "react";
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 import { Character, Inventory as InventoryType } from "@/api/types";
 
