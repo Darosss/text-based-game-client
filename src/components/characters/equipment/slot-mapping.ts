@@ -8,11 +8,13 @@ export const equipmentFieldToItemType: Record<
   [CharacterEquipmentFields.LEFT_HAND]: [
     ItemType.WEAPON_MELEE,
     ItemType.WEAPON_RANGED,
+    ItemType.SHIELD,
   ],
   [CharacterEquipmentFields.NECK]: [ItemType.NECKLACE],
   [CharacterEquipmentFields.RIGHT_HAND]: [
     ItemType.WEAPON_MELEE,
     ItemType.WEAPON_RANGED,
+    ItemType.SHIELD,
   ],
   [CharacterEquipmentFields.CHEST]: [ItemType.CHEST_ARMOR],
   [CharacterEquipmentFields.ARMS]: [ItemType.GLOVES],
