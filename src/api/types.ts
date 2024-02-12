@@ -157,3 +157,12 @@ export type Inventory = CommonFieldTypes & {
 export type InventoryItems = {
   [id: string]: Item;
 };
+
+export type EquipResponseType = {
+  success: boolean;
+  message: string;
+};
+
+export type UnEquipResponseType = EquipResponseType & {
+  item: Item | null;
+};

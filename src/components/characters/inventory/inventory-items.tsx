@@ -1,4 +1,8 @@
-import { Item, InventoryItems as InventoryItemsType } from "@/api/types";
+import {
+  Item,
+  InventoryItems as InventoryItemsType,
+  EquipResponseType,
+} from "@/api/types";
 import { useEffect, useMemo, useState } from "react";
 import { ItemTooltipContentWrapper } from "../../items/item-display";
 import styles from "./inventory-items.module.scss";
@@ -11,6 +15,7 @@ import {
   SortByType,
   useInventoryControlContext,
 } from "./inventory-control-context";
+import { toast } from "react-toastify";
 
 type InventoryItemsProps = {
   items: InventoryItemsType;
@@ -22,11 +27,6 @@ type EquipParameters = {
   characterId: string;
   itemId: string;
   slot: CharacterEquipmentFields;
-};
-
-type EquipResponseType = {
-  success: boolean;
-  message: string;
 };
 
 const filterItemsEntries = (
@@ -88,14 +88,23 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
       equipParameters.characterId &&
       equipParameters.itemId
     ) {
-      fetchData().then(() => {
+      const toastId = toast.loading("Trying to wear item...", {
+        autoClose: 30000,
+      });
+
+      fetchData().then((response) => {
         fetchCharacterData();
         fetchInventoryData();
+        if (response)
+          toast.update(toastId, {
+            render: response?.message,
+            type: response.success ? "success" : "error",
+            isLoading: false,
+            autoClose: 2000,
+          });
       });
     }
   }, [equipParameters, fetchCharacterData, fetchData, fetchInventoryData]);
-
-  console.log(data, "jak tam");
 
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
 

@@ -1,4 +1,4 @@
-import { Item } from "@/api/types";
+import { EquipResponseType, Item, UnEquipResponseType } from "@/api/types";
 import styles from "./equipment.module.scss";
 import { CharacterEquipmentFields } from "@/api/enums";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { EquipmentItem } from "./equipment-item";
 import { EmptyEquipmentSlot } from "./empty-equipment-slot";
+import { toast } from "react-toastify";
 
 type EquipmentProps = {};
 
@@ -27,7 +28,7 @@ export const Equipment = ({}: EquipmentProps) => {
   const [unEquipParameters, setUnEquipParameters] =
     useState<UnEquipParameters | null>(null);
 
-  const { api, fetchData } = useFetch<boolean>(
+  const { api, fetchData } = useFetch<UnEquipResponseType>(
     {
       url: unEquipParameters
         ? `un-equip/${unEquipParameters.characterId}/${unEquipParameters.slot}`
@@ -40,9 +41,19 @@ export const Equipment = ({}: EquipmentProps) => {
 
   useEffect(() => {
     if (unEquipParameters && unEquipParameters.characterId) {
-      fetchData().then(() => {
+      const toastId = toast.loading("Trying to take off item...", {
+        autoClose: 30000,
+      });
+      fetchData().then((response) => {
         fetchInventoryData();
         fetchCharacterData();
+        if (response)
+          toast.update(toastId, {
+            render: response?.message,
+            type: response.success ? "success" : "error",
+            isLoading: false,
+            autoClose: 2000,
+          });
       });
     }
   }, [unEquipParameters, fetchData, fetchInventoryData, fetchCharacterData]);
