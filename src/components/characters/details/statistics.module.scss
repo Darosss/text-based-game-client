@@ -1,50 +1,31 @@
 .characterStatistics {
   display: flex;
   flex-direction: column;
-  .baseStatisticVisibleDetails {
-    display: flex;
-    justify-content: space-around;
-    padding: 0.5rem 0.5rem 0 0.5rem;
-
-    & > div {
-      border-bottom: 1px solid gray;
-      font-size: 1.1vw;
-    }
-
-    & > div:first-child {
-      max-width: 60%;
-      min-width: 60%;
-    }
-    & > div:not(:first-child) {
-      text-align: center;
-      font-weight: 800;
-    }
-  }
 }
 
 .characterAdditionalStatistics {
-  background-image: var(--details-glow);
-
-  .statisticsVisibleDetails {
-    display: flex;
-    justify-content: space-around;
-    padding: 0.5rem 0.5rem 0 0.5rem;
-
-    & > div {
-      border-bottom: 1px solid gray;
-      font-size: 1.1vw;
-    }
-
-    & > div:first-child {
-      max-width: 60%;
-      min-width: 60%;
-    }
-    & > div:not(:first-child) {
-      text-align: center;
-      font-weight: 800;
-    }
-  }
   &.shown {
     display: block;
+  }
+}
+
+.statisticsVisibleDetails {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border-bottom: 1px solid gray;
+  border-radius: 0.5rem;
+
+  & > div {
+    font-size: 1.1vw;
+  }
+
+  & > div:first-child {
+    max-width: 60%;
+    min-width: 60%;
+  }
+  & > div:not(:first-child) {
+    text-align: center;
+    font-weight: 800;
   }
 }

@@ -39,10 +39,9 @@
     grid-area: arms;
   }
   .equipmentContainer {
-    max-width: 80%;
     display: grid;
-    grid-template-columns: repeat(3, 33%);
-    grid-template-rows: 8em 5em 8em 4em 4em;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: 6em 5em 6em 5em 5em;
     grid-template-areas:
       ". head ."
       ". neck ."

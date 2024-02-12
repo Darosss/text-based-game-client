@@ -6,10 +6,11 @@ type BaseStatisticsProps = { statistics: HeroBaseStatistics };
 export const BaseStatistics = ({ statistics }: BaseStatisticsProps) => {
   return (
     <div className={styles.characterStatistics}>
+      <div> Statistics </div>
       {Object.entries(statistics)
         .sort()
         .map(([statName, value]) => (
-          <div key={statName} className={styles.baseStatisticVisibleDetails}>
+          <div key={statName} className={styles.statisticsVisibleDetails}>
             <div>{value.name}</div>
             <div>{value.effectiveValue}</div>
           </div>
@@ -18,13 +19,22 @@ export const BaseStatistics = ({ statistics }: BaseStatisticsProps) => {
   );
 };
 
-type AdditionalStatisticsProps = { statistics: HeroAdditionalStatistics };
+type AdditionalStatisticsProps = {
+  statistics: HeroAdditionalStatistics;
+  additionalClassName?: string;
+};
 
 export const AdditionalStatistics = ({
   statistics,
+  additionalClassName,
 }: AdditionalStatisticsProps) => {
   return (
-    <div className={styles.characterAdditionalStatistics}>
+    <div
+      className={`${styles.characterAdditionalStatistics} ${
+        additionalClassName ?? ""
+      }`}
+    >
+      <div> Additional</div>
       {Object.entries(statistics)
         .sort()
         .map(([statName, value]) => (

@@ -1,0 +1,43 @@
+@import "@/styles/mixins";
+
+.characterStatistics {
+  display: flex;
+  overflow-x: hidden;
+  width: 100%;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+
+  & > div {
+    &:first-child {
+      border-right: 1px solid blue;
+      border-radius: 0.5rem;
+    }
+    * {
+      font-size: 0.8dvw !important;
+    }
+    min-width: 50%;
+    max-width: 50%;
+    overflow-x: hidden;
+    max-height: 100%;
+
+    background-color: rgba(27, 1, 200, 0.344);
+    background-image: var(--primary-glow);
+    padding-bottom: 0.5rem;
+  }
+
+  @include respond(large) {
+    flex-direction: column;
+    & > div {
+      &:first-child {
+        border-right: 0;
+        border-bottom: 1px solid blue;
+      }
+      &:last-child {
+        border-top: 1px solid blue;
+        border-radius: 0.5rem;
+      }
+      min-width: 100%;
+      max-width: 100%;
+    }
+  }
+}

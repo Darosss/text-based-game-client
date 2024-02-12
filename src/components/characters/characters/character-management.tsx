@@ -4,6 +4,7 @@ import { Equipment } from "../equipment/equipment";
 import { Inventory } from "@/components/characters/inventory/inventory";
 import { CharacterManagementContextProvider } from "./character-management-context";
 import { InventoryControlContextProvider } from "../inventory/inventory-control-context";
+import { CharacterStatistics } from "./character-statistics";
 
 export const CharacterManagement = () => {
   return (
@@ -19,8 +20,11 @@ export const CharacterManagement = () => {
             </div>
           </div>
           <div className={styles.characterDetailsRight}>
-            <div>
+            <div className={styles.equipment}>
               <Equipment />
+            </div>
+            <div className={styles.statistics}>
+              <CharacterStatistics />
             </div>
           </div>
         </InventoryControlContextProvider>

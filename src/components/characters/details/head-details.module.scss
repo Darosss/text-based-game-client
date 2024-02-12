@@ -19,6 +19,10 @@
     &:hover {
       .characterAdditionalStatisticsWrapper {
         display: block;
+
+        .additionalStatistics {
+          background-image: var(--details-glow);
+        }
       }
     }
 

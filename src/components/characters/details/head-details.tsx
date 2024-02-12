@@ -16,7 +16,10 @@ export const HeadDetails = ({ stats, asDefender }: HeadDetailsProps) => {
       <div className={styles.characterAvatar}>
         <Image src="/images/hero-placeholder.png" alt="hero img" fill />
         <div className={`${styles.characterAdditionalStatisticsWrapper}`}>
-          <AdditionalStatistics statistics={stats.additionalStatistics} />
+          <AdditionalStatistics
+            statistics={stats.additionalStatistics}
+            additionalClassName={styles.additionalStatistics}
+          />
         </div>
       </div>
       <BaseStatistics statistics={stats.statistics} />
