@@ -64,11 +64,13 @@
 
   .itemStatisticsWrapper {
     & > div {
-      border-top: 1px solid gray;
+      border-radius: 0.5rem;
+      border-top: 1px solid lightgreen;
       padding: 0.1rem;
     }
 
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid lightgreen;
+    border-radius: 0.5rem;
   }
   .statisticWrapper {
     display: flex;
@@ -104,9 +106,13 @@
 
 .itemsTooltip {
   min-width: 5dvw;
-  max-width: 50dvw;
+  max-width: 30dvw;
   min-height: 10dvw;
-  max-height: 80dvh;
+  max-height: 50dvh;
   z-index: 100;
-  border: 2px solid green;
+  border: 1px solid green;
+
+  * {
+    font-size: 1.2dvh;
+  }
 }

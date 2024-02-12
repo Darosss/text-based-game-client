@@ -1,3 +1,5 @@
 .overview {
   display: flex;
+  overflow: hidden;
+  max-height: 100%;
 }
