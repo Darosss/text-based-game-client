@@ -10,6 +10,13 @@ $fightReportLogsHeight: 38dvh;
   box-shadow: 1px 2px 3px 1px white;
   position: relative;
 
+  .fightReportTooltip {
+    max-height: fit-content;
+    * {
+      font-size: 0.9dvw;
+    }
+  }
+
   &.expandedLogs {
     div.fightReportLogsWrapper {
       position: absolute;

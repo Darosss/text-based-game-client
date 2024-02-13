@@ -3,7 +3,7 @@
 import { Item, ItemStatisticStatsList } from "@/api/types";
 import styles from "./item-display.module.scss";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Tooltip } from "react-tooltip";
 type ItemDisplayProps = {
   item: Item;
