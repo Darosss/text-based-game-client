@@ -5,6 +5,9 @@
   justify-content: flex-start;
   height: 100%;
 
+  .inventoryTooltip {
+    max-height: fit-content;
+  }
   &:active {
     transition: opacity 2s;
 
