@@ -26,6 +26,7 @@ export type Character = CommonFieldTypes & {
   mainCharacter: boolean;
   name: string;
   stats: HeroStats;
+  expToLevelUp: number;
 };
 
 export type CharacterEquipment = CommonFieldTypes & {
