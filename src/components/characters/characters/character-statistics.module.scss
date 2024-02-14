@@ -7,6 +7,14 @@
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 
+  .baseDetails {
+    padding: 0.5rem;
+    & > div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
   & > div {
     &:first-child {
       border-right: 1px solid blue;
