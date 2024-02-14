@@ -36,7 +36,11 @@ export const ItemDisplay = ({
         {item.level}
       </div>
       <div className={styles.itemDisplayBackground}></div>
-      <Image src="/images/item-placeholder.png" alt="item" fill />
+      <Image
+        src={`/images/items/${item.type.toLowerCase()}/${item.subtype.toLowerCase()}.png`}
+        alt="item"
+        fill
+      />
     </div>
   );
 };
@@ -92,18 +96,27 @@ export const ItemTooltipContent = ({ item }: ItemTooltipContentProps) => {
     <div className={styles.itemTooltipContentWrapper}>
       <div>{item.nameWithPrefixAndSuffix}</div>
       <div className={styles.itemStatisticsWrapper}>
-        <div>
-          <ItemStatistics statistics={item.statistics.baseStatistics} />
-        </div>
-        <div>
-          <ItemStatistics statistics={item.statistics.additionalStatistics} />
-        </div>
+        {item.statistics ? (
+          <>
+            <div>
+              <ItemStatistics statistics={item.statistics.baseStatistics} />
+            </div>
+            <div>
+              <ItemStatistics
+                statistics={item.statistics.additionalStatistics}
+              />
+            </div>
+          </>
+        ) : (
+          <div>{item.hpGain}</div>
+        )}
       </div>
       <div className={styles.itemBasicDetailsWrapper}>
         <div>
           <div>Level: {item.level}</div>
           <div>Value: {item.value}</div>
           <div>Type: {item.type}</div>
+          <div>Subtype: {item.subtype}</div>
         </div>
         <div>
           <div>Rarity: {item.rarity}</div>

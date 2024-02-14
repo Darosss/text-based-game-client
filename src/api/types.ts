@@ -106,8 +106,10 @@ export type Item = CommonFieldTypes & {
   prefix: string;
   suffix: string;
   rarity: ItemRarity;
-  statistics: ItemStatistics;
+  hpGain: number | null;
+  statistics: ItemStatistics | null;
   type: ItemType;
+  subtype: string;
   upgradePoints: number;
   value: number;
   weight: number;
