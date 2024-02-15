@@ -3,7 +3,7 @@ import {
   InventoryItems as InventoryItemsType,
   EquipResponseType,
 } from "@/api/types";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ItemTooltipContentWrapper } from "../../items/item-display";
 import styles from "./inventory-items.module.scss";
 import { useFetch } from "@/hooks/useFetch";
@@ -67,44 +67,15 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     apiCharacter: { fetchData: fetchCharacterData },
     apiInventory: { fetchData: fetchInventoryData },
   } = useCharacterManagementContext();
-  const [equipParameters, setEquipParameters] =
-    useState<EquipParameters | null>(null);
+
   const {
     api: { isPending, error, data },
     fetchData,
-  } = useFetch<EquipResponseType>(
-    {
-      url: equipParameters
-        ? `equip/${equipParameters.characterId}/${equipParameters.itemId}/${equipParameters.slot}`
-        : "",
-      method: "POST",
-    },
+  } = useFetch<EquipResponseType | boolean>(
+    //Note: temporary solution
+    { url: "", method: "POST" },
     { manual: true }
   );
-
-  useEffect(() => {
-    if (
-      equipParameters &&
-      equipParameters.characterId &&
-      equipParameters.itemId
-    ) {
-      const toastId = toast.loading("Trying to wear item...", {
-        autoClose: 30000,
-      });
-
-      fetchData().then((response) => {
-        fetchCharacterData();
-        fetchInventoryData();
-        if (response)
-          toast.update(toastId, {
-            render: response?.message,
-            type: response.success ? "success" : "error",
-            isLoading: false,
-            autoClose: 2000,
-          });
-      });
-    }
-  }, [equipParameters, fetchCharacterData, fetchData, fetchInventoryData]);
 
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
 
@@ -112,6 +83,49 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     () => getSortedItems(filterItemsEntries(items, filter), sort),
     [items, filter, sort]
   );
+
+  const handleOnItemConusme = (itemId: string) => {
+    const toastId = toast.loading("Trying to use item...", {
+      autoClose: 30000,
+    });
+    fetchData({
+      customUrl: `use-consumable/${itemId}`,
+    }).then((response) => {
+      fetchCharacterData();
+      fetchInventoryData();
+      if (typeof response === "boolean")
+        //TODO: make better descriptions from backend
+        toast.update(toastId, {
+          render: response ? "Used item" : "Cannot use item",
+          type: response ? "success" : "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+    });
+  };
+
+  const handleOnItemEquip = (
+    characterId: string,
+    itemId: string,
+    slot: CharacterEquipmentFields
+  ) => {
+    const toastId = toast.loading("Trying to wear item...", {
+      autoClose: 30000,
+    });
+    fetchData({
+      customUrl: `equip/${characterId}/${itemId}/${slot}`,
+    }).then((response) => {
+      fetchCharacterData();
+      fetchInventoryData();
+      if (response && typeof response !== "boolean")
+        toast.update(toastId, {
+          render: response?.message,
+          type: response.success ? "success" : "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+    });
+  };
 
   return (
     <div className={styles.itemsWrapper}>
@@ -128,12 +142,9 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
             tooltipId={tooltipId}
             onHover={(item) => setCurrentItem(item)}
             onItemEquip={(characterId, itemId, slot) =>
-              setEquipParameters({
-                characterId,
-                itemId,
-                slot,
-              })
+              handleOnItemEquip(characterId, itemId, slot)
             }
+            onItemConsume={(itemId) => handleOnItemConusme(itemId)}
           />
         </div>
       ))}

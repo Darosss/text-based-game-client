@@ -1,4 +1,4 @@
-import { CharacterEquipmentFields } from "@/api/enums";
+import { CharacterEquipmentFields, ItemType } from "@/api/enums";
 import { Item } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
 import { useDrag, DragSourceMonitor } from "react-dnd";
@@ -13,6 +13,7 @@ type InventoryItemProps = {
     itemId: string,
     slotName: CharacterEquipmentFields
   ) => void;
+  onItemConsume: (itemId: string) => void;
 };
 
 export const InventoryItem = ({
@@ -20,15 +21,20 @@ export const InventoryItem = ({
   tooltipId,
   onHover,
   onItemEquip,
+  onItemConsume,
 }: InventoryItemProps) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
       type: item.type,
-      item: { name: item.name, id: item.id },
+      item: { name: item.name, id: item.id, type: item.type },
       end(item, monitor) {
         const dropResult = monitor.getDropResult() as EquipmentDropResult;
         if (item && dropResult) {
-          onItemEquip(dropResult.characterId, item.id, dropResult.name);
+          if (item.type !== ItemType.CONSUMABLE) {
+            onItemEquip(dropResult.characterId, item.id, dropResult.name);
+          } else {
+            onItemConsume(item.id);
+          }
         }
       },
       collect: (monitor: DragSourceMonitor) => ({
