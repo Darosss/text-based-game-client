@@ -6,7 +6,7 @@
   width: 100%;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
-
+  flex-wrap: wrap;
   .baseDetails {
     padding: 0.5rem;
     & > div {
@@ -16,10 +16,8 @@
   }
 
   & > div {
-    &:first-child {
-      border-right: 1px solid blue;
-      border-radius: 0.5rem;
-    }
+    border-right: 1px solid blue;
+    border-radius: 0.5rem;
     * {
       font-size: 0.8dvw !important;
     }

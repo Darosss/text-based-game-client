@@ -1,10 +1,14 @@
+@import "@/styles/mixins";
 .equipmentWrapper {
   width: 100%;
   padding: 0.5rem;
   text-align: center;
+  height: 50%;
   display: flex;
   justify-content: center;
-
+  @include respond(medium) {
+    height: 100%;
+  }
   .equipmentTooltip {
     max-height: fit-content;
   }
@@ -21,40 +25,61 @@
   & > div {
     width: 100%;
   }
-  .head {
-    grid-area: head;
-  }
-  .left_hand {
-    grid-area: left-hand;
-  }
+
   .neck {
-    grid-area: neck;
+    grid-area: NECK;
   }
-  .right_hand {
-    grid-area: right-hand;
+  .head {
+    grid-area: HEAD;
   }
   .chest {
-    grid-area: chest;
+    grid-area: CHEST;
   }
-  .foots {
-    grid-area: foots;
+  .legs {
+    grid-area: LEGS;
+  }
+  .right_hand {
+    grid-area: R_HAND;
   }
   .arms {
-    grid-area: arms;
+    grid-area: ARMS;
   }
+  .left_hand {
+    grid-area: L_HAND;
+  }
+  .foots {
+    grid-area: FOOTS;
+  }
+  .l_ring_1 {
+    grid-area: L_RING_1;
+  }
+  .l_ring_2 {
+    grid-area: L_RING_2;
+  }
+  .r_ring_1 {
+    grid-area: R_RING_1;
+  }
+  .r_ring_2 {
+    grid-area: R_RING_2;
+  }
+
   .equipmentContainer {
+    height: 100%;
+    width: 100%;
     display: grid;
-    grid-template-columns: 30% 30% 30%;
-    grid-template-rows: 6em 5em 6em 5em 5em;
+    grid-template-columns: 16.6% 16.6% 33.3% 33.3%;
+    grid-template-rows: 20% 20% 20% 20% 10% 10%;
+    gap: 0px 0px;
     grid-template-areas:
-      ". head ."
-      ". neck ."
-      "left-hand chest right-hand"
-      "arms . ."
-      ". foots .";
+      ". . HEAD ."
+      ". . NECK ."
+      "L_HAND L_HAND CHEST R_HAND"
+      "ARMS ARMS LEGS ."
+      "L_RING_1 R_RING_1 FOOTS ."
+      "L_RING_2 R_RING_2 FOOTS .";
     position: relative;
     & > div {
-      //styles[eqField.toLowerCase()] // head, left_hand, next etc
+      // styles[eqField.toLowerCase()] // head, left_hand, next etc
       margin: 0.1rem;
       display: flex;
       position: relative;
