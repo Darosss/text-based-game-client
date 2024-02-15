@@ -17,6 +17,11 @@ export enum CharacterEquipmentFields {
   CHEST = "CHEST",
   ARMS = "ARMS",
   FOOTS = "FOOTS",
+  LEGS = "LEGS",
+  L_RING_1 = "L_RING_1",
+  L_RING_2 = "L_RING_2",
+  R_RING_1 = "R_RING_1",
+  R_RING_2 = "R_RING_2",
 }
 
 export enum ItemType {

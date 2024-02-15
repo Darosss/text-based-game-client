@@ -19,4 +19,9 @@ export const equipmentFieldToItemType: Record<
   [CharacterEquipmentFields.CHEST]: [ItemType.CHEST_ARMOR],
   [CharacterEquipmentFields.ARMS]: [ItemType.GLOVES],
   [CharacterEquipmentFields.FOOTS]: [ItemType.BOOTS],
+  [CharacterEquipmentFields.LEGS]: [ItemType.LEG_ARMOR],
+  [CharacterEquipmentFields.L_RING_1]: [ItemType.RING],
+  [CharacterEquipmentFields.L_RING_2]: [ItemType.RING],
+  [CharacterEquipmentFields.R_RING_1]: [ItemType.RING],
+  [CharacterEquipmentFields.R_RING_2]: [ItemType.RING],
 };
