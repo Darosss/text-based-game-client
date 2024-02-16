@@ -38,4 +38,5 @@ export enum ItemType {
   LEG_ARMOR = "LEG_ARMOR",
   CONSUMABLE = "CONSUMABLE",
   NEUTRAL = "NEUTRAL",
+  MERCENARY = "MERCENARY",
 }
