@@ -33,6 +33,7 @@ export const CharacterAvatar = () => {
       ref={drop}
       src="/images/hero-placeholder.png"
       alt="hero img"
+      sizes="(max-width: 768px) 33vw, (max-width: 1200px) 40vw, 50vw"
       fill
     />
   );

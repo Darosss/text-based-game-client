@@ -47,6 +47,7 @@ export const EmptyEquipmentSlot = ({
       <Image
         alt={equipmentField}
         src={`/images/equipment/${equipmentField}.png`}
+        sizes="(max-width: 768px) 15vw, (max-width: 1200px) 22vw, 25vw"
         fill
       />
     </div>
