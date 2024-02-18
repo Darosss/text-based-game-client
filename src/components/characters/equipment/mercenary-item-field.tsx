@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { useFetch } from "@/hooks/useFetch";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { useInventoryControlContext } from "../inventory/inventory-control-context";
+import Image from "next/image";
 
 type MercenaryItemFieldProps = {
   characterId: string;
@@ -121,7 +122,11 @@ export const MercenaryItemField = ({
           tooltipId={tooltipId}
         />
       ) : (
-        ItemType.MERCENARY
+        <Image
+          alt={ItemType.MERCENARY}
+          src={`/images/equipment/${ItemType.MERCENARY.toString().toLowerCase()}.png`}
+          fill
+        />
       )}
     </div>
   );

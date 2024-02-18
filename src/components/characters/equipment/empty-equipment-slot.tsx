@@ -4,6 +4,7 @@ import { equipmentFieldToItemType } from "./slot-mapping";
 import styles from "./equipment.module.scss";
 import dndStyles from "../dnd.module.scss";
 import { useInventoryControlContext } from "../inventory/inventory-control-context";
+import Image from "next/image";
 
 type EmptyEquipmentSlotProps = {
   equipmentField: CharacterEquipmentFields;
@@ -43,7 +44,11 @@ export const EmptyEquipmentSlot = ({
         }))
       }
     >
-      {equipmentField}
+      <Image
+        alt={equipmentField}
+        src={`/images/equipment/${equipmentField}.png`}
+        fill
+      />
     </div>
   );
 };
