@@ -1,19 +1,20 @@
 import { CharacterEquipmentFields, ItemType } from "@/api/enums";
-import { Item } from "@/api/types";
+import { InventoryItemType } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
 import { useDrag, DragSourceMonitor } from "react-dnd";
 import { EquipmentDropResult } from "../dndTypes";
 
 type InventoryItemProps = {
-  inventoryItem: [string, Item];
+  inventoryItem: [string, InventoryItemType];
   tooltipId: string;
-  onHover: (item: Item) => void;
+  onHover: (item: InventoryItemType) => void;
   onItemEquip: (
     characterId: string,
     itemId: string,
     slotName: CharacterEquipmentFields
   ) => void;
   onItemConsume: (itemId: string) => void;
+  onMercenaryWear: (characterId: string, itemId: string) => void;
 };
 
 export const InventoryItem = ({
@@ -22,6 +23,7 @@ export const InventoryItem = ({
   onHover,
   onItemEquip,
   onItemConsume,
+  onMercenaryWear,
 }: InventoryItemProps) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
@@ -30,10 +32,15 @@ export const InventoryItem = ({
       end(item, monitor) {
         const dropResult = monitor.getDropResult() as EquipmentDropResult;
         if (item && dropResult) {
-          if (item.type !== ItemType.CONSUMABLE) {
-            onItemEquip(dropResult.characterId, item.id, dropResult.name);
-          } else {
-            onItemConsume(item.id);
+          switch (item.type) {
+            case ItemType.CONSUMABLE:
+              onItemConsume(item.id);
+              break;
+            case ItemType.MERCENARY:
+              onMercenaryWear(dropResult.characterId, item.id);
+              break;
+            default:
+              onItemEquip(dropResult.characterId, item.id, dropResult.name);
           }
         }
       },

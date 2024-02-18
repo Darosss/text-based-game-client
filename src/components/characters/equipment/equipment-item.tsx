@@ -1,5 +1,5 @@
 import { CharacterEquipmentFields } from "@/api/enums";
-import { Item } from "@/api/types";
+import { InventoryItemType } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
 import { useDrag, DragSourceMonitor } from "react-dnd";
 import { dropAcceptTypePrefix } from "../dndHelpers";
@@ -8,8 +8,8 @@ import { InventoryDropResult } from "../dndTypes";
 type EquipmentItemProps = {
   currentField: CharacterEquipmentFields;
   characterId: string;
-  item: Item;
-  onHover: (item: Item) => void;
+  item: InventoryItemType;
+  onHover: (item: InventoryItemType) => void;
   tooltipId: string;
   onItemUnEquip: (
     characterId: string,

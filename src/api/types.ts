@@ -20,21 +20,28 @@ export type NpcEnemy = CommonFieldTypes & {
 
 export type Character = CommonFieldTypes & {
   equipment: CharacterEquipment;
-  experience: number;
   health: number;
   level: number;
-  mainCharacter: boolean;
   name: string;
   stats: HeroStats;
-  expToLevelUp: number;
 };
+
+export type MainCharacter = Character & {
+  expToLevelUp: number;
+  experience: number;
+};
+export type MercenaryCharacter = Character & {
+  mercenary?: ItemMercenary;
+};
+
+export type CharacterTypesAlias = MainCharacter | MercenaryCharacter;
 
 export type CharacterEquipment = CommonFieldTypes & {
   slots: CharacterEquipmentSlots;
 };
 
 export type CharacterEquipmentSlots = {
-  [slot in CharacterEquipmentFields]?: Item;
+  [slot in CharacterEquipmentFields]?: ItemWearable;
 };
 
 export type HeroStats = {
@@ -103,17 +110,26 @@ export type Item = CommonFieldTypes & {
   name: string;
   description: string;
   level: number;
-  nameWithPrefixAndSuffix: string;
-  prefix: string;
-  suffix: string;
   rarity: ItemRarity;
-  hpGain: number | null;
   statistics: ItemStatistics | null;
   type: ItemType;
   subtype: string;
   upgradePoints: number;
   value: number;
   weight: number;
+};
+
+export type ItemWearable = Item & {
+  prefix: string;
+  suffix: string;
+  nameWithPrefixAndSuffix: string;
+};
+export type ItemConsumable = Item & {
+  hpGain: number | null;
+  type: ItemType.CONSUMABLE;
+};
+export type ItemMercenary = Item & {
+  type: ItemType.MERCENARY;
 };
 
 export type ItemRarity =
@@ -157,8 +173,10 @@ export type Inventory = CommonFieldTypes & {
   currentWeight: number;
 };
 
+export type InventoryItemType = ItemWearable | ItemConsumable | ItemMercenary;
+
 export type InventoryItems = {
-  [id: string]: Item;
+  [id: string]: InventoryItemType;
 };
 
 export type EquipResponseType = {

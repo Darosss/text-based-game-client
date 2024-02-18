@@ -1,4 +1,4 @@
-import { EquipResponseType, Item, UnEquipResponseType } from "@/api/types";
+import { InventoryItemType, UnEquipResponseType } from "@/api/types";
 import styles from "./equipment.module.scss";
 import { CharacterEquipmentFields } from "@/api/enums";
 import { useEffect, useState } from "react";
@@ -9,6 +9,9 @@ import { useCharacterManagementContext } from "../characters/character-managemen
 import { EquipmentItem } from "./equipment-item";
 import { EmptyEquipmentSlot } from "./empty-equipment-slot";
 import { toast } from "react-toastify";
+import { isMercenaryCharacter } from "@/api/utils";
+import { MercenaryItemField } from "./mercenary-item-field";
+import { HeroSelect } from "./hero-select";
 
 type EquipmentProps = {};
 
@@ -37,7 +40,9 @@ export const Equipment = ({}: EquipmentProps) => {
     },
     { manual: true }
   );
-  const [currentItem, setCurrentItem] = useState<Item | null>(null);
+  const [currentItem, setCurrentItem] = useState<InventoryItemType | null>(
+    null
+  );
 
   useEffect(() => {
     if (unEquipParameters && unEquipParameters.characterId) {
@@ -101,6 +106,19 @@ export const Equipment = ({}: EquipmentProps) => {
             </div>
           );
         })}
+        <div className={styles.heroSelect}>
+          <HeroSelect />
+        </div>
+        {isMercenaryCharacter(characterData) ? (
+          <div className={styles.mercenaryItem}>
+            <MercenaryItemField
+              characterId={characterData.id}
+              mercenaryItem={characterData.mercenary}
+              onHover={(item) => setCurrentItem(item)}
+              tooltipId={tooltipId}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

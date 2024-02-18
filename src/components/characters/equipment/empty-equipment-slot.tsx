@@ -27,7 +27,7 @@ export const EmptyEquipmentSlot = ({
         canDrop: monitor.canDrop(),
       }),
     }),
-    ["any"]
+    [characterId, equipmentField]
   );
   const isActive = canDrop && isOver;
   return (

@@ -1,10 +1,21 @@
-import { createContext, useContext } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
-import { Character, Inventory as InventoryType } from "@/api/types";
+import { CharacterTypesAlias, Inventory as InventoryType } from "@/api/types";
 
 type CharacterManagementContextType = {
   apiInventory: UseFetchReturnType<InventoryType, unknown>;
-  apiCharacter: UseFetchReturnType<Character, unknown>;
+  apiCharacter: UseFetchReturnType<CharacterTypesAlias, unknown>;
+  currentCharacterIdState: [
+    string | null,
+    Dispatch<SetStateAction<string | null>>
+  ];
 };
 
 type CharacterManagementContextProps = {
@@ -17,17 +28,37 @@ export const CharacterManagementContext =
 export const CharacterManagementContextProvider = ({
   children,
 }: CharacterManagementContextProps): React.JSX.Element => {
+  const [currentCharacterId, setCurrentCharacterId] = useState<string | null>(
+    null
+  );
   const apiInventory = useFetch<InventoryType>({
     url: "your-inventory",
     method: "GET",
   });
-  const apiCharacter = useFetch<Character>({
-    url: "your-main-character",
-    method: "GET",
-  });
+  const { api, fetchData: fetchCharacterData } = useFetch<CharacterTypesAlias>(
+    {
+      url: `${
+        !currentCharacterId
+          ? "your-main-character"
+          : `characters/${currentCharacterId}`
+      }`,
+      method: "GET",
+    },
+    { manual: currentCharacterId ? true : false }
+  );
+
+  useEffect(() => {
+    if (currentCharacterId) fetchCharacterData();
+  }, [currentCharacterId, fetchCharacterData]);
 
   return (
-    <CharacterManagementContext.Provider value={{ apiInventory, apiCharacter }}>
+    <CharacterManagementContext.Provider
+      value={{
+        apiInventory,
+        apiCharacter: { api, fetchData: fetchCharacterData },
+        currentCharacterIdState: [currentCharacterId, setCurrentCharacterId],
+      }}
+    >
       {children}
     </CharacterManagementContext.Provider>
   );

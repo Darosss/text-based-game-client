@@ -1,7 +1,8 @@
-import { Character } from "@/api/types";
+import { CharacterTypesAlias } from "@/api/types";
 import { AdditionalStatistics, BaseStatistics } from "../details/statistics";
 import { useCharacterManagementContext } from "./character-management-context";
 import styles from "./character-statistics.module.scss";
+import { isMercenaryCharacter } from "@/api/utils";
 
 export const CharacterStatistics = () => {
   const {
@@ -21,12 +22,12 @@ export const CharacterStatistics = () => {
 };
 
 type BaseDetailsProps = {
-  character: Character;
+  character: CharacterTypesAlias;
 };
 
-const BaseDetails = ({
-  character: { name, level, health, experience, expToLevelUp },
-}: BaseDetailsProps) => {
+const BaseDetails = ({ character }: BaseDetailsProps) => {
+  const { name, level, health } = character;
+  const isMercenary = isMercenaryCharacter(character);
   return (
     <div className={styles.baseDetails}>
       <div>
@@ -41,12 +42,14 @@ const BaseDetails = ({
         <div>Health points</div>
         <div>{health}</div>
       </div>
-      <div>
-        <div>Experience </div>
+      {!isMercenary ? (
         <div>
-          {experience} / {expToLevelUp}
+          <div>Experience </div>
+          <div>
+            {character.experience} / {character.expToLevelUp}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

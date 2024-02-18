@@ -1,14 +1,15 @@
 "use client";
 
-import { Item, ItemStatisticStatsList } from "@/api/types";
+import { ItemStatisticStatsList, InventoryItemType } from "@/api/types";
 import styles from "./item-display.module.scss";
 import Image from "next/image";
 import React from "react";
 import { Tooltip } from "react-tooltip";
+import { isConsumableItem, isWearableItem } from "@/api/utils";
 type ItemDisplayProps = {
-  item: Item;
+  item: InventoryItemType;
   tooltipId: string;
-  onHover: (item: Item) => void;
+  onHover: (item: InventoryItemType) => void;
   refForWrapper?: React.LegacyRef<HTMLDivElement> | undefined;
   opacity?: number;
 };
@@ -89,12 +90,17 @@ export const ItemStatistics = ({ statistics }: ItemStatisticsProps<string>) => {
     });
 };
 
-type ItemTooltipContentProps = { item: Item };
+type ItemTooltipContentProps = {
+  item: InventoryItemType;
+};
 
 export const ItemTooltipContent = ({ item }: ItemTooltipContentProps) => {
+  const wearable = isWearableItem(item);
+  const consumable = isConsumableItem(item);
+
   return (
     <div className={styles.itemTooltipContentWrapper}>
-      <div>{item.nameWithPrefixAndSuffix}</div>
+      <div>{wearable ? item.nameWithPrefixAndSuffix : item.name}</div>
       <div className={styles.itemStatisticsWrapper}>
         {item.statistics ? (
           <>
@@ -107,9 +113,13 @@ export const ItemTooltipContent = ({ item }: ItemTooltipContentProps) => {
               />
             </div>
           </>
-        ) : (
-          <div>{item.hpGain}</div>
-        )}
+        ) : null}
+        {consumable ? (
+          <div>
+            <div> Health points </div>
+            <div>{item.hpGain} </div>
+          </div>
+        ) : null}
       </div>
       <div className={styles.itemBasicDetailsWrapper}>
         <div>
@@ -129,7 +139,7 @@ export const ItemTooltipContent = ({ item }: ItemTooltipContentProps) => {
 };
 
 type ItemTooltipContentWrapperProps = {
-  item: Item | null;
+  item: InventoryItemType | null;
   tooltipId: string;
   opacity?: number;
   customClassName?: string;

@@ -1,7 +1,7 @@
 import {
-  Item,
   InventoryItems as InventoryItemsType,
   EquipResponseType,
+  InventoryItemType,
 } from "@/api/types";
 import { useMemo, useState } from "react";
 import { ItemTooltipContentWrapper } from "../../items/item-display";
@@ -16,6 +16,7 @@ import {
   useInventoryControlContext,
 } from "./inventory-control-context";
 import { toast } from "react-toastify";
+import { isWearableItem } from "@/api/utils";
 
 type InventoryItemsProps = {
   items: InventoryItemsType;
@@ -40,13 +41,20 @@ const filterItemsEntries = (
       itemFiltered =
         showType.length === 0 ? true : showType.includes(itemToFilter.type);
     if (name && itemFiltered)
-      itemFiltered = itemToFilter.nameWithPrefixAndSuffix
+      itemFiltered = (
+        isWearableItem(itemToFilter)
+          ? itemToFilter.nameWithPrefixAndSuffix
+          : itemToFilter.name
+      )
         .toLowerCase()
         .includes(name);
     return itemFiltered;
   });
 };
-const getSortedItems = (items: [string, Item][], sort: SortByType) => {
+const getSortedItems = (
+  items: [string, InventoryItemType][],
+  sort: SortByType
+) => {
   const sortedItems = items.sort(([, itemA], [, itemB]) => {
     if (itemA[sort.sortBy] < itemB[sort.sortBy]) {
       return -1;
@@ -72,12 +80,14 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     api: { isPending, error, data },
     fetchData,
   } = useFetch<EquipResponseType | boolean>(
-    //Note: temporary solution
+    //TODO: change. Note: temporary solution
     { url: "", method: "POST" },
     { manual: true }
   );
 
-  const [currentItem, setCurrentItem] = useState<Item | null>(null);
+  const [currentItem, setCurrentItem] = useState<InventoryItemType | null>(
+    null
+  );
 
   const itemsToRender = useMemo(
     () => getSortedItems(filterItemsEntries(items, filter), sort),
@@ -115,15 +125,36 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     fetchData({
       customUrl: `equip/${characterId}/${itemId}/${slot}`,
     }).then((response) => {
-      fetchCharacterData();
-      fetchInventoryData();
-      if (response && typeof response !== "boolean")
+      if (response && typeof response !== "boolean") {
+        fetchInventoryData();
+        fetchCharacterData({ customUrl: `characters/${characterId}` });
         toast.update(toastId, {
           render: response?.message,
           type: response.success ? "success" : "error",
           isLoading: false,
           autoClose: 2000,
         });
+      }
+    });
+  };
+
+  const handleOnMercenaryWear = (characterId: string, itemId: string) => {
+    const toastId = toast.loading("Trying to equip mercenary...", {
+      autoClose: 30000,
+    });
+    fetchData({
+      customUrl: `equip-mercenary/${characterId}/${itemId}`,
+    }).then((response) => {
+      if (response && typeof response !== "boolean") {
+        fetchInventoryData();
+        fetchCharacterData({ customUrl: `characters/${characterId}` });
+        toast.update(toastId, {
+          render: response?.message,
+          type: response.success ? "success" : "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      }
     });
   };
 
@@ -145,6 +176,9 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
               handleOnItemEquip(characterId, itemId, slot)
             }
             onItemConsume={(itemId) => handleOnItemConusme(itemId)}
+            onMercenaryWear={(characterId, itemId) =>
+              handleOnMercenaryWear(characterId, itemId)
+            }
           />
         </div>
       ))}
