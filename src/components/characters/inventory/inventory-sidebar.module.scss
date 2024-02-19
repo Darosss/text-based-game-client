@@ -1,7 +1,11 @@
 .sidebarWrapper {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+
   & > button {
     margin-top: 0.1rem;
+    position: relative;
+    flex-grow: 1;
   }
 }
