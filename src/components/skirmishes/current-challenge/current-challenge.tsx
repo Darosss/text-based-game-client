@@ -5,7 +5,7 @@ import { formatTime, getRemainingTimeFromDateToDate } from "@/utils/utils";
 import { useFetch } from "@/hooks/useFetch";
 import { Button } from "@/components/common/button";
 import { FightReportType } from "@/api/types";
-import { FightReportDisplay } from "./fight-report-display";
+import { FightReportDisplay } from "@/components/fight-report/fight-report-display";
 
 type CurrentChallengeProps = {
   chosenChallenge: ChoosenChallange;

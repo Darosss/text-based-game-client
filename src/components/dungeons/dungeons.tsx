@@ -1,0 +1,52 @@
+"use client";
+
+import { useFetch } from "@/hooks/useFetch";
+import { useEffect, useState } from "react";
+import styles from "./dungeons.module.scss";
+import { DungeonsResponse } from "./types";
+import { DungeonDetails } from "./dungeon-details";
+import { DungeonActions } from "./dungeon-actions";
+
+export const Dungeons = () => {
+  const {
+    api: { isPending, error, data },
+    fetchData,
+  } = useFetch<DungeonsResponse>({
+    url: "dungeons",
+    method: "GET",
+  });
+
+  const [currentLevel, setCurrentLevel] = useState(1);
+
+  useEffect(() => {
+    if (data) setCurrentLevel(data.currentLevel);
+  }, [data]);
+
+  if (!data) return <></>;
+
+  const handleOnIncreaseCurrentLevel = () => {
+    setCurrentLevel((prevState) => Math.min(data.currentLevel, prevState + 1));
+  };
+  const handleOnDecreaseCurrentLevel = () => {
+    setCurrentLevel((prevState) => Math.max(1, prevState - 1));
+  };
+
+  return (
+    <div className={styles.dungeonsWrapper}>
+      <h2>Current level: {currentLevel}</h2>
+
+      <DungeonDetails
+        currentMaxLevel={data.currentLevel}
+        decreaseCurrentLevel={handleOnDecreaseCurrentLevel}
+        increaseCurrentLevel={handleOnIncreaseCurrentLevel}
+        data={data.completedDungeons.at(currentLevel - 1)}
+      />
+
+      <DungeonActions
+        dungeonLevel={currentLevel}
+        canFightDate={new Date(data.canFightDate)}
+        onConfirmReport={fetchData}
+      />
+    </div>
+  );
+};

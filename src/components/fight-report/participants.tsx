@@ -37,7 +37,6 @@ export const Participants = ({ characters, enemies }: ParticipantsProps) => {
 
   const currentEnemy = enemies.at(currentEnemyIndex);
 
-  console.log(currentCharacter, currentEnemy);
   return (
     <div className={styles.participantsDetails}>
       <div>

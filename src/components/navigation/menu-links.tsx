@@ -25,6 +25,11 @@ export const MenuLinks: () => JSX.Element = () => {
           <p>Skirmishes</p>
         </Link>
       </li>
+      <li>
+        <Link href="/dungeons">
+          <p>Dungeons</p>
+        </Link>
+      </li>
     </ul>
   );
 };
