@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { FightReportType, Item } from "@/api/types";
+import { FightReportType, InventoryItemType } from "@/api/types";
 import styles from "./fight-report.module.scss";
 import {
   ItemDisplay,
   ItemTooltipContentWrapper,
 } from "@/components/items/item-display";
-import { CharacterPreview, EnemyPreview } from "@/components/characters";
 import { Button } from "@/components/common/button";
 import { FightReportTurns } from "./fight-report-turns";
+import { Participants } from "./participants";
 
 type FightReportDisplayProps = {
   report: FightReportType;
@@ -22,7 +22,9 @@ enum CurrentView {
 const tooltipId = "equipment-tooltip";
 
 export const FightReportDisplay = ({ report }: FightReportDisplayProps) => {
-  const [itemOnHover, setItemOnHover] = useState<Item | null>(null);
+  const [itemOnHover, setItemOnHover] = useState<InventoryItemType | null>(
+    null
+  );
   const [currentView, setCurrentView] = useState<CurrentView>(
     CurrentView.DEFAULT
   );
@@ -63,21 +65,7 @@ export const FightReportDisplay = ({ report }: FightReportDisplayProps) => {
       </div>
 
       <div className={styles.fightReportDetails}>
-        <div className={styles.participantsDetails}>
-          <div>
-            {report.characters.map((character) => (
-              <CharacterPreview
-                key={JSON.stringify(character)}
-                character={character}
-              />
-            ))}
-          </div>
-          <div>
-            {report.enemies.map((enemy) => (
-              <EnemyPreview key={JSON.stringify(enemy)} enemy={enemy} />
-            ))}
-          </div>
-        </div>
+        <Participants characters={report.characters} enemies={report.enemies} />
       </div>
 
       <div className={styles.fightReportLogsWrapper}>

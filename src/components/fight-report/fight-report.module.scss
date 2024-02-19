@@ -40,26 +40,27 @@ $fightReportLogsHeight: 38dvh;
     min-height: $reportBaseDetailsHeight;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-around;
     box-shadow: 1px 2px 3px 1px white;
+    background-color: darkgoldenrod;
 
     & > div {
-      height: 100%;
       padding: 0.5rem;
       max-width: 50%;
       min-width: 50%;
       background-image: var(--details-glow);
+      min-height: 100%;
     }
     .lootDetails {
       display: flex;
       flex-wrap: wrap;
       overflow-x: hidden;
-
       .itemLootWrapper {
         box-shadow: 1px 1px 4px 1px yellow;
         margin-left: 0.5rem;
-        max-height: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
       & > div {
@@ -86,6 +87,17 @@ $fightReportLogsHeight: 38dvh;
         max-width: 50%;
         min-width: 50%;
         height: 100%;
+        display: flex;
+        background-image: var(--details-glow);
+        background-color: darkgoldenrod;
+      }
+
+      .navigationHeroPreview {
+        display: flex;
+        align-items: center;
+        & > button {
+          margin: 0.1rem;
+        }
       }
     }
   }
