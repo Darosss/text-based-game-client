@@ -25,7 +25,11 @@ export const CurrentChallenge = ({
 }: CurrentChallengeProps) => {
   const [remainingTime, setRemainingTime] = useState(-1);
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
   } = useFetch<CurrentChallengeResponse>(
     {
@@ -60,7 +64,6 @@ export const CurrentChallenge = ({
       fetchData();
     }
   }, [fetchData, remainingTime]);
-
   return (
     <div className={styles.currentChallengeWrapper}>
       {data ? (
@@ -105,7 +108,11 @@ const CancelCurrentChallengeButton = ({
   onCancel,
 }: CancelCurrentChallengeButtonProps) => {
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
   } = useFetch(
     {

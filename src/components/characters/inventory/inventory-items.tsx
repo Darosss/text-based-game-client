@@ -17,6 +17,7 @@ import {
 } from "./inventory-control-context";
 import { toast } from "react-toastify";
 import { isWearableItem } from "@/api/utils";
+import { fetchBackendApi } from "@/api/fetch";
 
 type InventoryItemsProps = {
   items: InventoryItemsType;
@@ -77,7 +78,11 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
   } = useCharacterManagementContext();
 
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
   } = useFetch<EquipResponseType | boolean>(
     //TODO: change. Note: temporary solution
@@ -95,22 +100,13 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
   );
 
   const handleOnItemConusme = (itemId: string) => {
-    const toastId = toast.loading("Trying to use item...", {
-      autoClose: 30000,
-    });
-    fetchData({
-      customUrl: `use-consumable/${itemId}`,
-    }).then((response) => {
+    fetchBackendApi<boolean>({
+      url: `use-consumable/${itemId}`,
+      method: "POST",
+      notification: { pendingText: "Trying to use consumable item...." },
+    }).then(() => {
       fetchCharacterData();
       fetchInventoryData();
-      if (typeof response === "boolean")
-        //TODO: make better descriptions from backend
-        toast.update(toastId, {
-          render: response ? "Used item" : "Cannot use item",
-          type: response ? "success" : "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
     });
   };
 
@@ -119,42 +115,24 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     itemId: string,
     slot: CharacterEquipmentFields
   ) => {
-    const toastId = toast.loading("Trying to wear item...", {
-      autoClose: 30000,
-    });
-    fetchData({
-      customUrl: `equip/${characterId}/${itemId}/${slot}`,
-    }).then((response) => {
-      if (response && typeof response !== "boolean") {
-        fetchInventoryData();
-        fetchCharacterData({ customUrl: `characters/${characterId}` });
-        toast.update(toastId, {
-          render: response?.message,
-          type: response.success ? "success" : "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      }
+    fetchBackendApi<EquipResponseType>({
+      url: `equip/${characterId}/${itemId}/${slot}`,
+      method: "POST",
+      notification: { pendingText: "Trying to wear item..." },
+    }).then(() => {
+      fetchInventoryData();
+      fetchCharacterData({ customUrl: `characters/${characterId}` });
     });
   };
 
   const handleOnMercenaryWear = (characterId: string, itemId: string) => {
-    const toastId = toast.loading("Trying to equip mercenary...", {
-      autoClose: 30000,
-    });
-    fetchData({
-      customUrl: `equip-mercenary/${characterId}/${itemId}`,
-    }).then((response) => {
-      if (response && typeof response !== "boolean") {
-        fetchInventoryData();
-        fetchCharacterData({ customUrl: `characters/${characterId}` });
-        toast.update(toastId, {
-          render: response?.message,
-          type: response.success ? "success" : "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      }
+    fetchBackendApi<EquipResponseType>({
+      url: `equip-mercenary/${characterId}/${itemId}`,
+      method: "POST",
+      notification: { pendingText: "Trying to equip mercenary..." },
+    }).then(() => {
+      fetchInventoryData();
+      fetchCharacterData({ customUrl: `characters/${characterId}` });
     });
   };
 

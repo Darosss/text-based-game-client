@@ -22,7 +22,11 @@ export const DungeonActions = ({
   const [remainingTime, setRemainingTime] = useState(0);
   const [showReport, setShowReport] = useState(false);
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
   } = useFetch<StartAFightResponse>(
     {

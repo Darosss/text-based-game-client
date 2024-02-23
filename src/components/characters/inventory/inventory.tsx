@@ -15,7 +15,9 @@ type InventoryProps = {};
 export const Inventory = ({}: InventoryProps) => {
   const {
     apiInventory: {
-      api: { data },
+      api: {
+        responseData: { data, message },
+      },
     },
   } = useCharacterManagementContext();
   const [{ canDrop, isOver }, drop] = useDrop(

@@ -9,13 +9,16 @@ import { DungeonActions } from "./dungeon-actions";
 
 export const Dungeons = () => {
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
   } = useFetch<DungeonsResponse>({
     url: "dungeons",
     method: "GET",
   });
-
   const [currentLevel, setCurrentLevel] = useState(1);
 
   useEffect(() => {

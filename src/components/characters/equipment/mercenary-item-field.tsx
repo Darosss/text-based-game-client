@@ -15,11 +15,10 @@ import {
 import { ItemDisplay } from "@/components/items/item-display";
 import { dropAcceptTypePrefix } from "../dndHelpers";
 import { InventoryDropResult } from "../dndTypes";
-import { toast } from "react-toastify";
-import { useFetch } from "@/hooks/useFetch";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { useInventoryControlContext } from "../inventory/inventory-control-context";
 import Image from "next/image";
+import { fetchBackendApi } from "@/api/fetch";
 
 type MercenaryItemFieldProps = {
   characterId: string;
@@ -70,32 +69,14 @@ export const MercenaryItemField = ({
     [mercenaryItem]
   );
 
-  const {
-    api: { isPending, error, data },
-    fetchData,
-  } = useFetch<UnEquipResponseType>(
-    //TODO: change. Note: temporary solution
-    { url: "", method: "POST" },
-    { manual: true }
-  );
-
   const onUnEquipMercenary = () => {
-    const toastId = toast.loading("Trying to un equip mercenary...", {
-      autoClose: 30000,
-    });
-    fetchData({
-      customUrl: `un-equip-mercenary/${characterId}`,
-    }).then((response) => {
-      if (response) {
-        fetchInventoryData();
-        fetchCharacterData({ customUrl: `characters/${characterId}` });
-        toast.update(toastId, {
-          render: response?.message,
-          type: response.success ? "success" : "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
-      }
+    fetchBackendApi<UnEquipResponseType>({
+      url: `un-equip-mercenary/${characterId}`,
+      method: "POST",
+      notification: { pendingText: "Trying to un equip mercenary..." },
+    }).then(() => {
+      fetchInventoryData();
+      fetchCharacterData({ customUrl: `characters/${characterId}` });
     });
   };
 

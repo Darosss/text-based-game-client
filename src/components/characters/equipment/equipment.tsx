@@ -1,17 +1,16 @@
 import { InventoryItemType, UnEquipResponseType } from "@/api/types";
 import styles from "./equipment.module.scss";
 import { CharacterEquipmentFields } from "@/api/enums";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ItemTooltipContentWrapper } from "@/components/items/item-display";
 import React from "react";
-import { useFetch } from "@/hooks/useFetch";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { EquipmentItem } from "./equipment-item";
 import { EmptyEquipmentSlot } from "./empty-equipment-slot";
-import { toast } from "react-toastify";
 import { isMercenaryCharacter } from "@/api/utils";
 import { MercenaryItemField } from "./mercenary-item-field";
 import { HeroSelect } from "./hero-select";
+import { fetchBackendApi } from "@/api/fetch";
 
 type EquipmentProps = {};
 
@@ -21,9 +20,13 @@ type UnEquipParameters = {
 };
 
 export const Equipment = ({}: EquipmentProps) => {
+  const tooltipId = "equipment-tooltip";
+
   const {
     apiCharacter: {
-      api: { data: characterData },
+      api: {
+        responseData: { data: characterData },
+      },
       fetchData: fetchCharacterData,
     },
     apiInventory: { fetchData: fetchInventoryData },
@@ -31,38 +34,23 @@ export const Equipment = ({}: EquipmentProps) => {
   const [unEquipParameters, setUnEquipParameters] =
     useState<UnEquipParameters | null>(null);
 
-  const { api, fetchData } = useFetch<UnEquipResponseType>(
-    {
-      url: unEquipParameters
-        ? `un-equip/${unEquipParameters.characterId}/${unEquipParameters.slot}`
-        : "",
-      method: "POST",
-    },
-    { manual: true }
-  );
   const [currentItem, setCurrentItem] = useState<InventoryItemType | null>(
     null
   );
 
-  useEffect(() => {
-    if (unEquipParameters && unEquipParameters.characterId) {
-      const toastId = toast.loading("Trying to take off item...", {
-        autoClose: 30000,
-      });
-      fetchData().then((response) => {
-        fetchInventoryData();
-        fetchCharacterData();
-        if (response)
-          toast.update(toastId, {
-            render: response?.message,
-            type: response.success ? "success" : "error",
-            isLoading: false,
-            autoClose: 2000,
-          });
-      });
-    }
-  }, [unEquipParameters, fetchData, fetchInventoryData, fetchCharacterData]);
-  const tooltipId = "equipment-tooltip";
+  const handleOnItemUnEquip = (
+    characterId: string,
+    slot: CharacterEquipmentFields
+  ) => {
+    fetchBackendApi<UnEquipResponseType>({
+      url: `un-equip/${characterId}/${slot}`,
+      method: "POST",
+      notification: { pendingText: "Trying to un wear an item..." },
+    }).then(() => {
+      fetchInventoryData();
+      fetchCharacterData();
+    });
+  };
 
   if (!characterData) return <>No character. Fix later here</>;
 
@@ -90,10 +78,7 @@ export const Equipment = ({}: EquipmentProps) => {
                     onHover={(item) => setCurrentItem(item)}
                     tooltipId={tooltipId}
                     onItemUnEquip={(characterId, slot) =>
-                      setUnEquipParameters({
-                        characterId,
-                        slot,
-                      })
+                      handleOnItemUnEquip(characterId, slot)
                     }
                   />
                 </div>

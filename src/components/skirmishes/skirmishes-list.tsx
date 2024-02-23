@@ -12,19 +12,21 @@ type SkirmishesResponse = {
   challengeTimeCompleted: boolean;
   chosenChallenge?: ChoosenChallange;
   chosenChallengeData?: ChallengeData;
-  //TODO: string
-  id: { date: string; timestamp: number };
+  id: string;
 };
 
 export const SkirmishesList = () => {
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
   } = useFetch<SkirmishesResponse>({
     url: "your-skirmishes",
     method: "GET",
   });
-
   const [choosenChallange, setChoosenChallenge] = useState("");
 
   if (!data) {
@@ -109,9 +111,13 @@ const ChallengeDataAction = ({
   onStart,
 }: ChallengeDataActionProps) => {
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
-  } = useFetch<SkirmishesResponse>(
+  } = useFetch<String>(
     {
       url: `start-challenge/${challangeId}`,
       method: "POST",

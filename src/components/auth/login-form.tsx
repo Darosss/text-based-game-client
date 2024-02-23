@@ -1,11 +1,12 @@
 "use client";
 
-import { FormEvent, useEffect } from "react";
-import { COOKIE_TOKEN_NAME, useFetch } from "@/hooks/useFetch";
 import styles from "./login-form.module.scss";
 import Cookies from "js-cookie";
+import { FormEvent, useEffect } from "react";
+import { COOKIE_TOKEN_NAME } from "@/api/fetch";
 import { useRouter } from "next/navigation";
 import { Button } from "../common/button";
+import { useFetch } from "@/hooks/useFetch";
 
 type LoginResponse = {
   email: string;
@@ -20,7 +21,11 @@ type LoginFetchBody = {
 export const LoginForm = () => {
   const router = useRouter();
   const {
-    api: { isPending, error, data },
+    api: {
+      isPending,
+      error,
+      responseData: { data },
+    },
     fetchData,
   } = useFetch<LoginResponse, LoginFetchBody>(
     {

@@ -179,11 +179,6 @@ export type InventoryItems = {
   [id: string]: InventoryItemType;
 };
 
-export type EquipResponseType = {
-  success: boolean;
-  message: string;
-};
+export type EquipResponseType = Item;
 
-export type UnEquipResponseType = EquipResponseType & {
-  item: Item | null;
-};
+export type UnEquipResponseType = Item;

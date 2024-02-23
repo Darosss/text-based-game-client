@@ -7,7 +7,9 @@ import dndStyles from "../dnd.module.scss";
 export const CharacterAvatar = () => {
   const {
     apiCharacter: {
-      api: { data },
+      api: {
+        responseData: { data },
+      },
     },
   } = useCharacterManagementContext();
 
