@@ -3,13 +3,22 @@
     width: 90%;
     height: 90%;
   }
-  a {
+  a,
+  button {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 90%;
     width: 100%;
   }
+
+  button {
+    background-color: transparent;
+    font-size: 1em;
+    color: red;
+    font-weight: 800;
+  }
+
   a:hover {
     color: lighten($color: blue, $amount: 34);
   }
