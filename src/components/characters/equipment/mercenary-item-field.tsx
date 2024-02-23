@@ -71,7 +71,7 @@ export const MercenaryItemField = ({
 
   const onUnEquipMercenary = () => {
     fetchBackendApi<UnEquipResponseType>({
-      url: `un-equip-mercenary/${characterId}`,
+      url: `characters/un-equip-mercenary/${characterId}`,
       method: "POST",
       notification: { pendingText: "Trying to un equip mercenary..." },
     }).then(() => {

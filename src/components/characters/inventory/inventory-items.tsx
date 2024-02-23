@@ -101,7 +101,7 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
 
   const handleOnItemConusme = (itemId: string) => {
     fetchBackendApi<boolean>({
-      url: `use-consumable/${itemId}`,
+      url: `characters/use-consumable/${itemId}`,
       method: "POST",
       notification: { pendingText: "Trying to use consumable item...." },
     }).then(() => {
@@ -116,7 +116,7 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     slot: CharacterEquipmentFields
   ) => {
     fetchBackendApi<EquipResponseType>({
-      url: `equip/${characterId}/${itemId}/${slot}`,
+      url: `characters/equip/${characterId}/${itemId}/${slot}`,
       method: "POST",
       notification: { pendingText: "Trying to wear item..." },
     }).then(() => {
@@ -127,7 +127,7 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
 
   const handleOnMercenaryWear = (characterId: string, itemId: string) => {
     fetchBackendApi<EquipResponseType>({
-      url: `equip-mercenary/${characterId}/${itemId}`,
+      url: `characters/equip-mercenary/${characterId}/${itemId}`,
       method: "POST",
       notification: { pendingText: "Trying to equip mercenary..." },
     }).then(() => {

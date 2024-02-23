@@ -41,7 +41,7 @@ export const Equipment = ({}: EquipmentProps) => {
     slot: CharacterEquipmentFields
   ) => {
     fetchBackendApi<UnEquipResponseType>({
-      url: `un-equip/${characterId}/${slot}`,
+      url: `characters/un-equip/${characterId}/${slot}`,
       method: "POST",
       notification: { pendingText: "Trying to un wear an item..." },
     }).then(() => {
