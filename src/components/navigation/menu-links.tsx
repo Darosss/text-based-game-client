@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./menu-links.module.scss";
+import { LogoutButton } from "../auth/logout-button";
 
 export const MenuLinks: () => JSX.Element = () => {
   return (
@@ -29,6 +30,10 @@ export const MenuLinks: () => JSX.Element = () => {
         <Link href="/dungeons">
           <p>Dungeons</p>
         </Link>
+      </li>
+
+      <li>
+        <LogoutButton />
       </li>
     </ul>
   );
