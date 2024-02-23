@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { COOKIE_TOKEN_NAME } from "./hooks/useFetch";
+import { COOKIE_TOKEN_NAME } from "./api/fetch";
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get(COOKIE_TOKEN_NAME)?.value;
