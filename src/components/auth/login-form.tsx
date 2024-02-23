@@ -2,15 +2,15 @@
 
 import styles from "./login-form.module.scss";
 import Cookies from "js-cookie";
-import { FormEvent, useEffect } from "react";
-import { COOKIE_TOKEN_NAME } from "@/api/fetch";
+import { FormEvent } from "react";
+import { COOKIE_TOKEN_NAME, fetchBackendApi } from "@/api/fetch";
 import { useRouter } from "next/navigation";
 import { Button } from "../common/button";
-import { useFetch } from "@/hooks/useFetch";
 
 type LoginResponse = {
   email: string;
   token: string;
+  expirationTime: string;
 };
 
 type LoginFetchBody = {
@@ -20,20 +20,7 @@ type LoginFetchBody = {
 
 export const LoginForm = () => {
   const router = useRouter();
-  const {
-    api: {
-      isPending,
-      error,
-      responseData: { data },
-    },
-    fetchData,
-  } = useFetch<LoginResponse, LoginFetchBody>(
-    {
-      url: "auth/login",
-      method: "POST",
-    },
-    { manual: true }
-  );
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -42,17 +29,22 @@ export const LoginForm = () => {
     const password = formData.get("password");
     if (!email || !password) return;
 
-    await fetchData({
-      customBody: { email: `${email}`, password: `${password}` },
+    await fetchBackendApi<LoginResponse, LoginFetchBody>({
+      url: "auth/login",
+      method: "POST",
+      body: { email: `${email}`, password: `${password}` },
+      notification: { pendingText: "Trying to log in. Please wait" },
+    }).then((response) => {
+      const data = response?.body.data;
+
+      if (!data) return;
+      Cookies.set(COOKIE_TOKEN_NAME, data.token, {
+        expires: new Date(data.expirationTime),
+        sameSite: "strict",
+      });
+      router.push("/");
     });
   }
-
-  useEffect(() => {
-    if (data) {
-      Cookies.set(COOKIE_TOKEN_NAME, data.token);
-      router.push("/");
-    }
-  }, [data, router]);
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
