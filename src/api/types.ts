@@ -10,6 +10,14 @@ type CommonFieldTypes = {
   //TODO: createdAt updatedAt and others?
 };
 
+export type User = CommonFieldTypes & {
+  username: string;
+  email: string;
+  roles: string[];
+  maxCharactersPerUser: number;
+  lastLogin: string;
+};
+
 export type NpcEnemy = CommonFieldTypes & {
   health: number;
   level: number;
