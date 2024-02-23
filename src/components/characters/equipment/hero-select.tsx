@@ -9,15 +9,13 @@ export const HeroSelect = () => {
   const {
     currentCharacterIdState: [, setCurrentCharacterId],
     apiCharacter: {
-      api: {
-        responseData: { data: characterData },
-      },
+      api: { data },
     },
   } = useCharacterManagementContext();
   return (
     <>
       {charactersIds.api.responseData.data?.map((id, index) => {
-        const asCurrentChar = characterData?.id === id;
+        const asCurrentChar = data?.id === id;
         return (
           <Button
             key={id}

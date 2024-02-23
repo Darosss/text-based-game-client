@@ -24,9 +24,7 @@ export const Equipment = ({}: EquipmentProps) => {
 
   const {
     apiCharacter: {
-      api: {
-        responseData: { data: characterData },
-      },
+      api: { data: characterData, message },
       fetchData: fetchCharacterData,
     },
     apiInventory: { fetchData: fetchInventoryData },
@@ -51,8 +49,6 @@ export const Equipment = ({}: EquipmentProps) => {
       fetchCharacterData();
     });
   };
-
-  if (!characterData) return <>No character. Fix later here</>;
 
   return (
     <div className={styles.equipmentWrapper}>

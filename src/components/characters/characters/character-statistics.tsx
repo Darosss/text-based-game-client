@@ -7,9 +7,7 @@ import { isMercenaryCharacter } from "@/api/utils";
 export const CharacterStatistics = () => {
   const {
     apiCharacter: {
-      api: {
-        responseData: { data },
-      },
+      api: { data },
     },
   } = useCharacterManagementContext();
 
