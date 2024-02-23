@@ -10,7 +10,7 @@ import {
 
 type ApiResponse<ResponseT> = {
   responseData: ApiResponseBody<ResponseT>;
-  isPending: boolean;
+  isPending: boolean | null;
   error: string | null;
 };
 
@@ -37,6 +37,7 @@ type UseFetchOptions = {
   notification?: FetchBackendApiParams["notification"];
 };
 
+//NOTE: isPending === null === not even started call to api
 export const useFetch = <ResponseT, BodyT = unknown>(
   params: UseFetchParams<BodyT>,
   options?: UseFetchOptions
@@ -48,7 +49,7 @@ export const useFetch = <ResponseT, BodyT = unknown>(
     message: null,
     data: null,
   });
-  const [isPending, setIsPending] = useState(false);
+  const [isPending, setIsPending] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
