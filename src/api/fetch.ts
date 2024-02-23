@@ -86,6 +86,6 @@ export const fetchBackendApi = async <ResponseT, BodyT = unknown>({
             autoClose: 2000,
           })
         : null;
-      throw error;
+      return null;
     });
 };
