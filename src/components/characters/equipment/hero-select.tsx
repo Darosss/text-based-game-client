@@ -1,8 +1,18 @@
 import { Button } from "@/components/common/button";
 import { useFetch } from "@/hooks/useFetch";
 import { useCharacterManagementContext } from "../characters/character-management-context";
+import { HeroMercenaryCreate } from "./hero-mercenary-create";
+
+//TODO: this will be from configs from backend latter.
+const MAX_CHARACTERS_PER_USER = 4;
+
 export const HeroSelect = () => {
-  const charactersIds = useFetch<string[]>({
+  const {
+    api: {
+      responseData: { data: charactersIdsData },
+    },
+    fetchData: fetchCharactersIds,
+  } = useFetch<string[]>({
     url: "your-characters-ids",
     method: "GET",
   });
@@ -14,7 +24,7 @@ export const HeroSelect = () => {
   } = useCharacterManagementContext();
   return (
     <>
-      {charactersIds.api.responseData.data?.map((id, index) => {
+      {charactersIdsData?.map((id, index) => {
         const asCurrentChar = data?.id === id;
         return (
           <Button
@@ -26,6 +36,9 @@ export const HeroSelect = () => {
           </Button>
         );
       })}
+      {(charactersIdsData?.length || 0) < MAX_CHARACTERS_PER_USER ? (
+        <HeroMercenaryCreate onCreateMercenary={fetchCharactersIds} />
+      ) : null}
     </>
   );
 };
