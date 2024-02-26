@@ -8,14 +8,21 @@ export const CharacterStatistics = () => {
   const {
     apiCharacter: {
       api: { data },
+      fetchData,
     },
   } = useCharacterManagementContext();
 
-  if (!data) return <></>;
   return (
     <div className={styles.characterStatistics}>
       <BaseDetails character={data} />
-      <BaseStatistics statistics={data.stats.statistics} />
+      <BaseStatistics
+        statistics={data.stats.statistics}
+        {...{
+          canTrain: !isMercenaryCharacter(data)
+            ? { onSuccesTrain: fetchData }
+            : undefined,
+        }}
+      />
       <AdditionalStatistics statistics={data.stats.additionalStatistics} />
     </div>
   );
