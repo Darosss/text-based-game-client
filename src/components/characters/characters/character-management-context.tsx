@@ -70,11 +70,7 @@ export const CharacterManagementContextProvider = ({
     if (currentCharacterId) fetchCharacterData();
   }, [currentCharacterId, fetchCharacterData]);
 
-  if (
-    characterApi.isPending ||
-    characterApi.isPending === null ||
-    !inventoryApi.responseData.data
-  )
+  if (characterApi.isPending === null || !inventoryApi.responseData.data)
     return <>Loading</>;
   return (
     <CharacterManagementContext.Provider
