@@ -5,13 +5,17 @@ $leftWindowWidth: 45%;
   width: 100%;
   padding: 1rem;
   display: flex;
-  background-image: var(--primary-glow);
 
   position: relative;
   min-height: 100%;
+
+  & > div {
+    background-image: var(--primary-glow);
+    padding: 0.5rem;
+  }
+
   .characterDetailsLeft {
     padding-top: 0.2rem;
-    border: 1px solid red;
     min-width: $leftWindowWidth;
     max-width: $leftWindowWidth;
     display: flex;
