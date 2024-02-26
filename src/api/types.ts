@@ -98,9 +98,11 @@ export type ReportTurnActionMove = {
 
 export type ReportTurnActionMoveAttack = {
   baseValues: {
-    attackStrength: "NORMAL" | "CRITIC";
+    attackStrength: {
+      attackStrength: "NORMAL" | "CRITIC" | "LETHAL";
+      percentageBonusDamage: number;
+    };
     value: number;
-    percentBonusDamage: number;
   };
   debuffs: any;
   name: string;

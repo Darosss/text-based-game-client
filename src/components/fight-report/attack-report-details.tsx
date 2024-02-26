@@ -13,7 +13,6 @@ export const AttackReportDetails = ({
   asParry,
 }: AttackReportDetailProps) => {
   const { name, baseValues, debuffs, withDoubledAttack } = attack;
-
   return (
     <div className={styles.attack}>
       {withDoubledAttack || asParry ? (
@@ -22,6 +21,9 @@ export const AttackReportDetails = ({
           {asParry ? "Parry" : ""}
         </div>
       ) : null}
+      {baseValues.attackStrength.attackStrength !== "NORMAL"
+        ? `*${baseValues.attackStrength.attackStrength}*`
+        : ""}
       <div>
         <span className={styles.heroName}> {name}</span> attacks(
         {baseValues.value}){" "}
