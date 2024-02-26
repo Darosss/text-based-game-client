@@ -29,6 +29,7 @@ $fightReportLogsHeight: 38dvh;
       opacity: 1;
       max-height: 95%;
       min-height: 95%;
+      z-index: 50;
     }
   }
   &.expandedStats {

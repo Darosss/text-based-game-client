@@ -26,12 +26,14 @@
     justify-content: space-around;
     align-items: center;
     width: inherit;
-    border-bottom: 1px solid gray;
+    box-shadow: 2px 2px 4px 1px lightblue;
 
     .actionExecute {
       display: flex;
       flex-direction: column;
       & > div {
+        box-shadow: 0px 1px 1px gray;
+        padding: 0.5rem;
         display: flex;
 
         & > div {
@@ -40,6 +42,9 @@
       }
     }
 
+    div.parry {
+      padding-top: 0.2rem;
+    }
     span {
       font-weight: 800;
       &.heroNameDefend {
@@ -51,10 +56,6 @@
     }
 
     .defend {
-      div.paired {
-        padding-top: 0.2rem;
-        box-shadow: 1px 1px 1px 1px lightblue;
-      }
       span {
         &.blocked {
           color: gray;
@@ -69,8 +70,7 @@
     }
     .attack {
       .additionalInfo {
-        font-size: 1.4dvw;
-        text-decoration: underline;
+        font-size: 1.2dvw;
         color: yellow;
         text-align: center;
         margin-right: 0.5rem;

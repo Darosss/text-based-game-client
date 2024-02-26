@@ -1,6 +1,5 @@
 import { ReportTurnActionMoveDefend } from "@/api/types";
 import styles from "./fight-report-turns.module.scss";
-import { AttackReportDetails } from "./attack-report-details";
 
 type DefendReportDetailProps = {
   defend: ReportTurnActionMoveDefend;
@@ -24,16 +23,6 @@ export const DefendReportDetails = ({ defend }: DefendReportDetailProps) => {
           ` received ${receivedDamage} damage`
         )}
       </div>
-      {parryAttack !== null ? (
-        <div className={styles.paired}>
-          <AttackReportDetails
-            attack={parryAttack.basicAttack.attack}
-            defenderName={parryAttack.basicAttack.defend.name}
-            asParry={true}
-          />
-          <DefendReportDetails defend={parryAttack.basicAttack.defend} />
-        </div>
-      ) : null}
     </div>
   );
 };

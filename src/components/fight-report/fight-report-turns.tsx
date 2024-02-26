@@ -31,6 +31,20 @@ export const FightReportTurns = ({ turns }: FightReportTurnsProps) => {
                     />
                     <DefendReportDetails defend={defend} />
                   </div>
+                  {defend.parryAttack ? (
+                    <div className={styles.parry}>
+                      <AttackReportDetails
+                        attack={defend.parryAttack.basicAttack.attack}
+                        defenderName={
+                          defend.parryAttack.basicAttack.defend.name
+                        }
+                        asParry={true}
+                      />
+                      <DefendReportDetails
+                        defend={defend.parryAttack.basicAttack.defend}
+                      />
+                    </div>
+                  ) : null}
                   {doubledAttack ? (
                     <div>
                       <AttackReportDetails
