@@ -57,7 +57,10 @@ const TrainBaseStatisticButton = ({
               url: `characters/train-statistic/${statisticName}/${statAddValue}`,
               method: "PATCH",
             }).then((response) => {
-              if (response?.body.data) onSuccessTrain();
+              if (response?.body.data) {
+                setStatAddValue(0);
+                onSuccessTrain();
+              }
             });
           }}
         >
