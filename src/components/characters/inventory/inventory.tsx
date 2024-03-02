@@ -5,19 +5,16 @@ import dndStyles from "../dnd.module.scss";
 import { InventoryItems } from "./inventory-items";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { ItemType } from "@/api/enums";
-import { useCharacterManagementContext } from "../characters/character-management-context";
 import { dropAcceptTypePrefix } from "../dndHelpers";
 import { InventoryMenu } from "./inventory-menu";
 import { InventorySidebar } from "./inventory-sidebar";
+import { Inventory as InventoryType } from "@/api/types";
 
-type InventoryProps = {};
+type InventoryProps = {
+  data: InventoryType;
+};
 
-export const Inventory = ({}: InventoryProps) => {
-  const {
-    apiInventory: {
-      api: { data, message },
-    },
-  } = useCharacterManagementContext();
+export const Inventory = ({ data }: InventoryProps) => {
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
       accept: Object.values(ItemType).map((val) => dropAcceptTypePrefix + val),

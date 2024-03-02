@@ -15,7 +15,7 @@ export const CharacterAvatar = () => {
     () => ({
       accept: ItemType.CONSUMABLE,
       drop: () => ({
-        characterId: data?.id,
+        characterId: data.id,
       }),
       collect: (monitor: DropTargetMonitor) => ({
         isOver: monitor.isOver(),
