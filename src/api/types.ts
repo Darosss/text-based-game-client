@@ -171,6 +171,7 @@ export type FightReportType = {
   characters: Character[];
   enemies: NpcEnemy[];
   gainedExperience: number;
+  gainedGold: number;
   loot: InventoryItemType[];
   status: FightReportStatus;
   turnsReports: ReportTurn[];

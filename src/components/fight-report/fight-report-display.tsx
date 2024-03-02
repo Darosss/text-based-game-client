@@ -47,6 +47,7 @@ export const FightReportDisplay = ({ report }: FightReportDisplayProps) => {
         <div>
           <div>{report.status}</div>
           <div>Experience: {report.gainedExperience}</div>
+          <div>Gold: {report.gainedGold}</div>
         </div>
         <div className={styles.lootDetails}>
           {report.loot.map((item) => (
