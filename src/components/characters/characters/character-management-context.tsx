@@ -9,11 +9,7 @@ import {
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 import { CharacterTypesAlias, Inventory as InventoryType } from "@/api/types";
 import { CharacterCreator } from "../creator/character-creator";
-
-type ApiDataNotNullable<DataType> = {
-  data: DataType;
-  message: string | null;
-};
+import { ApiDataNotNullable } from "@/api/fetch";
 
 type ApiCharacter = ApiDataNotNullable<CharacterTypesAlias>;
 type ApiInventory = ApiDataNotNullable<InventoryType>;

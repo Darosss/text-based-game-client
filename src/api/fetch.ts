@@ -9,6 +9,11 @@ export type ApiResponseBody<DataType> = {
   message: string | null;
 };
 
+export type ApiDataNotNullable<DataType> = {
+  data: DataType;
+  message: string | null;
+};
+
 export type ApiError = {
   httpStatus: string;
   message: string;
