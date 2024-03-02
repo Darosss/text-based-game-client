@@ -22,8 +22,18 @@ $leftWindowWidth: 45%;
     flex-direction: column;
     align-items: center;
     position: relative;
+    box-shadow: 1px 2px 1px 1px gray;
+
+    .userDetails {
+      width: 100%;
+      min-height: 10%;
+      max-height: 10%;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid gray;
+    }
+
     .characterAvatar {
-      box-shadow: 1px 2px 2px 3px gray;
+      box-shadow: 1px 1px 1px 1px gray;
       display: flex;
       position: relative;
       min-height: 30%;
@@ -38,8 +48,8 @@ $leftWindowWidth: 45%;
       justify-content: space-between;
       align-items: flex-start;
       width: 100%;
-      max-height: 62dvh;
-      min-height: 62dvh;
+      max-height: 45dvh;
+      min-height: 45dvh;
     }
   }
 

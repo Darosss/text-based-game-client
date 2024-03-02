@@ -5,6 +5,8 @@ import { CharacterManagementContextProvider } from "./character-management-conte
 import { InventoryControlContextProvider } from "../inventory/inventory-control-context";
 import { CharacterStatistics } from "./character-statistics";
 import { CharacterAvatar } from "./character-avatar";
+import { UserDetails } from "@/components/user/user-details";
+import { UserContextProvider } from "@/components/user/user-context";
 
 export const CharacterManagement = () => {
   return (
@@ -12,12 +14,17 @@ export const CharacterManagement = () => {
       <div className={styles.characterWrapper}>
         <InventoryControlContextProvider>
           <div className={styles.characterDetailsLeft}>
-            <div className={styles.characterAvatar}>
-              <CharacterAvatar />
-            </div>
-            <div className={styles.userInventory}>
-              <Inventory />
-            </div>
+            <UserContextProvider>
+              <div className={styles.userDetails}>
+                <UserDetails />
+              </div>
+              <div className={styles.characterAvatar}>
+                <CharacterAvatar />
+              </div>
+              <div className={styles.userInventory}>
+                <Inventory />
+              </div>
+            </UserContextProvider>
           </div>
           <div className={styles.characterDetailsRight}>
             <div className={styles.equipment}>

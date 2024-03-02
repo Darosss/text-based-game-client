@@ -14,8 +14,8 @@ export type User = CommonFieldTypes & {
   username: string;
   email: string;
   roles: string[];
-  maxCharactersPerUser: number;
   lastLogin: string;
+  gold: number;
 };
 
 export type NpcEnemy = CommonFieldTypes & {
