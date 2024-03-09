@@ -12,6 +12,10 @@ type ItemDisplayProps = {
   onHover: (item: InventoryItemType) => void;
   refForWrapper?: React.LegacyRef<HTMLDivElement> | undefined;
   opacity?: number;
+  costOptions?: {
+    value: number;
+    canAfford: boolean;
+  };
 };
 
 export const ItemDisplay = ({
@@ -20,6 +24,7 @@ export const ItemDisplay = ({
   onHover,
   refForWrapper,
   opacity,
+  costOptions,
 }: ItemDisplayProps) => {
   return (
     <div
@@ -36,6 +41,16 @@ export const ItemDisplay = ({
       >
         {item.level}
       </div>
+      {costOptions ? (
+        <div className={styles.costDisplay}>
+          <span
+            className={`${!costOptions.canAfford ? styles.cantAfford : ""}`}
+          >
+            {costOptions.value.toLocaleString()}
+          </span>
+          <span className={styles.goldIcon}>$</span>
+        </div>
+      ) : null}
       <div className={styles.itemDisplayBackground}></div>
       <Image
         src={`/images/items/${item.type.toLowerCase()}/${item.subtype.toLowerCase()}.png`}

@@ -16,6 +16,22 @@
     border-radius: 0.25rem;
   }
 
+  .costDisplay {
+    position: absolute;
+    pointer-events: none;
+    z-index: 50;
+    top: 15%;
+    right: 10%;
+    font-size: 0.8rem;
+    span.goldIcon {
+      font-size: 0.8em;
+      color: green;
+    }
+    span.cantAfford {
+      color: red;
+    }
+  }
+
   .levelDisplay {
     position: absolute;
     pointer-events: none;

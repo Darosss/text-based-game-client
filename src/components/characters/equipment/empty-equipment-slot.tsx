@@ -5,6 +5,7 @@ import styles from "./equipment.module.scss";
 import dndStyles from "../dnd.module.scss";
 import { useInventoryControlContext } from "../inventory/inventory-control-context";
 import Image from "next/image";
+import { allowDropToPrefixes } from "../dndHelpers";
 
 type EmptyEquipmentSlotProps = {
   equipmentField: CharacterEquipmentFields;
@@ -18,7 +19,9 @@ export const EmptyEquipmentSlot = ({
   const { setFilter } = useInventoryControlContext();
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
-      accept: equipmentFieldToItemType[equipmentField],
+      accept: equipmentFieldToItemType[equipmentField].map(
+        (val) => allowDropToPrefixes.equipmentAndMerchant + val
+      ),
       drop: () => ({
         characterId,
         name: equipmentField,

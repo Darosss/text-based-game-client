@@ -1,83 +1,60 @@
 @import "@/styles/mixins";
-$leftWindowWidth: 45%;
 
 .characterWrapper {
   width: 100%;
-  padding: 1rem;
-  display: flex;
+  overflow: hidden;
+  display: grid;
+  max-height: 90dvh;
+  grid-template-columns: 1fr 1fr 0.8fr 0.8fr;
+  grid-template-rows: 0.25fr 1.5fr 1fr 1.5fr 1.5fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "USER-DETAILS USER-DETAILS USER-DETAILS USER-DETAILS"
+    "AVATAR EQUIPMENT TAB TAB"
+    "AVATAR EQUIPMENT TAB TAB"
+    "INVENTORY INVENTORY TAB TAB"
+    "INVENTORY INVENTORY TAB TAB";
 
   position: relative;
-  min-height: 100%;
+
+  & > div {
+    position: relative;
+  }
+
+  .userDetails {
+    grid-area: USER-DETAILS;
+  }
+  .avatar {
+    grid-area: AVATAR;
+  }
+  .equipment {
+    grid-area: EQUIPMENT;
+  }
+  .tab {
+    grid-area: TAB;
+    max-height: 100%;
+    .tabNavigation {
+      display: flex;
+      justify-content: space-around;
+      * {
+        margin: 0.4rem;
+        flex-grow: 1;
+      }
+    }
+    .tabContent {
+      display: flex;
+      max-height: 90%;
+      min-height: 90%;
+      overflow: hidden;
+    }
+  }
+  .inventory {
+    grid-area: INVENTORY;
+  }
 
   & > div {
     background-image: var(--primary-glow);
     padding: 0.5rem;
-  }
-
-  .characterDetailsLeft {
-    padding-top: 0.2rem;
-    min-width: $leftWindowWidth;
-    max-width: $leftWindowWidth;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    box-shadow: 1px 2px 1px 1px gray;
-
-    .userDetails {
-      width: 100%;
-      min-height: 10%;
-      max-height: 10%;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid gray;
-    }
-
-    .characterAvatar {
-      box-shadow: 1px 1px 1px 1px gray;
-      display: flex;
-      position: relative;
-      min-height: 30%;
-      max-height: 30%;
-      padding: 0.2rem;
-      width: 80%;
-    }
-
-    .userInventory {
-      margin-top: 0.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      width: 100%;
-      max-height: 45dvh;
-      min-height: 45dvh;
-    }
-  }
-
-  .characterDetailsRight {
-    width: 100%;
-    display: flex;
-    & > div {
-      overflow-x: hidden;
-    }
-    .equipment {
-      max-width: 40%;
-      min-width: 40%;
-      min-height: 40%;
-    }
-    .statistics {
-      max-width: 50%;
-      min-width: 50%;
-    }
-    @include respond(medium) {
-      flex-direction: column;
-      .equipment {
-        max-width: 100%;
-        min-width: 100%;
-      }
-      .statistics {
-        max-width: 100%;
-        min-width: 100%;
-      }
-    }
+    padding-bottom: 0rem;
   }
 }

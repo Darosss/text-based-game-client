@@ -1,14 +1,13 @@
 "use client";
 
-import styles from "./inventory.module.scss";
 import dndStyles from "../dnd.module.scss";
 import { InventoryItems } from "./inventory-items";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { ItemType } from "@/api/enums";
-import { dropAcceptTypePrefix } from "../dndHelpers";
-import { InventoryMenu } from "./inventory-menu";
-import { InventorySidebar } from "./inventory-sidebar";
+import { allowDropToPrefixes } from "../dndHelpers";
 import { Inventory as InventoryType } from "@/api/types";
+import { useInventoryControlContext } from "./inventory-control-context";
+import { ItemsContainer } from "@/components/items/items-container";
 
 type InventoryProps = {
   data: InventoryType;
@@ -17,7 +16,9 @@ type InventoryProps = {
 export const Inventory = ({ data }: InventoryProps) => {
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
-      accept: Object.values(ItemType).map((val) => dropAcceptTypePrefix + val),
+      accept: Object.values(ItemType).map(
+        (val) => allowDropToPrefixes.inventory + val
+      ),
       drop: () => ({}),
       collect: (monitor: DropTargetMonitor) => ({
         isOver: monitor.isOver(),
@@ -26,31 +27,27 @@ export const Inventory = ({ data }: InventoryProps) => {
     }),
     ["any"]
   );
+  const { filter, setFilter, sort, setSort } = useInventoryControlContext();
+
   if (!data) return <></>;
   const isActive = canDrop && isOver;
   return (
-    <div
-      className={`${styles.inventoryWrapper} ${
-        isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""
-      }`}
-      ref={drop}
+    <ItemsContainer
+      filter={filter}
+      setFilter={setFilter}
+      sort={sort}
+      setSort={setSort}
     >
-      <div className={styles.inventoryMenu}>
-        <InventoryMenu />
-      </div>
-      <div className={styles.inventoryBottom}>
-        <div className={styles.inventoryItems}>
-          {data.items ? (
-            <InventoryItems
-              items={data.items}
-              tooltipId="inventory-item-tooltip"
-            />
-          ) : null}
-        </div>
-        <div className={styles.sidebar}>
-          <InventorySidebar />
-        </div>
-      </div>
-    </div>
+      {data.items ? (
+        <InventoryItems
+          items={data.items}
+          dropRef={drop}
+          tooltipId="inventory-item-tooltip"
+          className={` ${
+            isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""
+          }`}
+        />
+      ) : null}
+    </ItemsContainer>
   );
 };

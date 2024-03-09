@@ -13,12 +13,12 @@ import {
   UnEquipResponseType,
 } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
-import { dropAcceptTypePrefix } from "../dndHelpers";
-import { InventoryDropResult } from "../dndTypes";
+import { BaseDropResult } from "../dndTypes";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { useInventoryControlContext } from "../inventory/inventory-control-context";
 import Image from "next/image";
 import { fetchBackendApi } from "@/api/fetch";
+import { allowDropToPrefixes } from "../dndHelpers";
 
 type MercenaryItemFieldProps = {
   characterId: string;
@@ -42,7 +42,7 @@ export const MercenaryItemField = ({
 
   const [{ canDrop, isOver }, drop] = useDrop(
     () => ({
-      accept: ItemType.MERCENARY,
+      accept: allowDropToPrefixes.equipmentAndMerchant + ItemType.MERCENARY,
       drop: () => ({ characterId }),
       collect: (monitor: DropTargetMonitor) => ({
         isOver: monitor.isOver(),
@@ -54,10 +54,10 @@ export const MercenaryItemField = ({
 
   const [{ opacity }, drag] = useDrag(
     () => ({
-      type: dropAcceptTypePrefix + mercenaryItem?.type,
+      type: allowDropToPrefixes.inventory + mercenaryItem?.type,
       item: { name: mercenaryItem?.name, id: mercenaryItem?.id },
       end(item, monitor) {
-        const dropResult = monitor.getDropResult() as InventoryDropResult;
+        const dropResult = monitor.getDropResult() as BaseDropResult;
         if (item && dropResult) {
           onUnEquipMercenary();
         }

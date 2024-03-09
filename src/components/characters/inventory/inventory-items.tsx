@@ -3,74 +3,32 @@ import {
   EquipResponseType,
   InventoryItemType,
 } from "@/api/types";
-import { useMemo, useState } from "react";
+import { LegacyRef, useMemo, useState } from "react";
 import { ItemTooltipContentWrapper } from "../../items/item-display";
 import styles from "./inventory-items.module.scss";
-import { useFetch } from "@/hooks/useFetch";
 import { CharacterEquipmentFields } from "@/api/enums";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { InventoryItem } from "./inventory-item";
-import {
-  InventoryControlContext,
-  SortByType,
-  useInventoryControlContext,
-} from "./inventory-control-context";
-import { toast } from "react-toastify";
-import { isWearableItem } from "@/api/utils";
+import { useInventoryControlContext } from "./inventory-control-context";
 import { fetchBackendApi } from "@/api/fetch";
+import { filterItemsEntries, getSortedItems } from "@/components/items/utils";
+import { useUserContext } from "@/components/user/user-context";
+import { useMerchantContext } from "../merchant/merchant-context";
 
 type InventoryItemsProps = {
   items: InventoryItemsType;
   tooltipId: string;
   //TODO: move this to conetxt probably;
+  dropRef: LegacyRef<HTMLDivElement>;
+  className?: string;
 };
 
-type EquipParameters = {
-  characterId: string;
-  itemId: string;
-  slot: CharacterEquipmentFields;
-};
-
-const filterItemsEntries = (
-  items: InventoryItemsType,
-  filter: InventoryControlContext
-) => {
-  return Object.entries(items).filter(([_, itemToFilter]) => {
-    const { showType, name } = filter;
-    let itemFiltered = true;
-    if (showType)
-      itemFiltered =
-        showType.length === 0 ? true : showType.includes(itemToFilter.type);
-    if (name && itemFiltered)
-      itemFiltered = (
-        isWearableItem(itemToFilter)
-          ? itemToFilter.nameWithPrefixAndSuffix
-          : itemToFilter.name
-      )
-        .toLowerCase()
-        .includes(name);
-    return itemFiltered;
-  });
-};
-const getSortedItems = (
-  items: [string, InventoryItemType][],
-  sort: SortByType
-) => {
-  const sortedItems = items.sort(([, itemA], [, itemB]) => {
-    if (itemA[sort.sortBy] < itemB[sort.sortBy]) {
-      return -1;
-    }
-    if (itemA[sort.sortBy] > itemB[sort.sortBy]) {
-      return 1;
-    }
-    return 0;
-  });
-
-  if (sort.descending) return sortedItems.reverse();
-  return sortedItems;
-};
-
-export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
+export const InventoryItems = ({
+  items,
+  tooltipId,
+  dropRef,
+  className,
+}: InventoryItemsProps) => {
   const { filter, sort } = useInventoryControlContext();
   const {
     apiCharacter: { fetchData: fetchCharacterData },
@@ -78,21 +36,15 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
   } = useCharacterManagementContext();
 
   const {
-    api: {
-      isPending,
-      error,
-      responseData: { data },
-    },
-    fetchData,
-  } = useFetch<EquipResponseType | boolean>(
-    //TODO: change. Note: temporary solution
-    { url: "", method: "POST" },
-    { manual: true }
-  );
-
+    apiMerchant: { fetchData: fetchMerchantData },
+  } = useMerchantContext();
   const [currentItem, setCurrentItem] = useState<InventoryItemType | null>(
     null
   );
+
+  const {
+    apiUser: { fetchData: fetchUserData },
+  } = useUserContext();
 
   const itemsToRender = useMemo(
     () => getSortedItems(filterItemsEntries(items, filter), sort),
@@ -136,8 +88,24 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
     });
   };
 
+  const handleOnSellItem = (id: string) => {
+    fetchBackendApi({
+      url: `merchants/sell-item/${id}`,
+      method: "POST",
+      notification: { pendingText: "Trying to sell item" },
+    }).then((response) => {
+      if (response?.body.data) {
+        fetchInventoryData();
+        fetchUserData();
+        fetchMerchantData();
+      }
+    });
+  };
   return (
-    <div className={styles.itemsWrapper}>
+    <div
+      className={`${styles.itemsWrapper} ${className ? className : ""}`}
+      ref={dropRef}
+    >
       <ItemTooltipContentWrapper
         customClassName={styles.inventoryTooltip}
         item={currentItem}
@@ -157,6 +125,7 @@ export const InventoryItems = ({ items, tooltipId }: InventoryItemsProps) => {
             onMercenaryWear={(characterId, itemId) =>
               handleOnMercenaryWear(characterId, itemId)
             }
+            onItemSell={handleOnSellItem}
           />
         </div>
       ))}

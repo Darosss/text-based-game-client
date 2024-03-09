@@ -1,11 +1,10 @@
 import { CharacterEquipmentFields } from "@/api/enums";
 
-export type EquipmentDropResult = {
-  dropEffect: string;
-  name: CharacterEquipmentFields;
-  characterId: string;
+export type BaseDropResult = {
+  dropAction: string;
 };
 
-export type InventoryDropResult = {
-  dropEffect: string;
+export type EquipmentDropResult = BaseDropResult & {
+  name: CharacterEquipmentFields;
+  characterId: string;
 };

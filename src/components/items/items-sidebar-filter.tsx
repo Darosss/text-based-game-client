@@ -1,12 +1,21 @@
 import { ItemType } from "@/api/enums";
-import styles from "./inventory-sidebar.module.scss";
-import { Button } from "@/components/common/button";
-import { useInventoryControlContext } from "./inventory-control-context";
+import { Dispatch, SetStateAction } from "react";
+import { Button } from "../common/button";
 import Image from "next/image";
-export const InventorySidebar = () => {
-  const { filter, setFilter } = useInventoryControlContext();
+import styles from "./items-sidebar-filter.module.scss";
+import { FilterType } from "./types";
+
+type ItemsSidebarFilterProps = {
+  filter: FilterType;
+  setFilter: Dispatch<SetStateAction<FilterType>>;
+};
+
+export const ItemsSidebarFilter = ({
+  filter,
+  setFilter,
+}: ItemsSidebarFilterProps) => {
   return (
-    <div className={styles.sidebarWrapper}>
+    <div className={styles.itemsSidebarFilterWrapper}>
       {Object.values(ItemType).map((type) => {
         const isChoosen = filter?.showType?.includes(type);
         return (

@@ -2,8 +2,8 @@ import { CharacterEquipmentFields } from "@/api/enums";
 import { InventoryItemType } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
 import { useDrag, DragSourceMonitor } from "react-dnd";
-import { dropAcceptTypePrefix } from "../dndHelpers";
-import { InventoryDropResult } from "../dndTypes";
+import { BaseDropResult } from "../dndTypes";
+import { allowDropToPrefixes } from "../dndHelpers";
 
 type EquipmentItemProps = {
   currentField: CharacterEquipmentFields;
@@ -27,10 +27,10 @@ export const EquipmentItem = ({
 }: EquipmentItemProps) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
-      type: dropAcceptTypePrefix + item.type,
+      type: allowDropToPrefixes.inventory + item.type,
       item: { name: item.name, id: item.id },
       end(item, monitor) {
-        const dropResult = monitor.getDropResult() as InventoryDropResult;
+        const dropResult = monitor.getDropResult() as BaseDropResult;
         if (item && dropResult) {
           onItemUnEquip(characterId, currentField);
         }

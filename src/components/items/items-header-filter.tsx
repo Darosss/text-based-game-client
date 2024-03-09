@@ -1,25 +1,40 @@
-import styles from "./inventory-menu.module.scss";
-import {
-  SortByKeysType,
-  sortByKeys,
-  useInventoryControlContext,
-} from "./inventory-control-context";
-import { useState } from "react";
-import { Button } from "@/components/common/button";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Button } from "../common/button";
+import { FilterType, SortByKeysType, SortType } from "./types";
+import styles from "./items-header-filter.module.scss";
 
 enum CurrentView {
   SEARCH = "SEARCH",
   SORT = "SORT",
 }
+
+type ItemsHeaderFilterProps = {
+  setFilter: Dispatch<SetStateAction<FilterType>>;
+  sort: SortType;
+  setSort: Dispatch<SetStateAction<SortType>>;
+};
+
+export const sortByKeys: SortByKeysType[] = [
+  "level",
+  "name",
+  "type",
+  "value",
+  "upgradePoints",
+  "weight",
+];
+
 const AscendingArrow = () => <span>&#9650;</span>;
 const DescendingArrow = () => <span>&#9660;</span>;
 
-export const InventoryMenu = () => {
+export const ItemsHeaderFilter = ({
+  setFilter,
+  sort,
+  setSort,
+}: ItemsHeaderFilterProps) => {
   const [view, setView] = useState<CurrentView>(CurrentView.SEARCH);
-  const { setFilter, sort, setSort } = useInventoryControlContext();
 
   return (
-    <div className={styles.inventoryMenuWrapper}>
+    <div className={styles.itemsHeaderFilterWrapper}>
       {view === CurrentView.SEARCH ? (
         <>
           Search

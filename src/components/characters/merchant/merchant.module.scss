@@ -1,0 +1,22 @@
+.merchantWrapper {
+  display: flex;
+  min-height: inherit;
+  min-width: 100%;
+  max-width: 100%;
+  max-height: inherit;
+  .merchantItemsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100%;
+    max-height: 100%;
+    overflow-x: hidden;
+
+    & > div.oneItemWrapper {
+      display: flex;
+      min-width: 100px;
+      max-width: 100px;
+      min-height: 100px;
+      max-height: 100px;
+    }
+  }
+}

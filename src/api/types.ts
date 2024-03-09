@@ -193,3 +193,14 @@ export type InventoryItems = {
 export type EquipResponseType = Item;
 
 export type UnEquipResponseType = Item;
+
+export type ItemsCostType = {
+  [id: string]: number;
+};
+
+export type YourMerchantResponseData = {
+  commodityRefreshAt: string;
+  id: string;
+  items: InventoryItems;
+  itemsCost: ItemsCostType;
+};

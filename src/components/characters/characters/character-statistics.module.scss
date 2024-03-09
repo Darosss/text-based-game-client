@@ -3,12 +3,13 @@
 .characterStatistics {
   display: flex;
   overflow-x: hidden;
-  width: 100%;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   flex-wrap: wrap;
+  min-width: 100%;
   .baseDetails {
     padding: 0.5rem;
+    min-width: 100%;
     & > div {
       display: flex;
       justify-content: space-between;
@@ -29,21 +30,5 @@
     background-color: rgba(27, 1, 200, 0.344);
     background-image: var(--primary-glow);
     padding-bottom: 0.5rem;
-  }
-
-  @include respond(large) {
-    flex-direction: column;
-    & > div {
-      &:first-child {
-        border-right: 0;
-        border-bottom: 1px solid blue;
-      }
-      &:last-child {
-        border-top: 1px solid blue;
-        border-radius: 0.5rem;
-      }
-      min-width: 100%;
-      max-width: 100%;
-    }
   }
 }

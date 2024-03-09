@@ -5,39 +5,13 @@ import {
   useContext,
   useState,
 } from "react";
-import { ItemType } from "@/api/enums";
-import { Item } from "@/api/types";
-
-//TODO: sort by add retrieve data sort by as default
-export type SortByKeysType = keyof Pick<
-  Item,
-  "level" | "name" | "type" | "value" | "upgradePoints" | "weight"
->;
-
-export type SortByType = {
-  sortBy: SortByKeysType;
-  descending: boolean;
-};
-
-export const sortByKeys: SortByKeysType[] = [
-  "level",
-  "name",
-  "type",
-  "value",
-  "upgradePoints",
-  "weight",
-];
-
-export type InventoryControlContext = {
-  showType: ItemType[];
-  name: string | null;
-};
+import { FilterType, SortType } from "@/components/items/types";
 
 type InventoryControlContextType = {
-  filter: InventoryControlContext;
-  setFilter: Dispatch<SetStateAction<InventoryControlContext>>;
-  sort: SortByType;
-  setSort: Dispatch<SetStateAction<SortByType>>;
+  filter: FilterType;
+  setFilter: Dispatch<SetStateAction<FilterType>>;
+  sort: SortType;
+  setSort: Dispatch<SetStateAction<SortType>>;
 };
 
 type InventoryControlContextProps = {
@@ -50,11 +24,11 @@ export const InventoryControlContext =
 export const InventoryControlContextProvider = ({
   children,
 }: InventoryControlContextProps): React.JSX.Element => {
-  const [filter, setFilter] = useState<InventoryControlContext>({
+  const [filter, setFilter] = useState<FilterType>({
     name: null,
     showType: [],
   });
-  const [sort, setSort] = useState<SortByType>({
+  const [sort, setSort] = useState<SortType>({
     sortBy: "name",
     descending: true,
   });

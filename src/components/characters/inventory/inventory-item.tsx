@@ -2,7 +2,8 @@ import { CharacterEquipmentFields, ItemType } from "@/api/enums";
 import { InventoryItemType } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
 import { useDrag, DragSourceMonitor } from "react-dnd";
-import { EquipmentDropResult } from "../dndTypes";
+import { BaseDropResult, EquipmentDropResult } from "../dndTypes";
+import { allowDropToPrefixes, isEquipmentDropResult } from "../dndHelpers";
 
 type InventoryItemProps = {
   inventoryItem: [string, InventoryItemType];
@@ -15,6 +16,7 @@ type InventoryItemProps = {
   ) => void;
   onItemConsume: (itemId: string) => void;
   onMercenaryWear: (characterId: string, itemId: string) => void;
+  onItemSell: (itemId: string) => void;
 };
 
 export const InventoryItem = ({
@@ -24,24 +26,31 @@ export const InventoryItem = ({
   onItemEquip,
   onItemConsume,
   onMercenaryWear,
+  onItemSell,
 }: InventoryItemProps) => {
   const [{ opacity }, drag] = useDrag(
     () => ({
-      type: item.type,
+      type: allowDropToPrefixes.equipmentAndMerchant + item.type,
       item: { name: item.name, id: item.id, type: item.type },
       end(item, monitor) {
-        const dropResult = monitor.getDropResult() as EquipmentDropResult;
-        if (item && dropResult) {
-          switch (item.type) {
-            case ItemType.CONSUMABLE:
-              onItemConsume(item.id);
-              break;
-            case ItemType.MERCENARY:
-              onMercenaryWear(dropResult.characterId, item.id);
-              break;
-            default:
-              onItemEquip(dropResult.characterId, item.id, dropResult.name);
+        const dropResult = monitor.getDropResult() as
+          | BaseDropResult
+          | EquipmentDropResult;
+        if (isEquipmentDropResult(dropResult)) {
+          if (item && dropResult) {
+            switch (item.type) {
+              case ItemType.CONSUMABLE:
+                onItemConsume(item.id);
+                break;
+              case ItemType.MERCENARY:
+                onMercenaryWear(dropResult.characterId, item.id);
+                break;
+              default:
+                onItemEquip(dropResult.characterId, item.id, dropResult.name);
+            }
           }
+        } else {
+          onItemSell(item.id);
         }
       },
       collect: (monitor: DragSourceMonitor) => ({
