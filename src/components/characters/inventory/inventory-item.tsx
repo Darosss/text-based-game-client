@@ -36,8 +36,9 @@ export const InventoryItem = ({
         const dropResult = monitor.getDropResult() as
           | BaseDropResult
           | EquipmentDropResult;
+        if (!dropResult) return;
         if (isEquipmentDropResult(dropResult)) {
-          if (item && dropResult) {
+          if (item) {
             switch (item.type) {
               case ItemType.CONSUMABLE:
                 onItemConsume(item.id);
