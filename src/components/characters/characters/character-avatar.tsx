@@ -3,6 +3,12 @@ import Image from "next/image";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { useCharacterManagementContext } from "./character-management-context";
 import dndStyles from "../dnd.module.scss";
+import { allowDropToPrefixes } from "../dndHelpers";
+import {
+  BaseDropResultsFromInventory,
+  UseDropBaseCollectedProps,
+} from "../dndTypes";
+import { PossibleDropResultActions } from "../equipment/enums";
 
 export const CharacterAvatar = () => {
   const {
@@ -11,10 +17,15 @@ export const CharacterAvatar = () => {
     },
   } = useCharacterManagementContext();
 
-  const [{ canDrop, isOver }, drop] = useDrop(
+  const [{ canDrop, isOver }, drop] = useDrop<
+    unknown,
+    BaseDropResultsFromInventory,
+    UseDropBaseCollectedProps
+  >(
     () => ({
-      accept: ItemType.CONSUMABLE,
+      accept: allowDropToPrefixes.equipmentAndMerchant + ItemType.CONSUMABLE,
       drop: () => ({
+        dropAction: PossibleDropResultActions.CONSUME,
         characterId: data.id,
       }),
       collect: (monitor: DropTargetMonitor) => ({

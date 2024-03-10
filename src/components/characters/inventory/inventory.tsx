@@ -8,18 +8,31 @@ import { allowDropToPrefixes } from "../dndHelpers";
 import { Inventory as InventoryType } from "@/api/types";
 import { useInventoryControlContext } from "./inventory-control-context";
 import { ItemsContainer } from "@/components/items/items-container";
+import {
+  DropDragObjectIntoInventory,
+  InventoryDropResult,
+  UseDropBaseCollectedProps,
+} from "../dndTypes";
 
 type InventoryProps = {
   data: InventoryType;
 };
 
 export const Inventory = ({ data }: InventoryProps) => {
-  const [{ canDrop, isOver }, drop] = useDrop(
+  const [{ canDrop, isOver }, drop] = useDrop<
+    DropDragObjectIntoInventory,
+    InventoryDropResult,
+    UseDropBaseCollectedProps
+  >(
     () => ({
       accept: Object.values(ItemType).map(
         (val) => allowDropToPrefixes.inventory + val
       ),
-      drop: () => ({}),
+      drop: (item) => {
+        return {
+          dropAction: item.dropAction,
+        };
+      },
       collect: (monitor: DropTargetMonitor) => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),

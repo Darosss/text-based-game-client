@@ -6,6 +6,11 @@ import dndStyles from "../dnd.module.scss";
 import { useInventoryControlContext } from "../inventory/inventory-control-context";
 import Image from "next/image";
 import { allowDropToPrefixes } from "../dndHelpers";
+import {
+  BaseEquipmentFieldDropResult,
+  UseDropBaseCollectedProps,
+} from "../dndTypes";
+import { PossibleDropResultActions } from "./enums";
 
 type EmptyEquipmentSlotProps = {
   equipmentField: CharacterEquipmentFields;
@@ -17,12 +22,17 @@ export const EmptyEquipmentSlot = ({
   characterId,
 }: EmptyEquipmentSlotProps) => {
   const { setFilter } = useInventoryControlContext();
-  const [{ canDrop, isOver }, drop] = useDrop(
+  const [{ canDrop, isOver }, drop] = useDrop<
+    unknown,
+    BaseEquipmentFieldDropResult,
+    UseDropBaseCollectedProps
+  >(
     () => ({
       accept: equipmentFieldToItemType[equipmentField].map(
         (val) => allowDropToPrefixes.equipmentAndMerchant + val
       ),
       drop: () => ({
+        dropAction: PossibleDropResultActions.EQUIP_ITEM,
         characterId,
         name: equipmentField,
       }),

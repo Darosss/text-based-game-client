@@ -2,8 +2,13 @@ import { CharacterEquipmentFields } from "@/api/enums";
 import { InventoryItemType } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
 import { useDrag, DragSourceMonitor } from "react-dnd";
-import { BaseDropResult } from "../dndTypes";
 import { allowDropToPrefixes } from "../dndHelpers";
+import {
+  DragBaseCollectedProps,
+  DropDragObjectIntoInventory,
+  DropResultAsEquipmentItem,
+} from "../dndTypes";
+import { PossibleDropResultActions } from "./enums";
 
 type EquipmentItemProps = {
   currentField: CharacterEquipmentFields;
@@ -25,13 +30,24 @@ export const EquipmentItem = ({
   characterId,
   currentField,
 }: EquipmentItemProps) => {
-  const [{ opacity }, drag] = useDrag(
+  const [{ opacity }, drag] = useDrag<
+    DropDragObjectIntoInventory,
+    DropResultAsEquipmentItem,
+    DragBaseCollectedProps
+  >(
     () => ({
       type: allowDropToPrefixes.inventory + item.type,
-      item: { name: item.name, id: item.id },
+      item: {
+        name: item.name,
+        id: item.id,
+        dropAction: PossibleDropResultActions.UN_EQUIP_ITEM,
+      },
       end(item, monitor) {
-        const dropResult = monitor.getDropResult() as BaseDropResult;
-        if (item && dropResult) {
+        const dropResult = monitor.getDropResult();
+        if (
+          item &&
+          dropResult?.dropAction === PossibleDropResultActions.UN_EQUIP_ITEM
+        ) {
           onItemUnEquip(characterId, currentField);
         }
       },
@@ -47,6 +63,7 @@ export const EquipmentItem = ({
       item={item}
       onHover={(item) => onHover(item)}
       tooltipId={tooltipId}
+      opacity={opacity}
     />
   );
 };

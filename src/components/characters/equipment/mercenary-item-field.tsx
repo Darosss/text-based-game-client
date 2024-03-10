@@ -13,12 +13,19 @@ import {
   UnEquipResponseType,
 } from "@/api/types";
 import { ItemDisplay } from "@/components/items/item-display";
-import { BaseDropResult } from "../dndTypes";
+import {
+  DragBaseCollectedProps,
+  DropDragObjectIntoInventory,
+  DropResultAsMercenaryItem,
+  MercenaryEquipmentFieldDropResult,
+  UseDropBaseCollectedProps,
+} from "../dndTypes";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { useInventoryControlContext } from "../inventory/inventory-control-context";
 import Image from "next/image";
 import { fetchBackendApi } from "@/api/fetch";
 import { allowDropToPrefixes } from "../dndHelpers";
+import { PossibleDropResultActions } from "./enums";
 
 type MercenaryItemFieldProps = {
   characterId: string;
@@ -40,10 +47,17 @@ export const MercenaryItemField = ({
 
   const { setFilter } = useInventoryControlContext();
 
-  const [{ canDrop, isOver }, drop] = useDrop(
+  const [{ canDrop, isOver }, drop] = useDrop<
+    unknown,
+    MercenaryEquipmentFieldDropResult,
+    UseDropBaseCollectedProps
+  >(
     () => ({
       accept: allowDropToPrefixes.equipmentAndMerchant + ItemType.MERCENARY,
-      drop: () => ({ characterId }),
+      drop: () => ({
+        dropAction: PossibleDropResultActions.EQUIP_MERCENARY,
+        characterId,
+      }),
       collect: (monitor: DropTargetMonitor) => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
@@ -52,13 +66,25 @@ export const MercenaryItemField = ({
     [characterId]
   );
 
-  const [{ opacity }, drag] = useDrag(
+  const [{ opacity }, drag] = useDrag<
+    DropDragObjectIntoInventory,
+    DropResultAsMercenaryItem,
+    DragBaseCollectedProps
+  >(
     () => ({
       type: allowDropToPrefixes.inventory + mercenaryItem?.type,
-      item: { name: mercenaryItem?.name, id: mercenaryItem?.id },
+      item: {
+        name: mercenaryItem?.name || "No mercenary",
+        id: mercenaryItem?.id || "No id mercenary",
+        dropAction: PossibleDropResultActions.UN_EQUIP_MERCENARY,
+      },
       end(item, monitor) {
-        const dropResult = monitor.getDropResult() as BaseDropResult;
-        if (item && dropResult) {
+        const dropResult = monitor.getDropResult();
+        if (
+          item &&
+          dropResult?.dropAction ===
+            PossibleDropResultActions.UN_EQUIP_MERCENARY
+        ) {
           onUnEquipMercenary();
         }
       },
@@ -101,6 +127,7 @@ export const MercenaryItemField = ({
           item={mercenaryItem}
           onHover={(item) => onHover(item)}
           tooltipId={tooltipId}
+          opacity={opacity}
         />
       ) : (
         <Image

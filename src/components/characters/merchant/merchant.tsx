@@ -17,6 +17,11 @@ import { ItemType } from "@/api/enums";
 import { allowDropToPrefixes } from "../dndHelpers";
 import dndStyles from "../dnd.module.scss";
 import { useMerchantContext } from "./merchant-context";
+import {
+  BaseDropResultsFromInventory,
+  UseDropBaseCollectedProps,
+} from "../dndTypes";
+import { PossibleDropResultActions } from "../equipment/enums";
 type MerchantProps = {};
 
 const TOOLTIP_ID = "merchant-item-tooltip";
@@ -25,13 +30,17 @@ const findCostForItem = (itemsCost: ItemsCostType, itemId: string) =>
   Object.entries(itemsCost).find(([id]) => id === itemId);
 
 export const Merchant = ({}: MerchantProps) => {
-  const [{ canDrop, isOver }, drop] = useDrop(
+  const [{ canDrop, isOver }, drop] = useDrop<
+    unknown,
+    BaseDropResultsFromInventory,
+    UseDropBaseCollectedProps
+  >(
     () => ({
       accept: Object.values(ItemType).map(
         (val) => allowDropToPrefixes.equipmentAndMerchant + val
       ),
       drop: () => ({
-        dropAction: "sell-item",
+        dropAction: PossibleDropResultActions.SELL_ITEM,
       }),
       collect: (monitor: DropTargetMonitor) => ({
         isOver: monitor.isOver(),

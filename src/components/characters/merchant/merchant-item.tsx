@@ -1,10 +1,15 @@
 import { InventoryItemType } from "@/api/types";
 import { DragSourceMonitor, useDrag } from "react-dnd";
-import { BaseDropResult } from "../dndTypes";
+import {
+  DragBaseCollectedProps,
+  DropDragObjectIntoInventory,
+  DropResultAsMerchantItem,
+} from "../dndTypes";
 import { ItemDisplay } from "@/components/items/item-display";
 import styles from "./merchant.module.scss";
 import { useUserContext } from "@/components/user/user-context";
 import { allowDropToPrefixes } from "../dndHelpers";
+import { PossibleDropResultActions } from "../equipment/enums";
 
 type MerchantItemData = {
   item: InventoryItemType;
@@ -24,13 +29,24 @@ export const MerchantItem = ({
   onHover,
   onItemBuy,
 }: MerchantItemsProps) => {
-  const [{ opacity }, drag] = useDrag(
+  const [{ opacity }, drag] = useDrag<
+    DropDragObjectIntoInventory,
+    DropResultAsMerchantItem,
+    DragBaseCollectedProps
+  >(
     () => ({
       type: allowDropToPrefixes.inventory + item.type,
-      item: { name: item.name, id: item.id, type: item.type },
+      item: {
+        name: item.name,
+        id: item.id,
+        dropAction: PossibleDropResultActions.BUY_ITEM,
+      },
       end(item, monitor) {
-        const dropResult = monitor.getDropResult() as BaseDropResult;
-        if (item && dropResult) {
+        const dropResult = monitor.getDropResult();
+        if (
+          item &&
+          dropResult?.dropAction === PossibleDropResultActions.BUY_ITEM
+        ) {
           onItemBuy(item.id, cost);
         }
       },
