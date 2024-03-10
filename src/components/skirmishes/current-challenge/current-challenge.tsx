@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./current-challenge.module.scss";
 import { ChallengeData, ChoosenChallange } from "../types";
-import { formatTime, getRemainingTimeFromDateToDate } from "@/utils/utils";
+import { formatTime } from "@/utils/utils";
 import { useFetch } from "@/hooks/useFetch";
 import { Button } from "@/components/common/button";
 import { FightReportType } from "@/api/types";
 import { FightReportDisplay } from "@/components/fight-report/fight-report-display";
+import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 
 type CurrentChallengeProps = {
   chosenChallenge: ChoosenChallange;
@@ -23,7 +24,6 @@ export const CurrentChallenge = ({
   onConfirmReport,
   onCancel,
 }: CurrentChallengeProps) => {
-  const [remainingTime, setRemainingTime] = useState(-1);
   const {
     api: {
       isPending,
@@ -38,26 +38,10 @@ export const CurrentChallenge = ({
     },
     { manual: true }
   );
-  useEffect(() => {
-    const remainingTimeMs = getRemainingTimeFromDateToDate({
-      timestamp: Date.now(),
-      toTimestamp: Number(new Date(chosenChallenge.timestamp).getTime()),
-    });
 
-    setRemainingTime(remainingTimeMs);
-
-    const intervalId = setInterval(() => {
-      setRemainingTime((prevCounter) => {
-        const newTime = Math.max(0, prevCounter - 1000);
-        if (newTime === 0) {
-          clearInterval(intervalId);
-        }
-        return newTime;
-      });
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [chosenChallenge]);
+  const remainingTime = useCountdownTimer({
+    toTimestamp: chosenChallenge.timestamp,
+  });
 
   useEffect(() => {
     if (remainingTime === 0) {
