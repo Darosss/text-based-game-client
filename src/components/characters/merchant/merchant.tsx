@@ -22,6 +22,7 @@ import {
   UseDropBaseCollectedProps,
 } from "../dndTypes";
 import { PossibleDropResultActions } from "../equipment/enums";
+import { MerchantCommodityTimer } from "./merchant-commodity-timer";
 type MerchantProps = {};
 
 const TOOLTIP_ID = "merchant-item-tooltip";
@@ -103,6 +104,9 @@ export const Merchant = ({}: MerchantProps) => {
   const isActive = canDrop && isOver;
   return (
     <div className={styles.merchantWrapper}>
+      <div className={styles.merchantCommodityInfo}>
+        <MerchantCommodityTimer commodityRefreshAt={data.commodityRefreshAt} />
+      </div>
       <ItemsContainer
         filter={filter}
         setFilter={setFilter}
@@ -114,6 +118,7 @@ export const Merchant = ({}: MerchantProps) => {
           item={currentItem}
           tooltipId={TOOLTIP_ID}
         />
+
         <div
           className={`${styles.merchantItemsWrapper}
               ${isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""}

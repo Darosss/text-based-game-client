@@ -1,9 +1,28 @@
 .merchantWrapper {
   display: flex;
+  flex-direction: column;
   min-height: inherit;
   min-width: 100%;
   max-width: 100%;
   max-height: inherit;
+
+  .merchantCommodityInfo {
+    display: flex;
+    justify-content: space-between;
+    background-image: var(--primary-glow);
+    align-items: center;
+    text-align: center;
+
+    div {
+      padding: 0 0.4rem 0 0.4rem;
+      width: 50%;
+    }
+
+    button {
+      min-width: 100%;
+    }
+  }
+
   .merchantItemsWrapper {
     display: flex;
     flex-wrap: wrap;
