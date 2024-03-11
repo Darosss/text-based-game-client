@@ -42,7 +42,6 @@ export const Inventory = ({ data }: InventoryProps) => {
   );
   const { filter, setFilter, sort, setSort } = useInventoryControlContext();
 
-  if (!data) return <></>;
   const isActive = canDrop && isOver;
   return (
     <ItemsContainer
@@ -51,16 +50,14 @@ export const Inventory = ({ data }: InventoryProps) => {
       sort={sort}
       setSort={setSort}
     >
-      {data.items ? (
-        <InventoryItems
-          items={data.items}
-          dropRef={drop}
-          tooltipId="inventory-item-tooltip"
-          className={` ${
-            isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""
-          }`}
-        />
-      ) : null}
+      <InventoryItems
+        items={data.items}
+        dropRef={drop}
+        tooltipId="inventory-item-tooltip"
+        className={` ${
+          isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""
+        }`}
+      />
     </ItemsContainer>
   );
 };

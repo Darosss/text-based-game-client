@@ -16,7 +16,7 @@ import { useUserContext } from "@/components/user/user-context";
 import { useMerchantContext } from "../merchant/merchant-context";
 
 type InventoryItemsProps = {
-  items: InventoryItemsType;
+  items?: InventoryItemsType;
   tooltipId: string;
   //TODO: move this to conetxt probably;
   dropRef: LegacyRef<HTMLDivElement>;
@@ -47,7 +47,8 @@ export const InventoryItems = ({
   } = useUserContext();
 
   const itemsToRender = useMemo(
-    () => getSortedItems(filterItemsEntries(items, filter), sort),
+    () =>
+      items ? getSortedItems(filterItemsEntries(items, filter), sort) : [],
     [items, filter, sort]
   );
 

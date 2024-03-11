@@ -49,7 +49,8 @@ export type DropResultAsMerchantItem =
 //Note: this in case when i will need adjust dropping other things into inventory / merchant / equipment etc
 export type InventoryDropResult =
   | DropResultAsEquipmentItem
-  | DropResultAsMerchantItem;
+  | DropResultAsMerchantItem
+  | DropResultAsMercenaryItem;
 
 export type DragObjectMerchantItem = BaseDragObjectItem;
 
