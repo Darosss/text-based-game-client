@@ -2,24 +2,36 @@
   li {
     width: 90%;
     height: 90%;
-  }
-  a,
-  button {
+    margin: 0.5rem;
+    border-radius: 1rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 90%;
-    width: 100%;
-  }
+    & > * {
+      max-height: 80%;
+      min-height: 80%;
+    }
+    &.active {
+      background-color: rgb(var(--success-first-rgb));
+    }
 
-  button {
-    background-color: transparent;
-    font-size: 1em;
-    color: red;
-    font-weight: 800;
-  }
+    &:not(.active):hover {
+      a {
+        color: rgb(var(--primary-first-rgb));
+      }
+    }
 
-  a:hover {
-    color: lighten($color: blue, $amount: 34);
+    a,
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 90%;
+      width: 100%;
+    }
+
+    button {
+      font-size: 1em;
+      font-weight: 800;
+    }
   }
 }

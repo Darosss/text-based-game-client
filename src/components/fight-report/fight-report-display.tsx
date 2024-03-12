@@ -72,7 +72,7 @@ export const FightReportDisplay = ({ report }: FightReportDisplayProps) => {
       <div className={styles.fightReportLogsWrapper}>
         <div className={styles.expandButtonWrapper}>
           <Button
-            defaultButtonType="primary"
+            defaultButtonType="secondary"
             onClick={() => handleOnClickExpandLogsButton()}
           >
             Battle logs

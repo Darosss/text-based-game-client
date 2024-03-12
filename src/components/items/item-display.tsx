@@ -54,7 +54,7 @@ export const ItemDisplay = ({
       <div className={styles.itemDisplayBackground}></div>
       <Image
         src={`/images/items/${item.type.toLowerCase()}/${item.subtype.toLowerCase()}.png`}
-        sizes="(max-width: 768px) 15vw, (max-width: 1200px) 25vw, 25vw"
+        sizes="(max-width: 768px) 25vw, (max-width: 1200px) 50vw, 100vw"
         alt="item"
         fill
       />

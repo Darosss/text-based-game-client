@@ -14,5 +14,9 @@ export const LogoutButton = () => {
     router.replace("/auth/login");
   };
 
-  return <Button onClick={handleOnLogout}> Logout </Button>;
+  return (
+    <Button defaultButtonType="danger" onClick={handleOnLogout}>
+      Logout
+    </Button>
+  );
 };

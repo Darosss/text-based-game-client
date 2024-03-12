@@ -55,16 +55,11 @@ export const LoginForm = () => {
       <div>
         <label>Email</label>
         {/* TODO: make it email */}
-        <input type="text" name="email" placeholder="Email" required />
+        <input type="text" name="email" required />
       </div>
       <div>
         <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
+        <input type="password" name="password" required />
       </div>
       <div>
         <Button type="submit" defaultButtonType="primary">

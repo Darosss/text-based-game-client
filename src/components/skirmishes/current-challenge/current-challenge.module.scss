@@ -42,7 +42,8 @@
     }
 
     span {
-      color: yellow;
+      color: rgb(var(--info-first-rgb));
+      font-size: 0.8em;
     }
   }
 }

@@ -62,7 +62,7 @@ export const EmptyEquipmentSlot = ({
         src={`/images/equipment/${
           !equipmentField.includes("RING") ? equipmentField : "ring"
         }.png`}
-        sizes="(max-width: 768px) 15vw, (max-width: 1200px) 22vw, 25vw"
+        sizes="(max-width: 768px) 15vw, (max-width: 1200px) 25vw, 33vw"
         fill
       />
     </div>

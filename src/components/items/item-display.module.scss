@@ -81,11 +81,11 @@
   .itemStatisticsWrapper {
     & > div {
       border-radius: 0.5rem;
-      border-top: 1px solid lightgreen;
+      border-top: 1px solid rgb(var(--success-first-rgb));
       padding: 0.1rem;
     }
 
-    border-bottom: 1px solid lightgreen;
+    border-bottom: 1px solid rgb(var(--success-first-rgb));
     border-radius: 0.5rem;
   }
   .statisticWrapper {
@@ -126,7 +126,7 @@
   min-height: 10dvw;
   max-height: 50dvh;
   z-index: 100;
-  border: 1px solid green;
+  border: 1px solid rgb(var(--success-second-rgb));
 
   * {
     font-size: 1.2dvh;

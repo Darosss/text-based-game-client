@@ -4,7 +4,7 @@
   flex-direction: column;
 
   & > div {
-    box-shadow: 1px 2px 3px 1px blue;
+    box-shadow: 1px 2px 3px 1px rgb(var(--secondary-first-rgb));
   }
   .turnNumber {
     background-image: var(--details-glow);
@@ -12,7 +12,7 @@
     font-size: 1.5dvw;
     width: 100%;
     text-align: center;
-    color: greenyellow;
+    color: rgb(var(--success-second-rgb));
   }
 
   .turnActionsWrapper {
@@ -26,13 +26,13 @@
     justify-content: space-around;
     align-items: center;
     width: inherit;
-    box-shadow: 2px 2px 4px 1px lightblue;
+    box-shadow: 2px 2px 4px 1px rgb(var(--secondary-first-rgb));
 
     .actionExecute {
       display: flex;
       flex-direction: column;
       & > div {
-        box-shadow: 0px 1px 1px gray;
+        box-shadow: 0px 1px 1px rgb(var(--secondary-second-rgb));
         padding: 0.5rem;
         display: flex;
 
@@ -48,30 +48,30 @@
     span {
       font-weight: 800;
       &.heroNameDefend {
-        color: darkred;
+        color: rgb(var(--danger-first-rgb));
       }
       &.heroName {
-        color: aquamarine;
+        color: rgb(var(--info-first-rgb));
       }
     }
 
     .defend {
       span {
         &.blocked {
-          color: gray;
+          color: rgb(var(--secondary-first-rgb));
         }
         &.paired {
-          color: lightblue;
+          color: rgb(var(--secondary-first-rgb));
         }
         &.dodged {
-          color: orange;
+          color: rgb(var(--info-first-rgb));
         }
       }
     }
     .attack {
       .additionalInfo {
         font-size: 1.2dvw;
-        color: yellow;
+        color: rgb(var(--success-first-rgb));
         text-align: center;
         margin-right: 0.5rem;
       }

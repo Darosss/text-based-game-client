@@ -9,10 +9,10 @@
   justify-content: center;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 100;
   font-size: 5dvw;
   visibility: hidden;
-  background-color: black;
+  background-color: rgb(var(--primary-second-rgb));
   background-image: var(--primary-glow);
   @include respond(small) {
     visibility: visible;
@@ -23,8 +23,6 @@
     top: 0;
     right: 0;
     border: 0;
-    background-color: red;
-    background-image: var(--primary-glow);
     &:hover {
       filter: hue-rotate(25deg);
     }
@@ -35,9 +33,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    width: 80%;
     li {
-      margin-top: 5rem;
+      width: 100%;
+      margin-top: 1rem;
     }
   }
 }

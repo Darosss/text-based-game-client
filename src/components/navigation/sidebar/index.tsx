@@ -21,7 +21,7 @@ const Sidebar = ({
         <Button
           className={styles.closeButton}
           onClick={toggle}
-          defaultButtonType="info"
+          defaultButtonType="danger"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

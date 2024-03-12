@@ -127,7 +127,7 @@
   }
 
   .background {
-    box-shadow: 1px 1px 3px 1px lightblue;
+    box-shadow: 1px 1px 3px 1px rgb(var(--info-first-rgb));
     border-radius: 0.25rem;
     position: absolute;
     opacity: 0.4;

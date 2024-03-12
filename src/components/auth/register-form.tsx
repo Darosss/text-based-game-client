@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./login-form.module.scss";
+import styles from "./register-form.module.scss";
 import { FormEvent } from "react";
 import { fetchBackendApi } from "@/api/fetch";
 import { useRouter } from "next/navigation";
@@ -49,20 +49,15 @@ export const RegisterForm = () => {
       <div>
         <label>Email</label>
         {/* TODO: make it email */}
-        <input type="text" name="email" placeholder="Email" required />
+        <input type="text" name="email" required />
       </div>
       <div>
         <label>Username</label>
-        <input type="text" name="username" placeholder="Username" required />
+        <input type="text" name="username" required />
       </div>
       <div>
         <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
+        <input type="password" name="password" required />
       </div>
       <div>
         <Button type="submit" defaultButtonType="primary">

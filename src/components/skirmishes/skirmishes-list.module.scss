@@ -54,12 +54,12 @@ $skirmishDataWrapperMaxHeight: 70dvh;
       background-image: var(--primary-glow);
 
       &.choosen {
-        box-shadow: 1px 1px 4px 1px green;
+        box-shadow: 1px 1px 4px 1px rgb(var(--success-first-rgb));
       }
 
       &:hover {
         cursor: pointer;
-        box-shadow: 1px -1px 4px 1px blue;
+        box-shadow: 1px -1px 4px 1px rgb(var(--primary-first-rgb));
       }
       display: flex;
       & > div {
@@ -71,7 +71,7 @@ $skirmishDataWrapperMaxHeight: 70dvh;
       span {
         font-size: 0.8em;
         font-weight: 700;
-        color: yellow;
+        color: rgb(var(--info-first-rgb));
       }
     }
   }
@@ -80,7 +80,7 @@ $skirmishDataWrapperMaxHeight: 70dvh;
     padding-top: 0.5rem;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-    box-shadow: 0px -2px 4px 0px green;
+    box-shadow: 0px -2px 4px 0px rgb(var(--success-first-rgb));
     display: flex;
     width: 100%;
     .challengeDataAction {

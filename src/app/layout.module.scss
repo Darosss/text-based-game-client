@@ -13,6 +13,8 @@
 .userDetailsWrapper {
   background-image: var(--primary-glow);
   padding: var(--user-details-padding);
+  filter: brightness(120%);
+  border-bottom: 1px solid #083344;
 }
 
 .contentWrapper {

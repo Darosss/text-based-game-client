@@ -7,7 +7,7 @@ $fightReportLogsHeight: 38dvh;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  box-shadow: 1px 2px 3px 1px white;
+  box-shadow: 1px 2px 3px 1px rgb(var(--primary-first-rgb));
   position: relative;
 
   .fightReportTooltip {
@@ -24,7 +24,7 @@ $fightReportLogsHeight: 38dvh;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: darkgreen;
+      background-color: rgb(var(--secondary-first-rgb));
       background-image: var(--details-glow);
       opacity: 1;
       max-height: 95%;
@@ -37,14 +37,16 @@ $fightReportLogsHeight: 38dvh;
   }
 
   .reportBaseDetails {
+    border-start-start-radius: 0.5rem;
+    border-start-end-radius: 0.5rem;
     max-height: $reportBaseDetailsHeight;
     min-height: $reportBaseDetailsHeight;
     width: 100%;
+
     display: flex;
     align-items: stretch;
     justify-content: space-around;
-    box-shadow: 1px 2px 3px 1px white;
-    background-color: darkgoldenrod;
+    overflow: hidden;
 
     & > div {
       padding: 0.5rem;
@@ -58,7 +60,7 @@ $fightReportLogsHeight: 38dvh;
       flex-wrap: wrap;
       overflow-x: hidden;
       .itemLootWrapper {
-        box-shadow: 1px 1px 4px 1px yellow;
+        box-shadow: 1px 1px 4px 1px rgb(var(--info-first-rgb));
         margin-left: 0.5rem;
         display: flex;
         flex-direction: column;
@@ -82,15 +84,13 @@ $fightReportLogsHeight: 38dvh;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid gainsboro;
-
+      border-top: 1px solid rgb(var(--info-second-rgb));
       & > div {
         max-width: 50%;
         min-width: 50%;
         height: 100%;
         display: flex;
         background-image: var(--details-glow);
-        background-color: darkgoldenrod;
       }
 
       .navigationHeroPreview {

@@ -133,7 +133,7 @@ export const MercenaryItemField = ({
         <Image
           alt={ItemType.MERCENARY}
           src={`/images/equipment/${ItemType.MERCENARY.toString().toLowerCase()}.png`}
-          sizes="(max-width: 768px) 15vw, (max-width: 1200px) 22vw, 25vw"
+          sizes="(max-width: 768px) 15vw, (max-width: 1200px) 25vw, 33vw"
           fill
         />
       )}
