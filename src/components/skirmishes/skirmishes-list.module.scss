@@ -28,8 +28,8 @@ $skirmishDataWrapperMaxHeight: 70dvh;
     & > div {
       max-width: 45%;
       min-width: 45%;
-      min-height: 8dvh;
-      max-height: 8dvh;
+      min-height: 20%;
+      max-height: 100%;
       align-items: center;
       & > div {
         font-weight: 600;
@@ -88,6 +88,17 @@ $skirmishDataWrapperMaxHeight: 70dvh;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+    }
+    .challengeActions {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      button {
+        max-width: 80%;
+        height: 100%;
+      }
     }
   }
 }

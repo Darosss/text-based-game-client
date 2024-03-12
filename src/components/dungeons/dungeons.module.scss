@@ -1,24 +1,24 @@
 .dungeonsWrapper {
   width: 100%;
   position: relative;
-
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
   align-items: center;
 
-  & > * {
-    max-height: 5vh;
-    min-height: 5vh;
+  & > div:first-child {
+    margin-top: 10%;
+  }
+
+  & > div {
+    width: 100%;
+    text-align: center;
   }
 
   .dungeonDetails {
+    flex: 1 0 50%;
+    flex-grow: 0;
     display: flex;
-    max-height: 100%;
-    min-height: 100%;
-    min-width: 100%;
-    max-width: 100%;
     align-items: center;
     justify-content: center;
     & > div {
@@ -42,10 +42,13 @@
   }
 
   .dungeonActionsWrapper {
+    flex: 0 0 10%;
     width: 100%;
     text-align: center;
+    padding: 0.5rem;
     & > button {
       min-width: 80%;
+      height: 100%;
     }
 
     .reportDisplayWrapper {

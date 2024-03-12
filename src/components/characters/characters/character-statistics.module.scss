@@ -7,17 +7,17 @@
   border-top-right-radius: 0.5rem;
   flex-wrap: wrap;
   min-width: 100%;
+
   .baseDetails {
-    padding: 0.5rem;
     min-width: 100%;
-    & > div {
-      display: flex;
-      justify-content: space-between;
-    }
   }
 
   & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-right: 1px solid blue;
+    border-top: 1px solid blue;
     border-radius: 0.5rem;
     * {
       font-size: 0.8dvw !important;

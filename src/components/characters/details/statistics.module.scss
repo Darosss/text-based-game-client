@@ -35,3 +35,17 @@
     }
   }
 }
+
+.baseDetails {
+  padding: 0.5rem;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    border-radius: 0.5rem;
+    * {
+      font-size: 1.3em !important;
+    }
+  }
+}

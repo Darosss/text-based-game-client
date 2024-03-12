@@ -133,7 +133,7 @@ const ChallengeDataAction = ({
     <div className={styles.challengeDataAction}>
       <div>TODO: if backend will have desc. soon description :P </div>
 
-      <div>
+      <div className={styles.challengeActions}>
         <Button onClick={() => fetchData()} defaultButtonType="success">
           Start
         </Button>

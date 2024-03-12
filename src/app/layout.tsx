@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import styles from "./layout.module.scss";
 import "@/styles/globals.scss";
 import "react-toastify/dist/ReactToastify.css";
 import Navigation from "../components/navigation";
@@ -21,10 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <div className={styles.contentBackground}></div>
         <div>
           <Navigation />
           <ToastContainer />
-          {children}
+          <div className={styles.contentWrapper}>{children}</div>
         </div>
       </body>
     </html>

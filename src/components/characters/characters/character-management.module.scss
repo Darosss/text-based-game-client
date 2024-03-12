@@ -33,6 +33,9 @@
   .tab {
     grid-area: TAB;
     max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     .tabNavigation {
       display: flex;
       justify-content: space-around;
@@ -42,9 +45,8 @@
       }
     }
     .tabContent {
+      flex-grow: 1;
       display: flex;
-      max-height: 90%;
-      min-height: 90%;
       overflow: hidden;
     }
   }

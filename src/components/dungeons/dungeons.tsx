@@ -36,7 +36,9 @@ export const Dungeons = () => {
 
   return (
     <div className={styles.dungeonsWrapper}>
-      <h2>Current level: {currentLevel}</h2>
+      <div>
+        <h2>Current level: {currentLevel}</h2>
+      </div>
 
       <DungeonDetails
         currentMaxLevel={data.currentLevel}

@@ -1,8 +1,13 @@
-import { HeroAdditionalStatistics, HeroBaseStatistics } from "@/api/types";
+import {
+  CharacterTypesAlias,
+  HeroAdditionalStatistics,
+  HeroBaseStatistics,
+} from "@/api/types";
 import styles from "./statistics.module.scss";
 import { useState } from "react";
 import { Button } from "@/components/common/button";
 import { fetchBackendApi } from "@/api/fetch";
+import { isMercenaryCharacter } from "@/api/utils";
 
 type BaseStatisticsProps = {
   statistics: HeroBaseStatistics;
@@ -106,3 +111,36 @@ export const AdditionalStatistics = ({
   );
 };
 //TODO: tooltip with advanced statistics display
+
+type BaseDetailsProps = {
+  character: CharacterTypesAlias;
+};
+
+export const BaseDetails = ({ character }: BaseDetailsProps) => {
+  const { name, level, health } = character;
+  const isMercenary = isMercenaryCharacter(character);
+  return (
+    <div className={styles.baseDetails}>
+      <div>
+        <div>Name</div>
+        <div> {name}</div>
+      </div>
+      <div>
+        <div>Level </div>
+        <div>{level}</div>
+      </div>
+      <div>
+        <div>Health points</div>
+        <div>{health}</div>
+      </div>
+      {!isMercenary ? (
+        <div>
+          <div>Experience </div>
+          <div>
+            {character.experience} / {character.expToLevelUp}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+};

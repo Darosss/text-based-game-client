@@ -8,12 +8,12 @@ import { CharacterManagementContextProvider } from "@/components/characters/char
 
 export default function Overview() {
   return (
-    <div className={styles.overview}>
+    <main className={styles.overview}>
       <DndProvider backend={HTML5Backend}>
         <CharacterManagementContextProvider>
           <CharacterManagement />
         </CharacterManagementContextProvider>
       </DndProvider>
-    </div>
+    </main>
   );
 }
