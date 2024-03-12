@@ -6,6 +6,7 @@ import { FormEvent } from "react";
 import { COOKIE_TOKEN_NAME, fetchBackendApi } from "@/api/fetch";
 import { useRouter } from "next/navigation";
 import { Button } from "../common/button";
+import { useAuthContext } from "../../app/auth/auth-context";
 
 type LoginResponse = {
   email: string;
@@ -21,6 +22,7 @@ type LoginFetchBody = {
 export const LoginForm = () => {
   const router = useRouter();
 
+  const { setIsLoggedIn } = useAuthContext();
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -42,6 +44,8 @@ export const LoginForm = () => {
         expires: new Date(data.expirationTime),
         sameSite: "strict",
       });
+      setIsLoggedIn(true);
+
       router.push("/");
     });
   }
