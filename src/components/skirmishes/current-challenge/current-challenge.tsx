@@ -48,6 +48,7 @@ export const CurrentChallenge = ({
       fetchData();
     }
   }, [fetchData, remainingTime]);
+
   return (
     <div className={styles.currentChallengeWrapper}>
       {data ? (

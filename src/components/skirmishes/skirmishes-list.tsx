@@ -6,6 +6,7 @@ import { CurrentChallenge } from "./current-challenge/current-challenge";
 import { ChallengeData, ChoosenChallange } from "./types";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
+import { useUserContext } from "../user/user-context";
 
 type SkirmishesResponse = {
   challenges: { [id: string]: ChallengeData };
@@ -16,6 +17,10 @@ type SkirmishesResponse = {
 };
 
 export const SkirmishesList = () => {
+  const {
+    apiUser: { fetchData: fetchUserData },
+  } = useUserContext();
+
   const {
     api: {
       isPending,
@@ -40,7 +45,10 @@ export const SkirmishesList = () => {
           <CurrentChallenge
             chosenChallenge={data.chosenChallenge}
             chosenChallengeData={data.chosenChallengeData}
-            onConfirmReport={fetchData}
+            onConfirmReport={() => {
+              fetchData();
+              fetchUserData();
+            }}
             onCancel={fetchData}
           />
         ) : (

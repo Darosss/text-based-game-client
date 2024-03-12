@@ -2,7 +2,6 @@ import styles from "./character-management.module.scss";
 import { Equipment } from "../equipment/equipment";
 import { InventoryControlContextProvider } from "../inventory/inventory-control-context";
 import { CharacterStatistics } from "./character-statistics";
-import { UserContextProvider } from "@/components/user/user-context";
 import { useCharacterManagementContext } from "./character-management-context";
 import { Inventory } from "../inventory/inventory";
 import { CharacterAvatar } from "./character-avatar";
@@ -29,37 +28,32 @@ export const CharacterManagement = () => {
   return (
     <div className={styles.characterWrapper}>
       <InventoryControlContextProvider>
-        <UserContextProvider>
-          <div className={styles.userDetails}>
-            <UserDetails />
+        <div className={styles.avatar}>
+          <CharacterAvatar />
+        </div>
+        <MerchantContextProvider>
+          <div className={styles.inventory}>
+            <Inventory data={inventoryData} />
           </div>
-          <div className={styles.avatar}>
-            <CharacterAvatar />
+          <div className={styles.tab}>
+            <div className={styles.tabNavigation}>
+              {Object.values(CurrentView).map((view) => (
+                <Button
+                  key={view}
+                  defaultButtonType={`${
+                    currentView === view ? "success" : "info"
+                  }`}
+                  onClick={() => setCurrentView(view)}
+                >
+                  {view}
+                </Button>
+              ))}
+            </div>
+            <div className={styles.tabContent}>
+              <TabView currentView={currentView} />
+            </div>
           </div>
-          <MerchantContextProvider>
-            <div className={styles.inventory}>
-              <Inventory data={inventoryData} />
-            </div>
-            <div className={styles.tab}>
-              <div className={styles.tabNavigation}>
-                {Object.values(CurrentView).map((view) => (
-                  <Button
-                    key={view}
-                    defaultButtonType={`${
-                      currentView === view ? "success" : "info"
-                    }`}
-                    onClick={() => setCurrentView(view)}
-                  >
-                    {view}
-                  </Button>
-                ))}
-              </div>
-              <div className={styles.tabContent}>
-                <TabView currentView={currentView} />
-              </div>
-            </div>
-          </MerchantContextProvider>
-        </UserContextProvider>
+        </MerchantContextProvider>
         <div className={styles.equipment}>
           <Equipment />
         </div>

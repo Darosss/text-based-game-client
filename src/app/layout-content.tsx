@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import { AuthContextProvider } from "./auth/auth-context";
 import styles from "./layout.module.scss";
 import { ReactNode } from "react";
+import { UserContextProvider } from "@/components/user/user-context";
+import { UserDetails } from "@/components/user/user-details";
 
 type LayoutContentProps = {
   children: ReactNode;
@@ -12,9 +14,14 @@ type LayoutContentProps = {
 export const LayoutContent = ({ children }: LayoutContentProps) => {
   return (
     <AuthContextProvider>
-      <Navigation />
-      <ToastContainer />
-      <div className={styles.contentWrapper}>{children}</div>
+      <UserContextProvider>
+        <Navigation />
+        <div className={styles.userDetailsWrapper}>
+          <UserDetails />
+        </div>
+        <ToastContainer />
+        <div className={styles.contentWrapper}>{children}</div>
+      </UserContextProvider>
     </AuthContextProvider>
   );
 };

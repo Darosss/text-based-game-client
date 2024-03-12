@@ -6,10 +6,9 @@
   display: grid;
   max-height: 90dvh;
   grid-template-columns: 1fr 1fr 0.8fr 0.8fr;
-  grid-template-rows: 0.25fr 1.5fr 1fr 1.5fr 1.5fr;
+  grid-template-rows: 0.25fr 1.5fr 1fr 1.5fr;
   gap: 0px 0px;
   grid-template-areas:
-    "USER-DETAILS USER-DETAILS USER-DETAILS USER-DETAILS"
     "AVATAR EQUIPMENT TAB TAB"
     "AVATAR EQUIPMENT TAB TAB"
     "INVENTORY INVENTORY TAB TAB"
@@ -21,9 +20,6 @@
     position: relative;
   }
 
-  .userDetails {
-    grid-area: USER-DETAILS;
-  }
   .avatar {
     grid-area: AVATAR;
   }

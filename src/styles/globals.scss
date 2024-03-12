@@ -1,4 +1,9 @@
 :root {
+  --navbar-height: 10dvh;
+  --user-details-padding: 1dvh;
+  --content-height: calc(
+    100dvh - var(--navbar-height) - 3dvh - var(--user-details-padding)
+  );
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
