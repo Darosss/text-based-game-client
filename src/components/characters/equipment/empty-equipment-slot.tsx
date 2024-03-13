@@ -61,7 +61,9 @@ export const EmptyEquipmentSlot: FC<EmptyEquipmentSlotProps> = ({
       <Image
         alt={equipmentField}
         src={`/images/equipment/${
-          !equipmentField.includes("RING") ? equipmentField : "ring"
+          !equipmentField.includes("RING")
+            ? equipmentField.toLowerCase()
+            : "ring"
         }.png`}
         sizes="(max-width: 768px) 15vw, (max-width: 1200px) 25vw, 33vw"
         fill
