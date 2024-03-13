@@ -24,6 +24,7 @@ export type UseFetchReturnType<ResponseT, BodyT> = {
   fetchData: (
     params?: FetchDataParams<BodyT>
   ) => Promise<ApiResponseBody<ResponseT> | null>;
+  clearCache: () => void;
 };
 
 type UseFetchParams<BodyType> = {
@@ -75,9 +76,13 @@ export const useFetch = <ResponseT, BodyT = unknown>(
       });
   }, [body, method, notification, url]);
 
+  const clearCache = useCallback(() => {
+    setResponseData({ message: null, data: null });
+  }, []);
+
   useEffect(() => {
     if (!manual) fetchData();
   }, [fetchData, manual]);
 
-  return { api: { responseData, isPending, error }, fetchData };
+  return { api: { responseData, isPending, error }, fetchData, clearCache };
 };
