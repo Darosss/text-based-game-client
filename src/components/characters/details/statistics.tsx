@@ -4,7 +4,7 @@ import {
   HeroBaseStatistics,
 } from "@/api/types";
 import styles from "./statistics.module.scss";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Button } from "@/components/common/button";
 import { fetchBackendApi } from "@/api/fetch";
 import { isMercenaryCharacter } from "@/api/utils";
@@ -16,10 +16,10 @@ type BaseStatisticsProps = {
   };
 };
 
-export const BaseStatistics = ({
+export const BaseStatistics: FC<BaseStatisticsProps> = ({
   statistics,
   canTrain,
-}: BaseStatisticsProps) => {
+}) => {
   return (
     <div className={styles.characterStatistics}>
       <div>Statistics</div>
@@ -88,10 +88,10 @@ type AdditionalStatisticsProps = {
   additionalClassName?: string;
 };
 
-export const AdditionalStatistics = ({
+export const AdditionalStatistics: FC<AdditionalStatisticsProps> = ({
   statistics,
   additionalClassName,
-}: AdditionalStatisticsProps) => {
+}) => {
   return (
     <div
       className={`${styles.characterAdditionalStatistics} ${
@@ -116,7 +116,7 @@ type BaseDetailsProps = {
   character: CharacterTypesAlias;
 };
 
-export const BaseDetails = ({ character }: BaseDetailsProps) => {
+export const BaseDetails: FC<BaseDetailsProps> = ({ character }) => {
   const { name, level, health } = character;
   const isMercenary = isMercenaryCharacter(character);
   return (

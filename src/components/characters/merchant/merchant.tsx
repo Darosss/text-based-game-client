@@ -1,7 +1,7 @@
 "use client";
 
 import { InventoryItemType, ItemsCostType } from "@/api/types";
-import React, { useMemo, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import styles from "./merchant.module.scss";
 import { ItemTooltipContentWrapper } from "@/components/items/item-display";
 import { FilterType, SortType } from "@/components/items/types";
@@ -23,14 +23,13 @@ import {
 } from "../dndTypes";
 import { PossibleDropResultActions } from "../equipment/enums";
 import { MerchantCommodityTimer } from "./merchant-commodity-timer";
-type MerchantProps = {};
 
 const TOOLTIP_ID = "merchant-item-tooltip";
 
 const findCostForItem = (itemsCost: ItemsCostType, itemId: string) =>
   Object.entries(itemsCost).find(([id]) => id === itemId);
 
-export const Merchant = ({}: MerchantProps) => {
+export const Merchant: FC = () => {
   const [{ canDrop, isOver }, drop] = useDrop<
     unknown,
     BaseDropResultsFromInventory,

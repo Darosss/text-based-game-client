@@ -2,12 +2,13 @@ import { ReportTurn } from "@/api/types";
 import styles from "./fight-report-turns.module.scss";
 import { AttackReportDetails } from "./attack-report-details";
 import { DefendReportDetails } from "./defend-report-details";
+import { FC } from "react";
 
 type FightReportTurnsProps = {
   turns: ReportTurn[];
 };
 
-export const FightReportTurns = ({ turns }: FightReportTurnsProps) => {
+export const FightReportTurns: FC<FightReportTurnsProps> = ({ turns }) => {
   {
     return turns.map((turnReport, index) => (
       <div key={index} className={styles.fightTurnReportWrapper}>

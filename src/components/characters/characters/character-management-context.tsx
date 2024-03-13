@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  FC,
   SetStateAction,
   createContext,
   useContext,
@@ -38,9 +39,9 @@ type CharacterManagementContextProps = {
 export const CharacterManagementContext =
   createContext<CharacterManagementContextType | null>(null);
 
-export const CharacterManagementContextProvider = ({
-  children,
-}: CharacterManagementContextProps): React.JSX.Element => {
+export const CharacterManagementContextProvider: FC<
+  CharacterManagementContextProps
+> = ({ children }) => {
   const [currentCharacterId, setCurrentCharacterId] = useState<string | null>(
     null
   );

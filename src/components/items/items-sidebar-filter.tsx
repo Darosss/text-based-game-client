@@ -1,5 +1,5 @@
 import { ItemType } from "@/api/enums";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { Button } from "../common/button";
 import Image from "next/image";
 import styles from "./items-sidebar-filter.module.scss";
@@ -10,10 +10,10 @@ type ItemsSidebarFilterProps = {
   setFilter: Dispatch<SetStateAction<FilterType>>;
 };
 
-export const ItemsSidebarFilter = ({
+export const ItemsSidebarFilter: FC<ItemsSidebarFilterProps> = ({
   filter,
   setFilter,
-}: ItemsSidebarFilterProps) => {
+}) => {
   return (
     <div className={styles.itemsSidebarFilterWrapper}>
       {Object.values(ItemType).map((type) => {

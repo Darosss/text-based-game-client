@@ -3,7 +3,7 @@
 import { useFetch } from "@/hooks/useFetch";
 import styles from "./character-creator.module.scss";
 import { Button } from "@/components/common/button";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 
 /* TODO: 
@@ -15,7 +15,7 @@ for now it's just create button
 
 */
 
-export const CharacterCreator: () => JSX.Element = () => {
+export const CharacterCreator: FC = () => {
   const {
     apiCharacter: { fetchData: fetchCharacterData },
   } = useCharacterManagementContext();

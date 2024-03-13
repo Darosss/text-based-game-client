@@ -1,7 +1,7 @@
 import { InventoryItemType, UnEquipResponseType } from "@/api/types";
 import styles from "./equipment.module.scss";
 import { CharacterEquipmentFields } from "@/api/enums";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ItemTooltipContentWrapper } from "@/components/items/item-display";
 import React from "react";
 import { useCharacterManagementContext } from "../characters/character-management-context";
@@ -12,14 +12,7 @@ import { MercenaryItemField } from "./mercenary-item-field";
 import { HeroSelect } from "./hero-select";
 import { fetchBackendApi } from "@/api/fetch";
 
-type EquipmentProps = {};
-
-type UnEquipParameters = {
-  characterId: string;
-  slot: CharacterEquipmentFields;
-};
-
-export const Equipment = ({}: EquipmentProps) => {
+export const Equipment: FC = () => {
   const tooltipId = "equipment-tooltip";
 
   const {
@@ -29,8 +22,6 @@ export const Equipment = ({}: EquipmentProps) => {
     },
     apiInventory: { fetchData: fetchInventoryData },
   } = useCharacterManagementContext();
-  const [unEquipParameters, setUnEquipParameters] =
-    useState<UnEquipParameters | null>(null);
 
   const [currentItem, setCurrentItem] = useState<InventoryItemType | null>(
     null

@@ -26,6 +26,7 @@ import Image from "next/image";
 import { fetchBackendApi } from "@/api/fetch";
 import { allowDropToPrefixes } from "../dndHelpers";
 import { PossibleDropResultActions } from "./enums";
+import { FC } from "react";
 
 type MercenaryItemFieldProps = {
   characterId: string;
@@ -34,12 +35,12 @@ type MercenaryItemFieldProps = {
   tooltipId: string;
 };
 
-export const MercenaryItemField = ({
+export const MercenaryItemField: FC<MercenaryItemFieldProps> = ({
   characterId,
   mercenaryItem,
   onHover,
   tooltipId,
-}: MercenaryItemFieldProps) => {
+}) => {
   const {
     apiCharacter: { fetchData: fetchCharacterData },
     apiInventory: { fetchData: fetchInventoryData },

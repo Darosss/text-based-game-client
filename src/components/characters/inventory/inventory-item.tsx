@@ -9,6 +9,7 @@ import {
 } from "../dndTypes";
 import { allowDropToPrefixes } from "../dndHelpers";
 import { PossibleDropResultActions } from "../equipment/enums";
+import { FC } from "react";
 
 type InventoryItemProps = {
   inventoryItem: [string, InventoryItemType];
@@ -24,7 +25,7 @@ type InventoryItemProps = {
   onItemSell: (itemId: string) => void;
 };
 
-export const InventoryItem = ({
+export const InventoryItem: FC<InventoryItemProps> = ({
   inventoryItem: [id, item],
   tooltipId,
   onHover,
@@ -32,7 +33,7 @@ export const InventoryItem = ({
   onItemConsume,
   onMercenaryWear,
   onItemSell,
-}: InventoryItemProps) => {
+}) => {
   const [{ opacity }, drag] = useDrag<
     DragObjectInventoryItem,
     DropResultAsInventoryItem,

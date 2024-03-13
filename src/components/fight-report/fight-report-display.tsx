@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { FightReportType, InventoryItemType } from "@/api/types";
 import styles from "./fight-report.module.scss";
 import {
@@ -21,7 +21,7 @@ enum CurrentView {
 }
 const tooltipId = "equipment-tooltip";
 
-export const FightReportDisplay = ({ report }: FightReportDisplayProps) => {
+export const FightReportDisplay: FC<FightReportDisplayProps> = ({ report }) => {
   const [itemOnHover, setItemOnHover] = useState<InventoryItemType | null>(
     null
   );

@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { FC, createContext, useContext } from "react";
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 import { YourMerchantResponseData } from "@/api/types";
 import { ApiDataNotNullable } from "@/api/fetch";
@@ -22,9 +22,9 @@ type MerchantContextProps = {
 
 export const MerchantContext = createContext<MerchantContextType | null>(null);
 
-export const MerchantContextProvider = ({
+export const MerchantContextProvider: FC<MerchantContextProps> = ({
   children,
-}: MerchantContextProps): React.JSX.Element => {
+}) => {
   const { api: merchantApi, fetchData: fetchMerchantData } =
     useFetch<YourMerchantResponseData>({
       url: "merchants/your-merchant",

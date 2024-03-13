@@ -9,6 +9,7 @@ import {
   DropResultAsEquipmentItem,
 } from "../dndTypes";
 import { PossibleDropResultActions } from "./enums";
+import { FC } from "react";
 
 type EquipmentItemProps = {
   currentField: CharacterEquipmentFields;
@@ -22,14 +23,14 @@ type EquipmentItemProps = {
   ) => void;
 };
 
-export const EquipmentItem = ({
+export const EquipmentItem: FC<EquipmentItemProps> = ({
   item,
   onHover,
   tooltipId,
   onItemUnEquip,
   characterId,
   currentField,
-}: EquipmentItemProps) => {
+}) => {
   const [{ opacity }, drag] = useDrag<
     DropDragObjectIntoInventory,
     DropResultAsEquipmentItem,

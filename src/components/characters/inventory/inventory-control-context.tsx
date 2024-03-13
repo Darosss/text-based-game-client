@@ -1,5 +1,6 @@
 import {
   Dispatch,
+  FC,
   SetStateAction,
   createContext,
   useContext,
@@ -21,9 +22,9 @@ type InventoryControlContextProps = {
 export const InventoryControlContext =
   createContext<InventoryControlContextType | null>(null);
 
-export const InventoryControlContextProvider = ({
-  children,
-}: InventoryControlContextProps): React.JSX.Element => {
+export const InventoryControlContextProvider: FC<
+  InventoryControlContextProps
+> = ({ children }) => {
   const [filter, setFilter] = useState<FilterType>({
     name: null,
     showType: [],

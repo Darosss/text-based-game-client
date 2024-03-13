@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import styles from "./items-container.module.scss";
 import { ItemsHeaderFilter } from "./items-header-filter";
 import { ItemsSidebarFilter } from "./items-sidebar-filter";
@@ -13,14 +13,14 @@ type ItemsContainerProps = {
   className?: string;
 };
 
-export const ItemsContainer = ({
+export const ItemsContainer: FC<ItemsContainerProps> = ({
   children,
   filter,
   setFilter,
   sort,
   setSort,
   className,
-}: ItemsContainerProps) => {
+}) => {
   return (
     <div
       className={`${styles.itemsContainerWrapper} ${

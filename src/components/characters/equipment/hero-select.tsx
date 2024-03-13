@@ -2,11 +2,12 @@ import { Button } from "@/components/common/button";
 import { useFetch } from "@/hooks/useFetch";
 import { useCharacterManagementContext } from "../characters/character-management-context";
 import { HeroMercenaryCreate } from "./hero-mercenary-create";
+import { FC } from "react";
 
 //TODO: this will be from configs from backend latter.
 const MAX_CHARACTERS_PER_USER = 4;
 
-export const HeroSelect = () => {
+export const HeroSelect: FC = () => {
   const {
     api: {
       responseData: { data: charactersIdsData },

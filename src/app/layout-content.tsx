@@ -3,7 +3,7 @@ import Navigation from "@/components/navigation";
 import { ToastContainer } from "react-toastify";
 import { AuthContextProvider } from "./auth/auth-context";
 import styles from "./layout.module.scss";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { UserContextProvider } from "@/components/user/user-context";
 import { UserDetails } from "@/components/user/user-details";
 
@@ -11,7 +11,7 @@ type LayoutContentProps = {
   children: ReactNode;
 };
 
-export const LayoutContent = ({ children }: LayoutContentProps) => {
+export const LayoutContent: FC<LayoutContentProps> = ({ children }) => {
   return (
     <AuthContextProvider>
       <UserContextProvider>

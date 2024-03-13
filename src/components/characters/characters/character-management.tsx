@@ -5,8 +5,7 @@ import { CharacterStatistics } from "./character-statistics";
 import { useCharacterManagementContext } from "./character-management-context";
 import { Inventory } from "../inventory/inventory";
 import { CharacterAvatar } from "./character-avatar";
-import { UserDetails } from "@/components/user/user-details";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Button } from "@/components/common/button";
 import { Merchant } from "@/components/characters/merchant/merchant";
 import { MerchantContextProvider } from "../merchant/merchant-context";
@@ -16,7 +15,7 @@ enum CurrentView {
   MERCHANT = "Merchant",
 }
 
-export const CharacterManagement = () => {
+export const CharacterManagement: FC = () => {
   const {
     apiInventory: {
       api: { data: inventoryData },

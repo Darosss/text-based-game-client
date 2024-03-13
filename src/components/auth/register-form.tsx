@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./register-form.module.scss";
-import { FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { fetchBackendApi } from "@/api/fetch";
 import { useRouter } from "next/navigation";
 import { Button } from "../common/button";
@@ -15,7 +15,7 @@ type LoginFetchBody = {
   password: string;
 };
 
-export const RegisterForm = () => {
+export const RegisterForm: FC = () => {
   const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {

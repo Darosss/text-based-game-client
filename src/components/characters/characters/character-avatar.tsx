@@ -9,8 +9,9 @@ import {
   UseDropBaseCollectedProps,
 } from "../dndTypes";
 import { PossibleDropResultActions } from "../equipment/enums";
+import { FC } from "react";
 
-export const CharacterAvatar = () => {
+export const CharacterAvatar: FC = () => {
   const {
     apiCharacter: {
       api: { data },

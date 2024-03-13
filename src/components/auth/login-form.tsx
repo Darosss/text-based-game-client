@@ -2,7 +2,7 @@
 
 import styles from "./login-form.module.scss";
 import Cookies from "js-cookie";
-import { FormEvent } from "react";
+import { FC, FormEvent } from "react";
 import { COOKIE_TOKEN_NAME, fetchBackendApi } from "@/api/fetch";
 import { useRouter } from "next/navigation";
 import { Button } from "../common/button";
@@ -19,7 +19,7 @@ type LoginFetchBody = {
   password: string;
 };
 
-export const LoginForm = () => {
+export const LoginForm: FC = () => {
   const router = useRouter();
 
   const { setIsLoggedIn } = useAuthContext();

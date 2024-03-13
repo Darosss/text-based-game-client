@@ -13,12 +13,13 @@ import {
   InventoryDropResult,
   UseDropBaseCollectedProps,
 } from "../dndTypes";
+import { FC } from "react";
 
 type InventoryProps = {
   data: InventoryType;
 };
 
-export const Inventory = ({ data }: InventoryProps) => {
+export const Inventory: FC<InventoryProps> = ({ data }) => {
   const [{ canDrop, isOver }, drop] = useDrop<
     DropDragObjectIntoInventory,
     InventoryDropResult,

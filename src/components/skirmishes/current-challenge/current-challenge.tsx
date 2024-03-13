@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import styles from "./current-challenge.module.scss";
 import { ChallengeData, ChoosenChallange } from "../types";
 import { formatTime } from "@/utils/utils";
@@ -18,12 +18,12 @@ type CurrentChallengeProps = {
 
 type CurrentChallengeResponse = FightReportType;
 
-export const CurrentChallenge = ({
+export const CurrentChallenge: FC<CurrentChallengeProps> = ({
   chosenChallenge,
   chosenChallengeData,
   onConfirmReport,
   onCancel,
-}: CurrentChallengeProps) => {
+}) => {
   const {
     api: {
       isPending,

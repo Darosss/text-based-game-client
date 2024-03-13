@@ -3,7 +3,7 @@
 import { ItemStatisticStatsList, InventoryItemType } from "@/api/types";
 import styles from "./item-display.module.scss";
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
 import { Tooltip } from "react-tooltip";
 import { isConsumableItem, isWearableItem } from "@/api/utils";
 type ItemDisplayProps = {
@@ -18,14 +18,14 @@ type ItemDisplayProps = {
   };
 };
 
-export const ItemDisplay = ({
+export const ItemDisplay: FC<ItemDisplayProps> = ({
   item,
   tooltipId,
   onHover,
   refForWrapper,
   opacity,
   costOptions,
-}: ItemDisplayProps) => {
+}) => {
   return (
     <div
       data-tooltip-id={tooltipId}
@@ -67,7 +67,9 @@ type ItemStatisticsProps<StatNameType extends string> = {
 };
 
 //TODO: here shoould be an enum or type depends on statistic
-export const ItemStatistics = ({ statistics }: ItemStatisticsProps<string>) => {
+export const ItemStatistics: FC<ItemStatisticsProps<string>> = ({
+  statistics,
+}) => {
   return Object.entries(statistics)
     .sort()
     .map(([name, stat]) => {
@@ -110,7 +112,7 @@ type ItemTooltipContentProps = {
   item: InventoryItemType;
 };
 
-export const ItemTooltipContent = ({ item }: ItemTooltipContentProps) => {
+export const ItemTooltipContent: FC<ItemTooltipContentProps> = ({ item }) => {
   const wearable = isWearableItem(item);
   const consumable = isConsumableItem(item);
 
@@ -161,12 +163,12 @@ type ItemTooltipContentWrapperProps = {
   customClassName?: string;
 };
 
-export const ItemTooltipContentWrapper = ({
+export const ItemTooltipContentWrapper: FC<ItemTooltipContentWrapperProps> = ({
   item,
   tooltipId,
   opacity,
   customClassName,
-}: ItemTooltipContentWrapperProps) => {
+}) => {
   return (
     <Tooltip
       className={`${styles.itemsTooltip} ${customClassName}`}

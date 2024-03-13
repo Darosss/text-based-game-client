@@ -10,6 +10,7 @@ import styles from "./merchant.module.scss";
 import { useUserContext } from "@/components/user/user-context";
 import { allowDropToPrefixes } from "../dndHelpers";
 import { PossibleDropResultActions } from "../equipment/enums";
+import { FC } from "react";
 
 type MerchantItemData = {
   item: InventoryItemType;
@@ -23,12 +24,12 @@ type MerchantItemsProps = {
   onItemBuy: (id: string, cost: number) => void;
 };
 
-export const MerchantItem = ({
+export const MerchantItem: FC<MerchantItemsProps> = ({
   itemData: { item, cost },
   tooltipId,
   onHover,
   onItemBuy,
-}: MerchantItemsProps) => {
+}) => {
   const [{ opacity }, drag] = useDrag<
     DropDragObjectIntoInventory,
     DropResultAsMerchantItem,

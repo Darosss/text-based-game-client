@@ -1,5 +1,6 @@
 import { ReportTurnActionMoveAttack } from "@/api/types";
 import styles from "./fight-report-turns.module.scss";
+import { FC } from "react";
 
 type AttackReportDetailProps = {
   attack: ReportTurnActionMoveAttack;
@@ -7,11 +8,11 @@ type AttackReportDetailProps = {
   asParry?: boolean;
 };
 
-export const AttackReportDetails = ({
+export const AttackReportDetails: FC<AttackReportDetailProps> = ({
   attack,
   defenderName,
   asParry,
-}: AttackReportDetailProps) => {
+}) => {
   const { name, baseValues, debuffs, withDoubledAttack } = attack;
   return (
     <div className={styles.attack}>

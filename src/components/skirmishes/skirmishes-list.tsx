@@ -4,7 +4,7 @@ import { useFetch } from "@/hooks/useFetch";
 import styles from "./skirmishes-list.module.scss";
 import { CurrentChallenge } from "./current-challenge/current-challenge";
 import { ChallengeData, ChoosenChallange } from "./types";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import { useUserContext } from "../user/user-context";
 
@@ -16,7 +16,7 @@ type SkirmishesResponse = {
   id: string;
 };
 
-export const SkirmishesList = () => {
+export const SkirmishesList: FC = () => {
   const {
     apiUser: { fetchData: fetchUserData },
   } = useUserContext();

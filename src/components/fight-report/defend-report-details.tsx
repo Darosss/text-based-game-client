@@ -1,11 +1,14 @@
 import { ReportTurnActionMoveDefend } from "@/api/types";
 import styles from "./fight-report-turns.module.scss";
+import { FC } from "react";
 
 type DefendReportDetailProps = {
   defend: ReportTurnActionMoveDefend;
 };
 
-export const DefendReportDetails = ({ defend }: DefendReportDetailProps) => {
+export const DefendReportDetails: FC<DefendReportDetailProps> = ({
+  defend,
+}) => {
   const { defendType, name, health, receivedDamage, parryAttack } = defend;
   return (
     <div className={styles.defend}>

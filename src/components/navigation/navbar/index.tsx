@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from ".//navbar.module.scss";
 import Logo from "./Logo";
 import { MenuLinks } from "../menu-links";
@@ -8,9 +8,7 @@ type NavbarProps = {
   toggle: () => void;
 };
 
-type NavbarFn = (props: NavbarProps) => React.JSX.Element;
-
-const Navbar: NavbarFn = ({ toggle }) => {
+const Navbar: FC<NavbarProps> = ({ toggle }) => {
   return (
     <>
       <div className={styles.wrapper}>

@@ -3,8 +3,9 @@ import { Button } from "../common/button";
 import { COOKIE_TOKEN_NAME } from "@/api/fetch";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../app/auth/auth-context";
+import { FC } from "react";
 
-export const LogoutButton = () => {
+export const LogoutButton: FC = () => {
   const { setIsLoggedIn } = useAuthContext();
   const router = useRouter();
   const handleOnLogout = () => {

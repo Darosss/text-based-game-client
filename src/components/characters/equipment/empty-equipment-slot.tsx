@@ -11,16 +11,17 @@ import {
   UseDropBaseCollectedProps,
 } from "../dndTypes";
 import { PossibleDropResultActions } from "./enums";
+import { FC } from "react";
 
 type EmptyEquipmentSlotProps = {
   equipmentField: CharacterEquipmentFields;
   characterId: string;
 };
 
-export const EmptyEquipmentSlot = ({
+export const EmptyEquipmentSlot: FC<EmptyEquipmentSlotProps> = ({
   equipmentField,
   characterId,
-}: EmptyEquipmentSlotProps) => {
+}) => {
   const { setFilter } = useInventoryControlContext();
   const [{ canDrop, isOver }, drop] = useDrop<
     unknown,

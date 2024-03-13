@@ -4,8 +4,9 @@ import { LogoutButton } from "../auth/logout-button";
 import { useAuthContext } from "../../app/auth/auth-context";
 import { appRoutesList } from "./app-routes-list";
 import { usePathname } from "next/navigation";
+import { FC } from "react";
 
-export const MenuLinks: () => JSX.Element = () => {
+export const MenuLinks: FC = () => {
   const { isLoggedIn } = useAuthContext();
 
   const pathname = usePathname();

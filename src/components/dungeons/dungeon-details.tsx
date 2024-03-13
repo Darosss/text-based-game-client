@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Button } from "../common/button";
 import styles from "./dungeons.module.scss";
 import { CompletedDungeons } from "./types";
@@ -9,12 +10,12 @@ type DungeonDetailsProps = {
   data?: CompletedDungeons;
 };
 
-export const DungeonDetails = ({
+export const DungeonDetails: FC<DungeonDetailsProps> = ({
   currentMaxLevel,
   decreaseCurrentLevel,
   increaseCurrentLevel,
   data,
-}: DungeonDetailsProps) => {
+}) => {
   return (
     <div className={styles.dungeonDetails}>
       <div className={styles.buttonNavigation}>

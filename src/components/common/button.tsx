@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, FC } from "react";
 import styles from "./button.module.scss";
 type ButtonTypes = "primary" | "secondary" | "danger" | "info" | "success";
 
@@ -11,14 +11,14 @@ type ButtonProps = {
   children: React.ReactNode;
 };
 
-export const Button = ({
+export const Button: FC<ButtonProps> = ({
   children,
   onClick,
   style,
   className,
   defaultButtonType,
   type,
-}: ButtonProps) => {
+}) => {
   return (
     <button
       onClick={onClick}

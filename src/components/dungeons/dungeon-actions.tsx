@@ -1,5 +1,5 @@
 import { formatTime, getRemainingTimeFromDateToDate } from "@/utils/utils";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "../common/button";
 import styles from "./dungeons.module.scss";
 import { useFetch } from "@/hooks/useFetch";
@@ -14,11 +14,11 @@ type DungeonActionsProps = {
 
 type StartAFightResponse = FightReportType;
 
-export const DungeonActions = ({
+export const DungeonActions: FC<DungeonActionsProps> = ({
   dungeonLevel,
   canFightDate,
   onConfirmReport,
-}: DungeonActionsProps) => {
+}) => {
   const [remainingTime, setRemainingTime] = useState(0);
   const [showReport, setShowReport] = useState(false);
   const {

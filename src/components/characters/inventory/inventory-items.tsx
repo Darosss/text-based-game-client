@@ -3,7 +3,7 @@ import {
   EquipResponseType,
   InventoryItemType,
 } from "@/api/types";
-import { LegacyRef, useMemo, useState } from "react";
+import { FC, LegacyRef, useMemo, useState } from "react";
 import { ItemTooltipContentWrapper } from "../../items/item-display";
 import styles from "./inventory-items.module.scss";
 import { CharacterEquipmentFields } from "@/api/enums";
@@ -23,12 +23,12 @@ type InventoryItemsProps = {
   className?: string;
 };
 
-export const InventoryItems = ({
+export const InventoryItems: FC<InventoryItemsProps> = ({
   items,
   tooltipId,
   dropRef,
   className,
-}: InventoryItemsProps) => {
+}) => {
   const { filter, sort } = useInventoryControlContext();
   const {
     apiCharacter: { fetchData: fetchCharacterData },

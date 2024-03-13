@@ -1,12 +1,13 @@
 import { NpcEnemy } from "@/api/types";
 import styles from "./enemy-preview.module.scss";
 import { HeadDetails } from "../details/head-details";
+import { FC } from "react";
 
-type EnemyProps = {
+type EnemyPreviewProps = {
   enemy: NpcEnemy;
 };
 
-export const EnemyPreview = ({ enemy }: EnemyProps) => {
+export const EnemyPreview: FC<EnemyPreviewProps> = ({ enemy }) => {
   return (
     <div className={styles.enemyPreviewWrapper}>
       <div className={styles.enemyHeadDetailsWrapper}>

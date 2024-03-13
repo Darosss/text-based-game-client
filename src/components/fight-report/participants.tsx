@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { CharacterTypesAlias, NpcEnemy } from "@/api/types";
 import { CharacterPreview, EnemyPreview } from "../characters";
 import styles from "./fight-report.module.scss";
@@ -9,7 +9,10 @@ type ParticipantsProps = {
   enemies: NpcEnemy[];
 };
 
-export const Participants = ({ characters, enemies }: ParticipantsProps) => {
+export const Participants: FC<ParticipantsProps> = ({
+  characters,
+  enemies,
+}) => {
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
   const [currentEnemyIndex, setCurrentEnemyIndex] = useState(0);
 

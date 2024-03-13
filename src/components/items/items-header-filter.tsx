@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { Button } from "../common/button";
 import { FilterType, SortByKeysType, SortType } from "./types";
 import styles from "./items-header-filter.module.scss";
@@ -23,14 +23,14 @@ export const sortByKeys: SortByKeysType[] = [
   "weight",
 ];
 
-const AscendingArrow = () => <span>&#9650;</span>;
-const DescendingArrow = () => <span>&#9660;</span>;
+const AscendingArrow: FC = () => <span>&#9650;</span>;
+const DescendingArrow: FC = () => <span>&#9660;</span>;
 
-export const ItemsHeaderFilter = ({
+export const ItemsHeaderFilter: FC<ItemsHeaderFilterProps> = ({
   setFilter,
   sort,
   setSort,
-}: ItemsHeaderFilterProps) => {
+}) => {
   const [view, setView] = useState<CurrentView>(CurrentView.SEARCH);
 
   return (

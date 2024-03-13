@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { createContext, useContext, useEffect, useState } from "react";
+import { FC, createContext, useContext, useEffect, useState } from "react";
 import { COOKIE_TOKEN_NAME } from "@/api/fetch";
 
 type AuthContextType = {
@@ -13,9 +13,7 @@ type AuthContextProps = {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthContextProvider = ({
-  children,
-}: AuthContextProps): React.JSX.Element => {
+export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {

@@ -1,11 +1,12 @@
 import { Character } from "@/api/types";
 import styles from "./character-preview.module.scss";
 import { HeadDetails } from "../details/head-details";
+import { FC } from "react";
 
-type CharacterProps = {
+type CharacterPreviewProps = {
   character: Character;
 };
-export const CharacterPreview = ({ character }: CharacterProps) => {
+export const CharacterPreview: FC<CharacterPreviewProps> = ({ character }) => {
   return (
     <div className={styles.characterPreviewWrapper}>
       <div className={styles.characterHeadDetailsWrapper}>

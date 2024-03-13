@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { FC, createContext, useContext } from "react";
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 import { User } from "@/api/types";
 import { ApiDataNotNullable } from "@/api/fetch";
@@ -22,9 +22,7 @@ type UserContextProps = {
 
 export const UserContext = createContext<UserContextType | null>(null);
 
-export const UserContextProvider = ({
-  children,
-}: UserContextProps): React.JSX.Element => {
+export const UserContextProvider: FC<UserContextProps> = ({ children }) => {
   const { api: userApi, fetchData: fetchUserData } = useFetch<User>({
     url: "profile",
     method: "GET",

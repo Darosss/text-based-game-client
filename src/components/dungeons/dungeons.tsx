@@ -1,14 +1,14 @@
 "use client";
 
 import { useFetch } from "@/hooks/useFetch";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./dungeons.module.scss";
 import { DungeonsResponse } from "./types";
 import { DungeonDetails } from "./dungeon-details";
 import { DungeonActions } from "./dungeon-actions";
 import { useUserContext } from "../user/user-context";
 
-export const Dungeons = () => {
+export const Dungeons: FC = () => {
   const {
     apiUser: { fetchData: fetchUserData },
   } = useUserContext();

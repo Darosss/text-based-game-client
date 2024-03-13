@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   AdditionalStatistics,
   BaseDetails,
@@ -7,7 +8,7 @@ import { useCharacterManagementContext } from "./character-management-context";
 import styles from "./character-statistics.module.scss";
 import { isMercenaryCharacter } from "@/api/utils";
 
-export const CharacterStatistics = () => {
+export const CharacterStatistics: FC = () => {
   const {
     apiCharacter: {
       api: { data },

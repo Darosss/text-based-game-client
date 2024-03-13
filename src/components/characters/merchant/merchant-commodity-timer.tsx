@@ -2,15 +2,15 @@ import { Button } from "@/components/common/button";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 import { formatTime } from "@/utils/utils";
 import { useMerchantContext } from "./merchant-context";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
 type MerchantCommodityTimerProps = {
   commodityRefreshAt: string;
 };
 
-export const MerchantCommodityTimer = ({
+export const MerchantCommodityTimer: FC<MerchantCommodityTimerProps> = ({
   commodityRefreshAt,
-}: MerchantCommodityTimerProps) => {
+}) => {
   const commodityRemainingTime = useCountdownTimer({
     toTimestamp: commodityRefreshAt,
   });

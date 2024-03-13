@@ -1,6 +1,7 @@
+import { FC } from "react";
 import { useUserContext } from "./user-context";
 import styles from "./user-details.module.scss";
-export const UserDetails = () => {
+export const UserDetails: FC = () => {
   const {
     apiUser: { api },
   } = useUserContext();
