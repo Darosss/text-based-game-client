@@ -41,7 +41,11 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { api: userApi, fetchData: fetchUserData } = useFetch<User>(
+  const {
+    api: userApi,
+    fetchData: fetchUserData,
+    clearCache,
+  } = useFetch<User>(
     {
       url: "profile",
       method: "GET",
@@ -53,8 +57,8 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    isLoggedIn ? fetchUserData() : null;
-  }, [fetchUserData, isLoggedIn]);
+    isLoggedIn ? fetchUserData() : clearCache();
+  }, [clearCache, fetchUserData, isLoggedIn]);
 
   return (
     <AuthContext.Provider
