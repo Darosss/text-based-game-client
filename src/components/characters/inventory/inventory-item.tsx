@@ -1,6 +1,7 @@
-import { CharacterEquipmentFields, ItemType } from "@/api/enums";
+import { FC } from "react";
+import { CharacterEquipmentFields } from "@/api/enums";
 import { InventoryItemType } from "@/api/types";
-import { ItemDisplay } from "@/components/items/item-display";
+import { ItemDisplay } from "@/components/items";
 import { useDrag, DragSourceMonitor } from "react-dnd";
 import {
   DragBaseCollectedProps,
@@ -8,8 +9,7 @@ import {
   DropResultAsInventoryItem,
 } from "../dndTypes";
 import { allowDropToPrefixes } from "../dndHelpers";
-import { PossibleDropResultActions } from "../equipment/enums";
-import { FC } from "react";
+import { PossibleDropResultActions } from "../equipment";
 
 type InventoryItemProps = {
   inventoryItem: [string, InventoryItemType];

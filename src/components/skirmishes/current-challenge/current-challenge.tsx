@@ -3,9 +3,9 @@ import styles from "./current-challenge.module.scss";
 import { ChallengeData, ChoosenChallange } from "../types";
 import { formatTime } from "@/utils/utils";
 import { useFetch } from "@/hooks/useFetch";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 import { FightReportType } from "@/api/types";
-import { FightReportDisplay } from "@/components/fight-report/fight-report-display";
+import { FightReportDisplay } from "@/components/fight-report";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 
 type CurrentChallengeProps = {

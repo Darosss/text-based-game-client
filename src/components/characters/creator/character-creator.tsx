@@ -2,9 +2,9 @@
 
 import { useFetch } from "@/hooks/useFetch";
 import styles from "./character-creator.module.scss";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 import { FC, useEffect } from "react";
-import { useCharacterManagementContext } from "../characters/character-management-context";
+import { useCharacterManagementContext } from "@/components/characters";
 
 /* TODO: 
 here i need to add later:

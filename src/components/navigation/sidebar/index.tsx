@@ -1,6 +1,6 @@
 import styles from "./sidebar.module.scss";
 import { MenuLinks } from "../menu-links";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 
 const Sidebar = ({
   isOpen,

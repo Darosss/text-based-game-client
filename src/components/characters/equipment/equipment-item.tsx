@@ -1,6 +1,6 @@
 import { CharacterEquipmentFields } from "@/api/enums";
 import { InventoryItemType } from "@/api/types";
-import { ItemDisplay } from "@/components/items/item-display";
+import { ItemDisplay } from "@/components/items";
 import { useDrag, DragSourceMonitor } from "react-dnd";
 import { allowDropToPrefixes } from "../dndHelpers";
 import {

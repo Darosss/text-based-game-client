@@ -5,7 +5,7 @@ import {
 } from "@/api/types";
 import styles from "./statistics.module.scss";
 import { FC, useState } from "react";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 import { fetchBackendApi } from "@/api/fetch";
 import { isMercenaryCharacter } from "@/api/utils";
 

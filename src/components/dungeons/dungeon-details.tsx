@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "../common/button";
+import { Button } from "@/components/common";
 import styles from "./dungeons.module.scss";
 import { CompletedDungeons } from "./types";
 

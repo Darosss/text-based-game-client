@@ -4,16 +4,21 @@ import {
   InventoryItemType,
 } from "@/api/types";
 import { FC, LegacyRef, useMemo, useState } from "react";
-import { ItemTooltipContentWrapper } from "../../items/item-display";
 import styles from "./inventory-items.module.scss";
 import { CharacterEquipmentFields } from "@/api/enums";
-import { useCharacterManagementContext } from "../characters/character-management-context";
+import {
+  useCharacterManagementContext,
+  useMerchantContext,
+} from "@/components/characters";
 import { InventoryItem } from "./inventory-item";
 import { useInventoryControlContext } from "./inventory-control-context";
 import { fetchBackendApi } from "@/api/fetch";
-import { filterItemsEntries, getSortedItems } from "@/components/items/utils";
-import { useUserContext } from "@/components/user/user-context";
-import { useMerchantContext } from "../merchant/merchant-context";
+import {
+  ItemTooltipContentWrapper,
+  filterItemsEntries,
+  getSortedItems,
+} from "@/components/items";
+import { useUserContext } from "@/components/user";
 
 type InventoryItemsProps = {
   items?: InventoryItemsType;

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styles from ".//navbar.module.scss";
 import Logo from "./Logo";
 import { MenuLinks } from "../menu-links";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 
 type NavbarProps = {
   toggle: () => void;

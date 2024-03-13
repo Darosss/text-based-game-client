@@ -1,14 +1,12 @@
 import styles from "./character-management.module.scss";
-import { Equipment } from "../equipment/equipment";
-import { InventoryControlContextProvider } from "../inventory/inventory-control-context";
+import { FC, useState } from "react";
+import { Equipment } from "../equipment";
+import { Inventory, InventoryControlContextProvider } from "../inventory";
 import { CharacterStatistics } from "./character-statistics";
 import { useCharacterManagementContext } from "./character-management-context";
-import { Inventory } from "../inventory/inventory";
 import { CharacterAvatar } from "./character-avatar";
-import { FC, useState } from "react";
-import { Button } from "@/components/common/button";
-import { Merchant } from "@/components/characters/merchant/merchant";
-import { MerchantContextProvider } from "../merchant/merchant-context";
+import { Button } from "@/components/common";
+import { Merchant, MerchantContextProvider } from "@/components/characters";
 
 enum CurrentView {
   STATISTICS = "Statistics",

@@ -9,7 +9,7 @@ import {
 } from "react";
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 import { CharacterTypesAlias, Inventory as InventoryType } from "@/api/types";
-import { CharacterCreator } from "../creator/character-creator";
+import { CharacterCreator } from "../creator";
 import { ApiDataNotNullable } from "@/api/fetch";
 
 type ApiCharacter = ApiDataNotNullable<CharacterTypesAlias>;

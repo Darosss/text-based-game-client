@@ -1,4 +1,4 @@
-import { Dungeons } from "@/components/dungeons/dungeons";
+import { Dungeons } from "@/components/dungeons";
 import styles from "./dungeons.module.scss";
 
 export default async function DungeonsPage() {

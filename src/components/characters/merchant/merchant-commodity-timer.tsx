@@ -1,4 +1,4 @@
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 import { formatTime } from "@/utils/utils";
 import { useMerchantContext } from "./merchant-context";

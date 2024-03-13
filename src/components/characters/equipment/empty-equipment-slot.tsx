@@ -3,7 +3,7 @@ import { useDrop, DropTargetMonitor } from "react-dnd";
 import { equipmentFieldToItemType } from "./slot-mapping";
 import styles from "./equipment.module.scss";
 import dndStyles from "../dnd.module.scss";
-import { useInventoryControlContext } from "../inventory/inventory-control-context";
+import { useInventoryControlContext } from "../inventory";
 import Image from "next/image";
 import { allowDropToPrefixes } from "../dndHelpers";
 import {

@@ -1,5 +1,5 @@
-import { SkirmishesList } from "@/components/skirmishes/skirmishes-list";
 import styles from "./skirmishes.module.scss";
+import { SkirmishesList } from "@/components/skirmishes";
 
 export default async function Page() {
   return (

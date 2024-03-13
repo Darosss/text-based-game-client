@@ -4,7 +4,7 @@ import styles from "./register-form.module.scss";
 import { FC, FormEvent } from "react";
 import { fetchBackendApi } from "@/api/fetch";
 import { useRouter } from "next/navigation";
-import { Button } from "../common/button";
+import { Button } from "@/components/common";
 import { User } from "@/api/types";
 
 type LoginResponse = User;

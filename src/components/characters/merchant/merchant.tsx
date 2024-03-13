@@ -3,15 +3,18 @@
 import { InventoryItemType, ItemsCostType } from "@/api/types";
 import React, { FC, useMemo, useState } from "react";
 import styles from "./merchant.module.scss";
-import { ItemTooltipContentWrapper } from "@/components/items/item-display";
-import { FilterType, SortType } from "@/components/items/types";
-import { ItemsContainer } from "@/components/items/items-container";
-import { filterItemsEntries, getSortedItems } from "@/components/items/utils";
+import {
+  ItemsContainer,
+  ItemTooltipContentWrapper,
+  filterItemsEntries,
+  getSortedItems,
+} from "@/components/items";
+import type { FilterType, SortType } from "@/components/items";
 import { MerchantItem } from "./merchant-item";
 import { fetchBackendApi } from "@/api/fetch";
-import { useUserContext } from "@/components/user/user-context";
+import { useUserContext } from "@/components/user";
 import { toast } from "react-toastify";
-import { useCharacterManagementContext } from "../characters/character-management-context";
+import { useCharacterManagementContext } from "@/components/characters";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { ItemType } from "@/api/enums";
 import { allowDropToPrefixes } from "../dndHelpers";
@@ -21,7 +24,7 @@ import {
   BaseDropResultsFromInventory,
   UseDropBaseCollectedProps,
 } from "../dndTypes";
-import { PossibleDropResultActions } from "../equipment/enums";
+import { PossibleDropResultActions } from "../equipment";
 import { MerchantCommodityTimer } from "./merchant-commodity-timer";
 
 const TOOLTIP_ID = "merchant-item-tooltip";

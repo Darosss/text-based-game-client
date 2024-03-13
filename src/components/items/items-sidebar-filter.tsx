@@ -1,6 +1,6 @@
 import { ItemType } from "@/api/enums";
 import { Dispatch, FC, SetStateAction } from "react";
-import { Button } from "../common/button";
+import { Button } from "@/components/common";
 import Image from "next/image";
 import styles from "./items-sidebar-filter.module.scss";
 import { FilterType } from "./types";

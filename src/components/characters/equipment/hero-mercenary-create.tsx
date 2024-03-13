@@ -1,6 +1,6 @@
 import { fetchBackendApi } from "@/api/fetch";
 import { MercenaryCharacter } from "@/api/types";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 import { FC } from "react";
 
 type HeroMercenaryCreateProps = {

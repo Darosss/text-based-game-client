@@ -6,7 +6,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { FilterType, SortType } from "@/components/items/types";
+import type { FilterType, SortType } from "@/components/items";
 
 type InventoryControlContextType = {
   filter: FilterType;

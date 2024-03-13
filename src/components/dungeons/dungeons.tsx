@@ -6,7 +6,7 @@ import styles from "./dungeons.module.scss";
 import { DungeonsResponse } from "./types";
 import { DungeonDetails } from "./dungeon-details";
 import { DungeonActions } from "./dungeon-actions";
-import { useUserContext } from "../user/user-context";
+import { useUserContext } from "@/components/user";
 
 export const Dungeons: FC = () => {
   const {

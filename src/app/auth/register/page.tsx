@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/components/auth/register-form";
+import { RegisterForm } from "@/components/auth";
 import styles from "./register.module.scss";
 
 export default async function Register() {

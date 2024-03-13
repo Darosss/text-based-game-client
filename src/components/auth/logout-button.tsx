@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
-import { Button } from "../common/button";
+import { Button } from "@/components/common";
 import { COOKIE_TOKEN_NAME } from "@/api/fetch";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "../../app/auth/auth-context";
+import { useAuthContext } from "./auth-context";
 import { FC } from "react";
 
 export const LogoutButton: FC = () => {

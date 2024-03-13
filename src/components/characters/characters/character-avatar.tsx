@@ -8,7 +8,7 @@ import {
   BaseDropResultsFromInventory,
   UseDropBaseCollectedProps,
 } from "../dndTypes";
-import { PossibleDropResultActions } from "../equipment/enums";
+import { PossibleDropResultActions } from "../equipment";
 import { FC } from "react";
 
 export const CharacterAvatar: FC = () => {

@@ -12,7 +12,7 @@ import {
   ItemMercenary,
   UnEquipResponseType,
 } from "@/api/types";
-import { ItemDisplay } from "@/components/items/item-display";
+import { ItemDisplay } from "@/components/items";
 import {
   DragBaseCollectedProps,
   DropDragObjectIntoInventory,
@@ -20,8 +20,8 @@ import {
   MercenaryEquipmentFieldDropResult,
   UseDropBaseCollectedProps,
 } from "../dndTypes";
-import { useCharacterManagementContext } from "../characters/character-management-context";
-import { useInventoryControlContext } from "../inventory/inventory-control-context";
+import { useCharacterManagementContext } from "@/components/characters";
+import { useInventoryControlContext } from "../inventory";
 import Image from "next/image";
 import { fetchBackendApi } from "@/api/fetch";
 import { allowDropToPrefixes } from "../dndHelpers";

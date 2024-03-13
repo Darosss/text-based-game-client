@@ -5,8 +5,8 @@ import Cookies from "js-cookie";
 import { FC, FormEvent } from "react";
 import { COOKIE_TOKEN_NAME, fetchBackendApi } from "@/api/fetch";
 import { useRouter } from "next/navigation";
-import { Button } from "../common/button";
-import { useAuthContext } from "../../app/auth/auth-context";
+import { Button } from "@/components/common";
+import { useAuthContext } from "@/components/auth";
 
 type LoginResponse = {
   email: string;

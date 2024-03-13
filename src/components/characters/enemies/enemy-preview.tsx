@@ -1,6 +1,6 @@
 import { NpcEnemy } from "@/api/types";
 import styles from "./enemy-preview.module.scss";
-import { HeadDetails } from "../details/head-details";
+import { HeadDetails } from "../details";
 import { FC } from "react";
 
 type EnemyPreviewProps = {

@@ -1,6 +1,6 @@
 import { Character } from "@/api/types";
 import styles from "./character-preview.module.scss";
-import { HeadDetails } from "../details/head-details";
+import { HeadDetails } from "../details";
 import { FC } from "react";
 
 type CharacterPreviewProps = {

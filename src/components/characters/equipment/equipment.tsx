@@ -1,10 +1,10 @@
-import { InventoryItemType, UnEquipResponseType } from "@/api/types";
+import React from "react";
 import styles from "./equipment.module.scss";
+import { InventoryItemType, UnEquipResponseType } from "@/api/types";
 import { CharacterEquipmentFields } from "@/api/enums";
 import { FC, useState } from "react";
-import { ItemTooltipContentWrapper } from "@/components/items/item-display";
-import React from "react";
-import { useCharacterManagementContext } from "../characters/character-management-context";
+import { ItemTooltipContentWrapper } from "@/components/items";
+import { useCharacterManagementContext } from "@/components/characters";
 import { EquipmentItem } from "./equipment-item";
 import { EmptyEquipmentSlot } from "./empty-equipment-slot";
 import { isMercenaryCharacter } from "@/api/utils";

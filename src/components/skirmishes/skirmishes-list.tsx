@@ -1,12 +1,12 @@
 "use client";
 
-import { useFetch } from "@/hooks/useFetch";
 import styles from "./skirmishes-list.module.scss";
-import { CurrentChallenge } from "./current-challenge/current-challenge";
+import { useFetch } from "@/hooks/useFetch";
+import { CurrentChallenge } from "./current-challenge";
 import { ChallengeData, ChoosenChallange } from "./types";
 import { FC, useEffect, useState } from "react";
-import { Button } from "@/components/common/button";
-import { useUserContext } from "../user/user-context";
+import { Button } from "@/components/common";
+import { useUserContext } from "@/components/user";
 
 type SkirmishesResponse = {
   challenges: { [id: string]: ChallengeData };

@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { Button } from "../common/button";
+import { Button } from "@/components/common";
 import { FilterType, SortByKeysType, SortType } from "./types";
 import styles from "./items-header-filter.module.scss";
 

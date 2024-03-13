@@ -5,11 +5,11 @@ import {
   DropDragObjectIntoInventory,
   DropResultAsMerchantItem,
 } from "../dndTypes";
-import { ItemDisplay } from "@/components/items/item-display";
+import { ItemDisplay } from "@/components/items";
 import styles from "./merchant.module.scss";
-import { useUserContext } from "@/components/user/user-context";
+import { useUserContext } from "@/components/user";
 import { allowDropToPrefixes } from "../dndHelpers";
-import { PossibleDropResultActions } from "../equipment/enums";
+import { PossibleDropResultActions } from "../equipment";
 import { FC } from "react";
 
 type MerchantItemData = {

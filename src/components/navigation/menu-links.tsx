@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./menu-links.module.scss";
-import { LogoutButton } from "../auth/logout-button";
-import { useAuthContext } from "../../app/auth/auth-context";
+import { LogoutButton } from "@/components/auth";
+import { useAuthContext } from "@/components/auth";
 import { appRoutesList } from "./app-routes-list";
 import { usePathname } from "next/navigation";
 import { FC } from "react";

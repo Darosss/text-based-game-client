@@ -4,8 +4,7 @@ import { AuthContextProvider } from "@/components/auth";
 import { ToastContainer } from "react-toastify";
 import styles from "./layout.module.scss";
 import { FC, ReactNode } from "react";
-import { UserContextProvider } from "@/components/user/user-context";
-import { UserDetails } from "@/components/user/user-details";
+import { UserContextProvider, UserDetails } from "@/components/user";
 
 type LayoutContentProps = {
   children: ReactNode;

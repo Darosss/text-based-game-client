@@ -7,7 +7,7 @@ import { ItemType } from "@/api/enums";
 import { allowDropToPrefixes } from "../dndHelpers";
 import { Inventory as InventoryType } from "@/api/types";
 import { useInventoryControlContext } from "./inventory-control-context";
-import { ItemsContainer } from "@/components/items/items-container";
+import { ItemsContainer } from "@/components/items";
 import {
   DropDragObjectIntoInventory,
   InventoryDropResult,

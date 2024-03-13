@@ -1,11 +1,8 @@
 import React, { FC, useState } from "react";
 import { FightReportType, InventoryItemType } from "@/api/types";
 import styles from "./fight-report.module.scss";
-import {
-  ItemDisplay,
-  ItemTooltipContentWrapper,
-} from "@/components/items/item-display";
-import { Button } from "@/components/common/button";
+import { ItemDisplay, ItemTooltipContentWrapper } from "@/components/items";
+import { Button } from "@/components/common";
 import { FightReportTurns } from "./fight-report-turns";
 import { Participants } from "./participants";
 

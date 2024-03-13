@@ -1,6 +1,6 @@
-import { Button } from "@/components/common/button";
+import { Button } from "@/components/common";
 import { useFetch } from "@/hooks/useFetch";
-import { useCharacterManagementContext } from "../characters/character-management-context";
+import { useCharacterManagementContext } from "@/components/characters";
 import { HeroMercenaryCreate } from "./hero-mercenary-create";
 import { FC } from "react";
 

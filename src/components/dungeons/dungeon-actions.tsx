@@ -1,9 +1,9 @@
 import { formatTime, getRemainingTimeFromDateToDate } from "@/utils/utils";
 import { FC, useEffect, useState } from "react";
-import { Button } from "../common/button";
+import { Button } from "@/components/common";
 import styles from "./dungeons.module.scss";
 import { useFetch } from "@/hooks/useFetch";
-import { FightReportDisplay } from "@/components/fight-report/fight-report-display";
+import { FightReportDisplay } from "@/components/fight-report";
 import { FightReportType } from "@/api/types";
 
 type DungeonActionsProps = {
