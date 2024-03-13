@@ -1,7 +1,7 @@
 "use client";
 import Navigation from "@/components/navigation";
+import { AuthContextProvider } from "@/components/auth";
 import { ToastContainer } from "react-toastify";
-import { AuthContextProvider } from "./auth/auth-context";
 import styles from "./layout.module.scss";
 import { FC, ReactNode } from "react";
 import { UserContextProvider } from "@/components/user/user-context";
