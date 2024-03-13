@@ -6,7 +6,7 @@ import { CurrentChallenge } from "./current-challenge";
 import { ChallengeData, ChoosenChallange } from "./types";
 import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/common";
-import { useUserContext } from "@/components/user";
+import { useAuthContext } from "@/components/auth";
 
 type SkirmishesResponse = {
   challenges: { [id: string]: ChallengeData };
@@ -19,7 +19,7 @@ type SkirmishesResponse = {
 export const SkirmishesList: FC = () => {
   const {
     apiUser: { fetchData: fetchUserData },
-  } = useUserContext();
+  } = useAuthContext();
 
   const {
     api: {

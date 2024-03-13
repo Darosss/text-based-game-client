@@ -12,7 +12,7 @@ import {
 import type { FilterType, SortType } from "@/components/items";
 import { MerchantItem } from "./merchant-item";
 import { fetchBackendApi } from "@/api/fetch";
-import { useUserContext } from "@/components/user";
+import { useAuthContext } from "@/components/auth";
 import { toast } from "react-toastify";
 import { useCharacterManagementContext } from "@/components/characters";
 import { DropTargetMonitor, useDrop } from "react-dnd";
@@ -65,7 +65,7 @@ export const Merchant: FC = () => {
       api: { data: userData },
       fetchData: fetchUserData,
     },
-  } = useUserContext();
+  } = useAuthContext();
 
   const {
     apiInventory: { fetchData: fetchInventoryData },

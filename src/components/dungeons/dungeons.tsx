@@ -6,12 +6,12 @@ import styles from "./dungeons.module.scss";
 import { DungeonsResponse } from "./types";
 import { DungeonDetails } from "./dungeon-details";
 import { DungeonActions } from "./dungeon-actions";
-import { useUserContext } from "@/components/user";
+import { useAuthContext } from "@/components/auth";
 
 export const Dungeons: FC = () => {
   const {
     apiUser: { fetchData: fetchUserData },
-  } = useUserContext();
+  } = useAuthContext();
 
   const {
     api: {

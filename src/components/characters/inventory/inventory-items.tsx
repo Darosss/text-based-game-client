@@ -18,7 +18,7 @@ import {
   filterItemsEntries,
   getSortedItems,
 } from "@/components/items";
-import { useUserContext } from "@/components/user";
+import { useAuthContext } from "@/components/auth";
 
 type InventoryItemsProps = {
   items?: InventoryItemsType;
@@ -49,7 +49,7 @@ export const InventoryItems: FC<InventoryItemsProps> = ({
 
   const {
     apiUser: { fetchData: fetchUserData },
-  } = useUserContext();
+  } = useAuthContext();
 
   const itemsToRender = useMemo(
     () =>

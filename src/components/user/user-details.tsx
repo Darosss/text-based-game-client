@@ -1,12 +1,15 @@
 import { FC } from "react";
-import { useUserContext } from "./user-context";
 import styles from "./user-details.module.scss";
+import { useAuthContext } from "../auth";
 export const UserDetails: FC = () => {
   const {
     apiUser: { api },
-  } = useUserContext();
+  } = useAuthContext();
 
   const { username, gold } = api.data;
+
+  if (!username) return null;
+
   return (
     <div className={styles.userDetailsWrapper}>
       <div>

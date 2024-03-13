@@ -7,7 +7,7 @@ import {
 } from "../dndTypes";
 import { ItemDisplay } from "@/components/items";
 import styles from "./merchant.module.scss";
-import { useUserContext } from "@/components/user";
+import { useAuthContext } from "@/components/auth";
 import { allowDropToPrefixes } from "../dndHelpers";
 import { PossibleDropResultActions } from "../equipment";
 import { FC } from "react";
@@ -63,7 +63,7 @@ export const MerchantItem: FC<MerchantItemsProps> = ({
         data: { gold },
       },
     },
-  } = useUserContext();
+  } = useAuthContext();
 
   return (
     <div className={styles.oneItemWrapper}>
