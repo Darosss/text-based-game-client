@@ -62,13 +62,13 @@ export const useFetch = <ResponseT, BodyT = unknown>(
       notification,
     })
       .then((response) => {
-        if (!response) throw new Error("Data from api not found");
+        if (!response) throw new Error("Data from server not found");
         setResponseData(response.body);
         setError(null);
         return response.body;
       })
       .catch((error) => {
-        setError(`${error}: Could not Fetch Data `);
+        setError(`There is an error -> ${error}`);
         return null;
       })
       .finally(() => {
