@@ -5,7 +5,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { CurrentChallenge } from "./current-challenge";
 import { ChallengeData, ChoosenChallange } from "./types";
 import { FC, useEffect, useState } from "react";
-import { Button } from "@/components/common";
+import { Button, FetchingInfo } from "@/components/common";
 import { useAuthContext } from "@/components/auth";
 
 type SkirmishesResponse = {
@@ -33,9 +33,10 @@ export const SkirmishesList: FC = () => {
     method: "GET",
   });
   const [choosenChallange, setChoosenChallenge] = useState("");
-
-  if (!data) {
-    return <>No data :P</>;
+  if (!data || isPending || error) {
+    return (
+      <FetchingInfo isPending={isPending} error={error} refetch={fetchData} />
+    );
   }
 
   return (

@@ -7,6 +7,7 @@ import { DungeonsResponse } from "./types";
 import { DungeonDetails } from "./dungeon-details";
 import { DungeonActions } from "./dungeon-actions";
 import { useAuthContext } from "@/components/auth";
+import { FetchingInfo } from "../common";
 
 export const Dungeons: FC = () => {
   const {
@@ -30,7 +31,11 @@ export const Dungeons: FC = () => {
     if (data) setCurrentLevel(data.currentLevel);
   }, [data]);
 
-  if (!data) return <></>;
+  if (!data || isPending || error) {
+    return (
+      <FetchingInfo isPending={isPending} error={error} refetch={fetchData} />
+    );
+  }
 
   const handleOnIncreaseCurrentLevel = () => {
     setCurrentLevel((prevState) => Math.min(data.currentLevel, prevState + 1));

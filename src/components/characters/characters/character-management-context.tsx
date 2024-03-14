@@ -11,6 +11,7 @@ import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 import { CharacterTypesAlias, Inventory as InventoryType } from "@/api/types";
 import { CharacterCreator } from "../creator";
 import { ApiDataNotNullable } from "@/api/fetch";
+import { FetchingInfo } from "@/components/common";
 
 type ApiCharacter = ApiDataNotNullable<CharacterTypesAlias>;
 type ApiInventory = ApiDataNotNullable<InventoryType>;
@@ -67,8 +68,29 @@ export const CharacterManagementContextProvider: FC<
     if (currentCharacterId) fetchCharacterData();
   }, [currentCharacterId, fetchCharacterData]);
 
-  if (characterApi.isPending === null || !inventoryApi.responseData.data)
-    return <>Loading</>;
+  //TODO: make it better later.
+  if (
+    characterApi.isPending === null ||
+    characterApi.error ||
+    !characterApi.responseData.data ||
+    inventoryApi.isPending === null ||
+    inventoryApi.error ||
+    !inventoryApi.responseData.data
+  ) {
+    return (
+      <FetchingInfo
+        isPending={characterApi.isPending}
+        error={`${characterApi.error ? characterApi.error + " " : ""}${
+          inventoryApi.error || ""
+        }`}
+        refetch={() => {
+          characterApi.error ? fetchCharacterData() : null;
+          inventoryApi.error ? fetchInventoryData() : null;
+        }}
+      />
+    );
+  }
+
   return (
     <CharacterManagementContext.Provider
       value={{

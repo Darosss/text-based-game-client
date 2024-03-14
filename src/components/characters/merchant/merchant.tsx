@@ -26,6 +26,7 @@ import {
 } from "../dndTypes";
 import { PossibleDropResultActions } from "../equipment";
 import { MerchantCommodityTimer } from "./merchant-commodity-timer";
+import { FetchingInfo } from "@/components/common";
 
 const TOOLTIP_ID = "merchant-item-tooltip";
 
@@ -55,7 +56,7 @@ export const Merchant: FC = () => {
 
   const {
     apiMerchant: {
-      api: { data },
+      api: { responseData, isPending, error },
       fetchData: fetchMerchantData,
     },
   } = useMerchantContext();
@@ -85,8 +86,12 @@ export const Merchant: FC = () => {
   });
 
   const itemsToRender = useMemo(
-    () => getSortedItems(filterItemsEntries(data.items, filter), sort),
-    [filter, sort, data?.items]
+    () =>
+      getSortedItems(
+        filterItemsEntries(responseData.data?.items || {}, filter),
+        sort
+      ),
+    [filter, sort, responseData.data?.items]
   );
 
   const handleOnBuyItem = (id: string, cost: number) => {
@@ -103,11 +108,24 @@ export const Merchant: FC = () => {
       }
     });
   };
+
+  if (isPending === null || error || !responseData.data) {
+    return (
+      <FetchingInfo
+        isPending={isPending}
+        error={error}
+        refetch={fetchMerchantData}
+      />
+    );
+  }
+
   const isActive = canDrop && isOver;
   return (
     <div className={styles.merchantWrapper}>
       <div className={styles.merchantCommodityInfo}>
-        <MerchantCommodityTimer commodityRefreshAt={data.commodityRefreshAt} />
+        <MerchantCommodityTimer
+          commodityRefreshAt={responseData.data.commodityRefreshAt}
+        />
       </div>
       <ItemsContainer
         filter={filter}
@@ -129,7 +147,10 @@ export const Merchant: FC = () => {
         >
           {itemsToRender?.map((value) => {
             const itemCost =
-              findCostForItem(data.itemsCost, value[0])?.[1] || -1;
+              findCostForItem(
+                responseData.data?.itemsCost || {},
+                value[0]
+              )?.[1] || -1;
             return (
               <MerchantItem
                 key={value[0]}
