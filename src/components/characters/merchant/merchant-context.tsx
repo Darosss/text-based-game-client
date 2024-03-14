@@ -1,17 +1,8 @@
 import { FC, createContext, useContext } from "react";
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 import { YourMerchantResponseData } from "@/api/types";
-import { ApiDataNotNullable } from "@/api/fetch";
 
-type MerchantApi = ApiDataNotNullable<YourMerchantResponseData>;
-
-type ApiStateType<ApiData, FetchResponseData, FetchBodyData = unknown> = {
-  api: ApiData;
-  fetchData: UseFetchReturnType<FetchResponseData, FetchBodyData>["fetchData"];
-};
-
-type MerchantApiType = ApiStateType<MerchantApi, YourMerchantResponseData>;
-
+type MerchantApiType = UseFetchReturnType<YourMerchantResponseData, unknown>;
 type MerchantContextType = {
   apiMerchant: MerchantApiType;
 };
@@ -25,23 +16,13 @@ export const MerchantContext = createContext<MerchantContextType | null>(null);
 export const MerchantContextProvider: FC<MerchantContextProps> = ({
   children,
 }) => {
-  const { api: merchantApi, fetchData: fetchMerchantData } =
-    useFetch<YourMerchantResponseData>({
-      url: "merchants/your-merchant",
-      method: "GET",
-    });
+  const apiMerchant = useFetch<YourMerchantResponseData>({
+    url: "merchants/your-merchant",
+    method: "GET",
+  });
 
-  if (merchantApi.isPending === null || !merchantApi.responseData.data)
-    return <>Loading</>;
   return (
-    <MerchantContext.Provider
-      value={{
-        apiMerchant: {
-          api: merchantApi.responseData as MerchantApi,
-          fetchData: fetchMerchantData,
-        },
-      }}
-    >
+    <MerchantContext.Provider value={{ apiMerchant }}>
       {children}
     </MerchantContext.Provider>
   );
