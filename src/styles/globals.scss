@@ -1,3 +1,5 @@
+@import "@/styles/mixins";
+
 :root {
   // TODO: add colors for light? (now they are the same like dark)
   /* **** COLORS **** */
@@ -124,7 +126,10 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  @include respond(large) {
+    width: 0.5dvw;
+  }
+  width: 0.4dvw;
 }
 
 ::-webkit-scrollbar-thumb {
