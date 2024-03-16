@@ -1,3 +1,5 @@
+@import "@/styles/mixins";
+
 .itemsWrapper {
   display: flex;
   flex-wrap: wrap;
@@ -21,9 +23,28 @@
 
   & > div.oneItemWrapper {
     display: flex;
-    min-width: 66px;
-    max-width: 66px;
-    min-height: 66px;
-    max-height: 66px;
+    @include respond(medium) {
+      min-width: 80px;
+      max-width: 80px;
+      min-height: 80px;
+      max-height: 80px;
+    }
+    @include respond(xsmall) {
+      min-width: 100px;
+      max-width: 100px;
+      min-height: 100px;
+      max-height: 100px;
+    }
+    @include respond(small) {
+      min-width: 65px;
+      max-width: 65px;
+      min-height: 65px;
+      max-height: 65px;
+    }
+
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 100px;
+    max-height: 100px;
   }
 }

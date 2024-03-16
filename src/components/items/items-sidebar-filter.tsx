@@ -43,7 +43,7 @@ export const ItemsSidebarFilter: FC<ItemsSidebarFilterProps> = ({
           >
             <Image
               src={`/images/inventory/navigation/${type.toLowerCase()}.png`}
-              sizes="(max-width: 768px) 15vw, (max-width: 1200px) 25vw, 33vw"
+              sizes="50px"
               alt="item"
               fill
             />

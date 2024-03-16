@@ -4,7 +4,8 @@
   position: relative;
   display: flex;
   border-radius: 0.25rem;
-
+  overflow: hidden;
+  font-size: 1rem;
   .itemDisplayBackground {
     position: absolute;
     top: 0;
@@ -22,7 +23,7 @@
     z-index: 50;
     top: 15%;
     right: 10%;
-    font-size: 0.8rem;
+    font-size: 0.5em;
     span.goldIcon {
       font-size: 0.8em;
       color: green;
@@ -35,12 +36,14 @@
   .levelDisplay {
     position: absolute;
     pointer-events: none;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
     top: 0;
     left: 5%;
     z-index: 50;
     font-weight: 800;
-    font-size: 1.3dvw;
-    background-image: var(--primary-glow);
+    font-size: 0.5em;
+    background-color: rgba(var(--primary-second-rgb), 20%);
 
     &.common {
       color: gray;
@@ -49,10 +52,10 @@
       color: green;
     }
     &.rare {
-      color: lightblue;
+      color: rgb(97, 183, 212);
     }
     &.very_rare {
-      color: blue;
+      color: rgb(68, 68, 252);
     }
     &.epic {
       color: purple;

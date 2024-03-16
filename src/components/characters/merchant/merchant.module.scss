@@ -1,3 +1,5 @@
+@import "@/styles/mixins";
+
 .merchantWrapper {
   display: flex;
   flex-direction: column;
@@ -30,8 +32,28 @@
     max-height: 100%;
     overflow-x: hidden;
     width: 100%;
+
     & > div.oneItemWrapper {
       display: flex;
+      @include respond(medium) {
+        min-width: 100px;
+        max-width: 100px;
+        min-height: 100px;
+        max-height: 100px;
+      }
+      @include respond(xsmall) {
+        min-width: 100px;
+        max-width: 100px;
+        min-height: 100px;
+        max-height: 100px;
+      }
+      @include respond(small) {
+        min-width: 65px;
+        max-width: 65px;
+        min-height: 65px;
+        max-height: 65px;
+      }
+
       min-width: 100px;
       max-width: 100px;
       min-height: 100px;

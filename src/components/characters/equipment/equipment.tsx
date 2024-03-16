@@ -57,18 +57,16 @@ export const Equipment: FC = () => {
               <div className={styles.background}></div>
 
               {currentSlot ? (
-                <div className={styles.equipedField}>
-                  <EquipmentItem
-                    currentField={eqField}
-                    characterId={characterData.id}
-                    item={currentSlot}
-                    onHover={(item) => setCurrentItem(item)}
-                    tooltipId={tooltipId}
-                    onItemUnEquip={(characterId, slot) =>
-                      handleOnItemUnEquip(characterId, slot)
-                    }
-                  />
-                </div>
+                <EquipmentItem
+                  currentField={eqField}
+                  characterId={characterData.id}
+                  item={currentSlot}
+                  onHover={(item) => setCurrentItem(item)}
+                  tooltipId={tooltipId}
+                  onItemUnEquip={(characterId, slot) =>
+                    handleOnItemUnEquip(characterId, slot)
+                  }
+                />
               ) : (
                 <EmptyEquipmentSlot
                   equipmentField={eqField}

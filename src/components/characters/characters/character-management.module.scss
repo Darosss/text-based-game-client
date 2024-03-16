@@ -5,20 +5,13 @@
   overflow: hidden;
   display: grid;
   max-height: 90dvh;
-  grid-template-columns: 1fr 1fr 0.8fr 0.8fr;
-  grid-template-rows: 0.25fr 1.5fr 1fr 1.5fr;
+  grid-template-columns: 1.5fr 1fr 1.6fr;
+  grid-template-rows: 1fr 1fr;
   gap: 0px 0px;
-  grid-template-areas:
-    "AVATAR EQUIPMENT TAB TAB"
-    "AVATAR EQUIPMENT TAB TAB"
-    "INVENTORY INVENTORY TAB TAB"
-    "INVENTORY INVENTORY TAB TAB";
-
   position: relative;
-
-  & > div {
-    position: relative;
-  }
+  grid-template-areas:
+    "INVENTORY AVATAR TAB"
+    "INVENTORY EQUIPMENT TAB";
 
   .avatar {
     grid-area: AVATAR;
@@ -48,6 +41,41 @@
   }
   .inventory {
     grid-area: INVENTORY;
+  }
+
+  @include respond(small) {
+    .equipment {
+      min-height: 60%;
+      max-height: 60%;
+    }
+    .inventory {
+      min-height: 40%;
+      max-height: 40%;
+    }
+  }
+
+  @include respond(xsmall) {
+    display: flex;
+    flex-direction: column-reverse;
+
+    .equipment {
+      min-height: 45%;
+      max-height: 45%;
+    }
+    .inventory {
+      min-height: 55%;
+      max-height: 55%;
+    }
+    .avatar {
+      display: none;
+    }
+    .tab {
+      display: none;
+    }
+  }
+
+  & > div {
+    position: relative;
   }
 
   & > div {
