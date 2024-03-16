@@ -20,9 +20,9 @@
     font-size: 1.1vw;
   }
 
-  & > div:first-child {
-    max-width: 60%;
-    min-width: 60%;
+  & > div {
+    max-width: 50%;
+    min-width: 50%;
   }
   & > div:not(:first-child) {
     text-align: center;
@@ -30,8 +30,13 @@
   }
 
   .statisticValueWrapper {
-    & > button {
-      margin-right: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+
+    .statisticTrainWrapper {
+      & > * {
+        margin-left: 0.1rem;
+      }
     }
   }
 }

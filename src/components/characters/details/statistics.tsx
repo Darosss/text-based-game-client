@@ -29,13 +29,15 @@ export const BaseStatistics: FC<BaseStatisticsProps> = ({
           <div key={statName} className={styles.statisticsVisibleDetails}>
             <div>{value.name}</div>
             <div className={styles.statisticValueWrapper}>
+              <div> {value.effectiveValue}</div>
               {canTrain ? (
-                <TrainBaseStatisticButton
-                  statisticName={statName}
-                  onSuccessTrain={canTrain.onSuccesTrain}
-                />
+                <div className={styles.statisticTrainWrapper}>
+                  <TrainBaseStatisticButton
+                    statisticName={statName}
+                    onSuccessTrain={canTrain.onSuccesTrain}
+                  />
+                </div>
               ) : null}
-              {value.effectiveValue}
             </div>
           </div>
         ))}
