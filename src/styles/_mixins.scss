@@ -9,6 +9,11 @@
       @content;
     }
   }
+  @if $breakpoint == xsmall {
+    @media (max-width: 821px) {
+      @content;
+    }
+  }
   @if $breakpoint == medium {
     @media (max-width: 1025px) {
       @content;
