@@ -14,7 +14,7 @@ export const HeroSelect: FC = () => {
     },
     fetchData: fetchCharactersIds,
   } = useFetch<string[]>({
-    url: "your-characters-ids",
+    url: "characters/your-characters-ids",
     method: "GET",
   });
   const {
