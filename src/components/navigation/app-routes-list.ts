@@ -10,4 +10,5 @@ export const appRoutesList: AppRouteType[] = [
   { href: "/overview", name: "Overview", onlyForLoggedIn: true },
   { href: "/skirmishes", name: "Skirmishes", onlyForLoggedIn: true },
   { href: "/dungeons", name: "Dungeons", onlyForLoggedIn: true },
+  { href: "/leaderboards", name: "Leaderboards", onlyForLoggedIn: true },
 ];

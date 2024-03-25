@@ -3,6 +3,7 @@ import {
   EnemyType,
   FightReportStatus,
   ItemType,
+  LeaderboardsCategories,
 } from "./enums";
 
 type CommonFieldTypes = {
@@ -203,4 +204,16 @@ export type YourMerchantResponseData = {
   id: string;
   items: InventoryItems;
   itemsCost: ItemsCostType;
+};
+
+export type LeaderboardsData = {
+  place: number;
+  userId: string;
+  username: string;
+  value: number;
+};
+
+export type LeaderboardsResponse = CommonFieldTypes & {
+  category: LeaderboardsCategories;
+  data: LeaderboardsData[];
 };

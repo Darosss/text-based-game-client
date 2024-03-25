@@ -40,3 +40,8 @@ export enum ItemType {
   NEUTRAL = "NEUTRAL",
   MERCENARY = "MERCENARY",
 }
+
+export enum LeaderboardsCategories {
+  LEVELS = "LEVELS",
+  DUNGEONS = "DUNGEONS",
+}

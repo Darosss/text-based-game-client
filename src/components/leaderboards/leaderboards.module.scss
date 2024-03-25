@@ -1,0 +1,31 @@
+.leaderboardsWrapper {
+  width: 100%;
+
+  .leaderboarsCategoriesWrapper {
+    display: flex;
+    justify-content: space-between;
+    & > button {
+      margin: 0.1rem;
+    }
+  }
+
+  .leaderboardDataWrapper {
+    & > div:first-child {
+      font-size: 1.5em;
+      color: rgb(var(--info-first-rgb));
+    }
+    & > div {
+      display: flex;
+
+      & > :not(:first-child) {
+        text-align: center;
+      }
+      & > div {
+        max-width: 33%;
+
+        border-bottom: 1px solid rgb(var(--info-second-rgb));
+        padding: 0.5rem;
+      }
+    }
+  }
+}
