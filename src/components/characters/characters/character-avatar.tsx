@@ -13,9 +13,7 @@ import { FC } from "react";
 
 export const CharacterAvatar: FC = () => {
   const {
-    apiCharacter: {
-      api: { data },
-    },
+    api: { data },
   } = useCharacterManagementContext();
 
   const [{ canDrop, isOver }, drop] = useDrop<

@@ -1,0 +1,12 @@
+.otherUserEquipmentWrapper {
+  display: flex;
+
+  justify-content: space-around;
+  & > div {
+    max-width: 33%;
+    min-width: 33%;
+  }
+  .characterAvatar {
+    position: relative;
+  }
+}

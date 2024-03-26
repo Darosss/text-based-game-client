@@ -1,32 +1,45 @@
 import { Button } from "@/components/common";
 import { useFetch } from "@/hooks/useFetch";
-import { useCharacterManagementContext } from "@/components/characters";
 import { HeroMercenaryCreate } from "./hero-mercenary-create";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 //TODO: this will be from configs from backend latter.
 const MAX_CHARACTERS_PER_USER = 4;
 
-export const HeroSelect: FC = () => {
+type HeroSelectProps = {
+  currentCharacterId: string | null;
+  setCurrentCharacterId: (id: string) => void;
+  userId?: string;
+};
+
+export const HeroSelect: FC<HeroSelectProps> = ({
+  currentCharacterId,
+  setCurrentCharacterId,
+  userId,
+}) => {
   const {
     api: {
       responseData: { data: charactersIdsData },
     },
     fetchData: fetchCharactersIds,
   } = useFetch<string[]>({
-    url: "characters/your-characters-ids",
+    url: `${
+      userId
+        ? `characters/user/${userId}/characters-ids`
+        : "characters/your-characters-ids"
+    }`,
     method: "GET",
   });
-  const {
-    currentCharacterIdState: [, setCurrentCharacterId],
-    apiCharacter: {
-      api: { data },
-    },
-  } = useCharacterManagementContext();
+
+  useEffect(() => {
+    const firstCharacter = charactersIdsData?.at(0);
+    if (userId && firstCharacter) setCurrentCharacterId(firstCharacter);
+  }, [charactersIdsData, setCurrentCharacterId, userId]);
+
   return (
     <>
       {charactersIdsData?.map((id, index) => {
-        const asCurrentChar = data?.id === id;
+        const asCurrentChar = currentCharacterId === id;
         return (
           <Button
             key={id}
@@ -37,7 +50,7 @@ export const HeroSelect: FC = () => {
           </Button>
         );
       })}
-      {(charactersIdsData?.length || 0) < MAX_CHARACTERS_PER_USER ? (
+      {(charactersIdsData?.length || 0) < MAX_CHARACTERS_PER_USER && !userId ? (
         <HeroMercenaryCreate onCreateMercenary={fetchCharactersIds} />
       ) : null}
     </>

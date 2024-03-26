@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./equipment.module.scss";
-import { InventoryItemType, UnEquipResponseType } from "@/api/types";
+import { InventoryItemType } from "@/api/types";
 import { CharacterEquipmentFields } from "@/api/enums";
 import { FC, useState } from "react";
 import { ItemTooltipContentWrapper } from "@/components/items";
@@ -9,43 +9,27 @@ import { EquipmentItem } from "./equipment-item";
 import { EmptyEquipmentSlot } from "./empty-equipment-slot";
 import { isMercenaryCharacter } from "@/api/utils";
 import { HeroSelect } from "./hero-select";
-import { fetchBackendApi } from "@/api/fetch";
-import {
-  useInventoryControlContext,
-  useInventoryManagementContext,
-} from "../inventory";
-import { MercenaryItemFielDnDWrapper } from "./mercenary-item-field-dnd-wrapper";
-import { equipmentFieldToItemType } from "./slot-mapping";
+import { MercenaryItemField } from "./mercenary-item-field";
 
-export const Equipment: FC = () => {
+//TODO: refactor
+//Note; this components is almost a copy of equipment.tsx
+//Later refactor and make reusable
+
+type OtherUserEquipmentProps = {
+  userId: string;
+};
+
+export const OtherUserEquipment: FC<OtherUserEquipmentProps> = ({ userId }) => {
   const tooltipId = "equipment-tooltip";
 
   const {
     api: { data: characterData },
-    fetchData: fetchCharacterData,
     currentCharacterIdState: [currentCharacterId, setCurrentCharacterId],
   } = useCharacterManagementContext();
 
-  const { fetchData: fetchInventoryData } = useInventoryManagementContext();
-
-  const { setFilter } = useInventoryControlContext();
   const [currentItem, setCurrentItem] = useState<InventoryItemType | null>(
     null
   );
-
-  const handleOnItemUnEquip = (
-    characterId: string,
-    slot: CharacterEquipmentFields
-  ) => {
-    fetchBackendApi<UnEquipResponseType>({
-      url: `characters/un-equip/${characterId}/${slot}`,
-      method: "POST",
-      notification: { pendingText: "Trying to un wear an item..." },
-    }).then(() => {
-      fetchInventoryData();
-      fetchCharacterData();
-    });
-  };
 
   return (
     <div className={styles.equipmentWrapper}>
@@ -69,20 +53,11 @@ export const Equipment: FC = () => {
                   item={currentSlot}
                   onHover={(item) => setCurrentItem(item)}
                   tooltipId={tooltipId}
-                  onItemUnEquip={(characterId, slot) =>
-                    handleOnItemUnEquip(characterId, slot)
-                  }
                 />
               ) : (
                 <EmptyEquipmentSlot
                   equipmentField={eqField}
                   characterId={characterData.id}
-                  onClickEquipmentSlot={(slot) =>
-                    setFilter((prevState) => ({
-                      ...prevState,
-                      showType: equipmentFieldToItemType[slot],
-                    }))
-                  }
                 />
               )}
             </div>
@@ -92,12 +67,12 @@ export const Equipment: FC = () => {
           <HeroSelect
             currentCharacterId={currentCharacterId}
             setCurrentCharacterId={setCurrentCharacterId}
+            userId={userId}
           />
         </div>
         {isMercenaryCharacter(characterData) ? (
           <div className={styles.mercenaryItem}>
-            <MercenaryItemFielDnDWrapper
-              characterId={characterData.id}
+            <MercenaryItemField
               mercenaryItem={characterData.mercenary}
               onHover={(item) => setCurrentItem(item)}
               tooltipId={tooltipId}

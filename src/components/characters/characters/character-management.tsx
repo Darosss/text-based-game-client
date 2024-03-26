@@ -1,9 +1,12 @@
 import styles from "./character-management.module.scss";
 import { FC, useState } from "react";
 import { Equipment } from "../equipment";
-import { Inventory, InventoryControlContextProvider } from "../inventory";
+import {
+  Inventory,
+  InventoryControlContextProvider,
+  useInventoryManagementContext,
+} from "../inventory";
 import { CharacterStatistics } from "./character-statistics";
-import { useCharacterManagementContext } from "./character-management-context";
 import { CharacterAvatar } from "./character-avatar";
 import { Button } from "@/components/common";
 import { Merchant, MerchantContextProvider } from "@/components/characters";
@@ -15,10 +18,8 @@ enum CurrentView {
 
 export const CharacterManagement: FC = () => {
   const {
-    apiInventory: {
-      api: { data: inventoryData },
-    },
-  } = useCharacterManagementContext();
+    api: { data: inventoryData },
+  } = useInventoryManagementContext();
   const [currentView, setCurrentView] = useState<CurrentView>(
     CurrentView.STATISTICS
   );

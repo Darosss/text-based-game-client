@@ -21,114 +21,41 @@ import {
   UseDropBaseCollectedProps,
 } from "../dndTypes";
 import { useCharacterManagementContext } from "@/components/characters";
-import { useInventoryControlContext } from "../inventory";
+import {
+  useInventoryControlContext,
+  useInventoryManagementContext,
+} from "../inventory";
 import Image from "next/image";
 import { fetchBackendApi } from "@/api/fetch";
 import { allowDropToPrefixes } from "../dndHelpers";
 import { PossibleDropResultActions } from "./enums";
 import { FC } from "react";
 
-type MercenaryItemFieldProps = {
-  characterId: string;
+export type MercenaryItemFieldProps = {
   mercenaryItem?: ItemMercenary;
   onHover: (item: InventoryItemType) => void;
   tooltipId: string;
+  itemDisplayOpacity?: number;
+  itemDisplayRefWrapper?: React.LegacyRef<HTMLDivElement> | undefined;
 };
 
 export const MercenaryItemField: FC<MercenaryItemFieldProps> = ({
-  characterId,
   mercenaryItem,
   onHover,
   tooltipId,
+  itemDisplayOpacity,
+  itemDisplayRefWrapper,
 }) => {
-  const {
-    apiCharacter: { fetchData: fetchCharacterData },
-    apiInventory: { fetchData: fetchInventoryData },
-  } = useCharacterManagementContext();
-
-  const { setFilter } = useInventoryControlContext();
-
-  const [{ canDrop, isOver }, drop] = useDrop<
-    unknown,
-    MercenaryEquipmentFieldDropResult,
-    UseDropBaseCollectedProps
-  >(
-    () => ({
-      accept: allowDropToPrefixes.equipmentAndMerchant + ItemType.MERCENARY,
-      drop: () => ({
-        dropAction: PossibleDropResultActions.EQUIP_MERCENARY,
-        characterId,
-      }),
-      collect: (monitor: DropTargetMonitor) => ({
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-      }),
-    }),
-    [characterId]
-  );
-
-  const [{ opacity }, drag] = useDrag<
-    DropDragObjectIntoInventory,
-    DropResultAsMercenaryItem,
-    DragBaseCollectedProps
-  >(
-    () => ({
-      type: allowDropToPrefixes.inventory + mercenaryItem?.type,
-      item: {
-        name: mercenaryItem?.name || "No mercenary",
-        id: mercenaryItem?.id || "No id mercenary",
-        dropAction: PossibleDropResultActions.UN_EQUIP_MERCENARY,
-      },
-      end(item, monitor) {
-        const dropResult = monitor.getDropResult();
-        if (
-          item &&
-          dropResult?.dropAction ===
-            PossibleDropResultActions.UN_EQUIP_MERCENARY
-        ) {
-          onUnEquipMercenary();
-        }
-      },
-      collect: (monitor: DragSourceMonitor) => ({
-        opacity: monitor.isDragging() ? 0.4 : 1,
-      }),
-    }),
-    [mercenaryItem]
-  );
-
-  const onUnEquipMercenary = () => {
-    fetchBackendApi<UnEquipResponseType>({
-      url: `characters/un-equip-mercenary/${characterId}`,
-      method: "POST",
-      notification: { pendingText: "Trying to un equip mercenary..." },
-    }).then(() => {
-      fetchInventoryData();
-      fetchCharacterData({ customUrl: `characters/${characterId}` });
-    });
-  };
-
-  const isActive = canDrop && isOver;
   return (
-    <div
-      ref={drop}
-      className={`${styles.emptyEquipmentSlot} ${
-        isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""
-      }`}
-      onClick={() =>
-        setFilter((prevState) => ({
-          ...prevState,
-          showType: [ItemType.MERCENARY],
-        }))
-      }
-    >
+    <div className={styles.emptyEquipmentSlot}>
       <div className={styles.background}></div>
       {mercenaryItem ? (
         <ItemDisplay
-          refForWrapper={drag}
+          refForWrapper={itemDisplayRefWrapper}
           item={mercenaryItem}
           onHover={(item) => onHover(item)}
           tooltipId={tooltipId}
-          opacity={opacity}
+          opacity={itemDisplayOpacity}
         />
       ) : (
         <Image

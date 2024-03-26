@@ -14,7 +14,6 @@ import { MerchantItem } from "./merchant-item";
 import { fetchBackendApi } from "@/api/fetch";
 import { useAuthContext } from "@/components/auth";
 import { toast } from "react-toastify";
-import { useCharacterManagementContext } from "@/components/characters";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import { ItemType } from "@/api/enums";
 import { allowDropToPrefixes } from "../dndHelpers";
@@ -27,6 +26,7 @@ import {
 import { PossibleDropResultActions } from "../equipment";
 import { MerchantCommodityTimer } from "./merchant-commodity-timer";
 import { FetchingInfo } from "@/components/common";
+import { useInventoryManagementContext } from "../inventory";
 
 const TOOLTIP_ID = "merchant-item-tooltip";
 
@@ -68,9 +68,7 @@ export const Merchant: FC = () => {
     },
   } = useAuthContext();
 
-  const {
-    apiInventory: { fetchData: fetchInventoryData },
-  } = useCharacterManagementContext();
+  const { fetchData: fetchInventoryData } = useInventoryManagementContext();
 
   const [currentItem, setCurrentItem] = useState<InventoryItemType | null>(
     null

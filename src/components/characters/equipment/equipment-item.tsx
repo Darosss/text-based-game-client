@@ -17,7 +17,7 @@ type EquipmentItemProps = {
   item: InventoryItemType;
   onHover: (item: InventoryItemType) => void;
   tooltipId: string;
-  onItemUnEquip: (
+  onItemUnEquip?: (
     characterId: string,
     slotName: CharacterEquipmentFields
   ) => void;
@@ -49,7 +49,7 @@ export const EquipmentItem: FC<EquipmentItemProps> = ({
           item &&
           dropResult?.dropAction === PossibleDropResultActions.UN_EQUIP_ITEM
         ) {
-          onItemUnEquip(characterId, currentField);
+          onItemUnEquip ? onItemUnEquip(characterId, currentField) : null;
         }
       },
       collect: (monitor: DragSourceMonitor) => ({

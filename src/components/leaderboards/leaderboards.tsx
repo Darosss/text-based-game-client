@@ -6,8 +6,10 @@ import { useFetch } from "@/hooks/useFetch";
 import { LeaderboardsResponse } from "@/api/types";
 import { Button, FetchingInfo } from "../common";
 import { LeaderboardsCategories } from "@/api/enums";
+import { useRouter } from "next/navigation";
 
 export const Leaderboards: FC = () => {
+  const router = useRouter();
   const [currentCategory, setCurrentCategory] = useState(
     LeaderboardsCategories.LEVELS
   );
@@ -27,7 +29,6 @@ export const Leaderboards: FC = () => {
   );
 
   useEffect(() => {
-    console.log("ey");
     fetchData();
   }, [currentCategory, fetchData]);
 
@@ -62,7 +63,16 @@ export const Leaderboards: FC = () => {
         {data.data.map((leaderboardData) => (
           <div key={leaderboardData.place + leaderboardData.userId}>
             <div>{leaderboardData.place}</div>
-            <div>{leaderboardData.username}</div>
+            <div>
+              <Button
+                defaultButtonType="primary"
+                onClick={() =>
+                  router.push(`overview/user/${leaderboardData.userId}`)
+                }
+              >
+                {leaderboardData.username}
+              </Button>
+            </div>
             <div>{leaderboardData.value}</div>
           </div>
         ))}

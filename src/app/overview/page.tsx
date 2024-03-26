@@ -7,14 +7,17 @@ import {
   CharacterManagement,
   CharacterManagementContextProvider,
 } from "@/components/characters";
+import { InventoryManagementContextProvider } from "@/components/characters/inventory";
 
 export default function Overview() {
   return (
     <main className={styles.overview}>
       <DndProvider backend={HTML5Backend}>
-        <CharacterManagementContextProvider>
-          <CharacterManagement />
-        </CharacterManagementContextProvider>
+        <InventoryManagementContextProvider>
+          <CharacterManagementContextProvider>
+            <CharacterManagement />
+          </CharacterManagementContextProvider>
+        </InventoryManagementContextProvider>
       </DndProvider>
     </main>
   );

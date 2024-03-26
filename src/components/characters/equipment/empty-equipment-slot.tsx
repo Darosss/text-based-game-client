@@ -3,7 +3,6 @@ import { useDrop, DropTargetMonitor } from "react-dnd";
 import { equipmentFieldToItemType } from "./slot-mapping";
 import styles from "./equipment.module.scss";
 import dndStyles from "../dnd.module.scss";
-import { useInventoryControlContext } from "../inventory";
 import Image from "next/image";
 import { allowDropToPrefixes } from "../dndHelpers";
 import {
@@ -16,13 +15,14 @@ import { FC } from "react";
 type EmptyEquipmentSlotProps = {
   equipmentField: CharacterEquipmentFields;
   characterId: string;
+  onClickEquipmentSlot?: (slotName: CharacterEquipmentFields) => void;
 };
 
 export const EmptyEquipmentSlot: FC<EmptyEquipmentSlotProps> = ({
   equipmentField,
   characterId,
+  onClickEquipmentSlot,
 }) => {
-  const { setFilter } = useInventoryControlContext();
   const [{ canDrop, isOver }, drop] = useDrop<
     unknown,
     BaseEquipmentFieldDropResult,
@@ -52,10 +52,7 @@ export const EmptyEquipmentSlot: FC<EmptyEquipmentSlotProps> = ({
         isActive ? dndStyles.active : canDrop ? dndStyles.canDrop : ""
       }`}
       onClick={() =>
-        setFilter((prevState) => ({
-          ...prevState,
-          showType: equipmentFieldToItemType[equipmentField],
-        }))
+        onClickEquipmentSlot ? onClickEquipmentSlot(equipmentField) : null
       }
     >
       <Image

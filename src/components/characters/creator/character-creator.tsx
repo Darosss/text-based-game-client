@@ -16,9 +16,7 @@ for now it's just create button
 */
 
 export const CharacterCreator: FC = () => {
-  const {
-    apiCharacter: { fetchData: fetchCharacterData },
-  } = useCharacterManagementContext();
+  const { fetchData: fetchCharacterData } = useCharacterManagementContext();
 
   const {
     api: { responseData },

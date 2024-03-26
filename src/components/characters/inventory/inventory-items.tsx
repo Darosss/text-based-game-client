@@ -19,6 +19,7 @@ import {
   getSortedItems,
 } from "@/components/items";
 import { useAuthContext } from "@/components/auth";
+import { useInventoryManagementContext } from ".";
 
 type InventoryItemsProps = {
   items?: InventoryItemsType;
@@ -35,10 +36,8 @@ export const InventoryItems: FC<InventoryItemsProps> = ({
   className,
 }) => {
   const { filter, sort } = useInventoryControlContext();
-  const {
-    apiCharacter: { fetchData: fetchCharacterData },
-    apiInventory: { fetchData: fetchInventoryData },
-  } = useCharacterManagementContext();
+  const { fetchData: fetchCharacterData } = useCharacterManagementContext();
+  const { fetchData: fetchInventoryData } = useInventoryManagementContext();
 
   const {
     apiMerchant: { fetchData: fetchMerchantData },

@@ -7,26 +7,15 @@ import {
   useEffect,
   useState,
 } from "react";
-import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
-import { CharacterTypesAlias, Inventory as InventoryType } from "@/api/types";
+import { useFetch } from "@/hooks/useFetch";
+import { CharacterTypesAlias } from "@/api/types";
 import { CharacterCreator } from "../creator";
-import { ApiDataNotNullable } from "@/api/fetch";
 import { FetchingInfo } from "@/components/common";
-
-type ApiCharacter = ApiDataNotNullable<CharacterTypesAlias>;
-type ApiInventory = ApiDataNotNullable<InventoryType>;
-
-type ApiStateType<ApiData, FetchResponseData, FetchBodyData = unknown> = {
-  api: ApiData;
-  fetchData: UseFetchReturnType<FetchResponseData, FetchBodyData>["fetchData"];
-};
-
-type ApiInventoryType = ApiStateType<ApiInventory, InventoryType>;
-type ApiCharacterType = ApiStateType<ApiCharacter, CharacterTypesAlias>;
+import { ApiCharacterState, ApiCharacterFetchData } from "./types";
 
 type CharacterManagementContextType = {
-  apiInventory: ApiInventoryType;
-  apiCharacter: ApiCharacterType;
+  api: ApiCharacterState;
+  fetchData: ApiCharacterFetchData;
   currentCharacterIdState: [
     string | null,
     Dispatch<SetStateAction<string | null>>
@@ -46,47 +35,31 @@ export const CharacterManagementContextProvider: FC<
   const [currentCharacterId, setCurrentCharacterId] = useState<string | null>(
     null
   );
-  const { api: inventoryApi, fetchData: fetchInventoryData } =
-    useFetch<InventoryType>({
-      url: "your-inventory",
+  const {
+    api: { error, isPending, responseData },
+    fetchData: fetchCharacterData,
+  } = useFetch<CharacterTypesAlias>(
+    {
+      url: `${
+        !currentCharacterId
+          ? "characters/your-main-character"
+          : `characters/${currentCharacterId}`
+      }`,
       method: "GET",
-    });
-  const { api: characterApi, fetchData: fetchCharacterData } =
-    useFetch<CharacterTypesAlias>(
-      {
-        url: `${
-          !currentCharacterId
-            ? "characters/your-main-character"
-            : `characters/${currentCharacterId}`
-        }`,
-        method: "GET",
-      },
-      { manual: currentCharacterId ? true : false }
-    );
+    },
+    { manual: currentCharacterId ? true : false }
+  );
 
   useEffect(() => {
     if (currentCharacterId) fetchCharacterData();
   }, [currentCharacterId, fetchCharacterData]);
 
-  //TODO: make it better later.
-  if (
-    characterApi.isPending === null ||
-    characterApi.error ||
-    !characterApi.responseData.data ||
-    inventoryApi.isPending === null ||
-    inventoryApi.error ||
-    !inventoryApi.responseData.data
-  ) {
+  if (isPending === null || error || !responseData.data) {
     return (
       <FetchingInfo
-        isPending={characterApi.isPending}
-        error={`${characterApi.error ? characterApi.error + " " : ""}${
-          inventoryApi.error || ""
-        }`}
-        refetch={() => {
-          characterApi.error ? fetchCharacterData() : null;
-          inventoryApi.error ? fetchInventoryData() : null;
-        }}
+        isPending={isPending}
+        error={error}
+        refetch={fetchCharacterData}
       />
     );
   }
@@ -94,18 +67,12 @@ export const CharacterManagementContextProvider: FC<
   return (
     <CharacterManagementContext.Provider
       value={{
-        apiInventory: {
-          api: inventoryApi.responseData as ApiInventory,
-          fetchData: fetchInventoryData,
-        },
-        apiCharacter: {
-          api: characterApi.responseData as ApiCharacter,
-          fetchData: fetchCharacterData,
-        },
+        api: responseData as ApiCharacterState,
+        fetchData: fetchCharacterData,
         currentCharacterIdState: [currentCharacterId, setCurrentCharacterId],
       }}
     >
-      {characterApi.responseData.data ? children : <CharacterCreator />}
+      {responseData.data ? children : <CharacterCreator />}
     </CharacterManagementContext.Provider>
   );
 };
