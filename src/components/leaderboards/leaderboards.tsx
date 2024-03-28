@@ -7,6 +7,8 @@ import { LeaderboardsResponse } from "@/api/types";
 import { Button, FetchingInfo } from "../common";
 import { LeaderboardsCategories } from "@/api/enums";
 import { useRouter } from "next/navigation";
+import { useCountdownTimer } from "@/hooks/useCountdownTimer";
+import { formatTime } from "@/utils/utils";
 
 export const Leaderboards: FC = () => {
   const router = useRouter();
@@ -27,15 +29,41 @@ export const Leaderboards: FC = () => {
     },
     { manual: true }
   );
+  const {
+    api: {
+      responseData: { data: nextRefreshTime },
+    },
+  } = useFetch<string>({
+    url: `leaderboards/next-refresh-time`,
+    method: "GET",
+  });
+
+  const leaderboardsRemainingTimeRefresh = useCountdownTimer({
+    toTimestamp: nextRefreshTime || undefined,
+  });
 
   useEffect(() => {
     fetchData();
   }, [currentCategory, fetchData]);
 
+  useEffect(() => {
+    if (leaderboardsRemainingTimeRefresh === 0) {
+      fetchData();
+    }
+  }, [leaderboardsRemainingTimeRefresh, fetchData]);
+
   if (!data || error)
     return <FetchingInfo isPending={isPending} error={error} />;
   return (
     <div className={styles.leaderboardsWrapper}>
+      <div className={styles.nextRefreshTime}>
+        <div>Next refresh: </div>
+        <div>
+          {nextRefreshTime
+            ? `${formatTime(leaderboardsRemainingTimeRefresh)}`
+            : ""}
+        </div>
+      </div>
       <div className={styles.leaderboarsCategoriesWrapper}>
         {Object.values(LeaderboardsCategories).map((category) => (
           <Button

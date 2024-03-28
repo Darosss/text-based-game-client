@@ -1,6 +1,17 @@
 .leaderboardsWrapper {
   width: 100%;
 
+  .nextRefreshTime {
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+
+    & > div {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
   .leaderboarsCategoriesWrapper {
     display: flex;
     justify-content: space-between;
