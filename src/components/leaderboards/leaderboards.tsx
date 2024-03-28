@@ -33,12 +33,7 @@ export const Leaderboards: FC = () => {
   }, [currentCategory, fetchData]);
 
   if (!data || error)
-    return (
-      <FetchingInfo
-        isPending={isPending}
-        error={error || "Leaderboard data does not exist. Try again later"}
-      />
-    );
+    return <FetchingInfo isPending={isPending} error={error} />;
   return (
     <div className={styles.leaderboardsWrapper}>
       <div className={styles.leaderboarsCategoriesWrapper}>
