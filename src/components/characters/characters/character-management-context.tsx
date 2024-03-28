@@ -54,7 +54,11 @@ export const CharacterManagementContextProvider: FC<
     if (currentCharacterId) fetchCharacterData();
   }, [currentCharacterId, fetchCharacterData]);
 
-  if (isPending === null || error || !responseData.data) {
+  if (
+    isPending === null ||
+    (error && !error.includes("You do not have main character yet"))
+    //TODO: refactor later -> error.includes as temporary solution.
+  ) {
     return (
       <FetchingInfo
         isPending={isPending}
