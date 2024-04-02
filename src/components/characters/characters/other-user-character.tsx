@@ -15,7 +15,7 @@ export const OtherUserCharacter: FC<OtherUserCharacterProps> = ({ userId }) => {
         <CharacterAvatar />
       </div>
       <OtherUserEquipment userId={userId} />
-      <CharacterStatistics isOtherPlayer={true} />
+      <CharacterStatistics />
     </div>
   );
 };

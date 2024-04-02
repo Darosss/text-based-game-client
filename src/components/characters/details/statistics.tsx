@@ -63,6 +63,7 @@ const TrainBaseStatisticButton = ({
             fetchBackendApi<boolean>({
               url: `characters/train-statistic/${statisticName}/${statAddValue}`,
               method: "PATCH",
+              notification: { pendingText: `Trying to train ${statisticName}` },
             }).then((response) => {
               if (response?.body.data) {
                 setStatAddValue(0);

@@ -6,18 +6,12 @@ import {
 } from "../details/statistics";
 import { useCharacterManagementContext } from "./character-management-context";
 import styles from "./character-statistics.module.scss";
-import { isMercenaryCharacter } from "@/api/utils";
 
-type CharacterStatisticsProps = {
-  isOtherPlayer?: boolean;
-};
+type CharacterStatisticsProps = {};
 
-export const CharacterStatistics: FC<CharacterStatisticsProps> = ({
-  isOtherPlayer,
-}) => {
+export const CharacterStatistics: FC<CharacterStatisticsProps> = ({}) => {
   const {
     api: { data },
-    fetchData,
   } = useCharacterManagementContext();
 
   return (
@@ -25,15 +19,7 @@ export const CharacterStatistics: FC<CharacterStatisticsProps> = ({
       <div className={styles.baseDetails}>
         <BaseDetails character={data} />
       </div>
-      <BaseStatistics
-        statistics={data.stats.statistics}
-        {...{
-          canTrain:
-            !isMercenaryCharacter(data) && !isOtherPlayer
-              ? { onSuccesTrain: fetchData }
-              : undefined,
-        }}
-      />
+      <BaseStatistics statistics={data.stats.statistics} />
       <AdditionalStatistics statistics={data.stats.additionalStatistics} />
     </div>
   );

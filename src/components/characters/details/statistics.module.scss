@@ -21,8 +21,8 @@
   }
 
   & > div {
-    max-width: 50%;
-    min-width: 50%;
+    display: flex;
+    text-align: center;
   }
   & > div:not(:first-child) {
     text-align: center;
@@ -32,6 +32,7 @@
   .statisticValueWrapper {
     display: flex;
     justify-content: space-between;
+    width: 33%;
 
     .statisticTrainWrapper {
       & > * {
