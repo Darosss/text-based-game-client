@@ -64,6 +64,7 @@ export const InventoryItems: FC<InventoryItemsProps> = ({
     }).then(() => {
       fetchCharacterData();
       fetchInventoryData();
+      fetchUserData();
     });
   };
 
