@@ -6,14 +6,26 @@ import { ApiDataNotNullable, COOKIE_TOKEN_NAME } from "@/api/fetch";
 import { User } from "@/api/types";
 import { UseFetchReturnType, useFetch } from "@/hooks/useFetch";
 
-type ApiUser = ApiDataNotNullable<User>;
+type HeroDetailsType = {
+  health: number;
+  maxHealth: number;
+  level: number;
+  experience: number;
+  neededExp: number;
+};
+
+type ProfileResponseType = {
+  user: User;
+  heroDetails: HeroDetailsType;
+};
+type ApiUser = ApiDataNotNullable<ProfileResponseType>;
 
 type ApiStateType<ApiData, FetchResponseData, FetchBodyData = unknown> = {
   api: ApiData;
   fetchData: UseFetchReturnType<FetchResponseData, FetchBodyData>["fetchData"];
 };
 
-type ApiUserType = ApiStateType<ApiUser, User>;
+type ApiUserType = ApiStateType<ApiUser, ProfileResponseType>;
 
 type AuthContextType = {
   isLoggedIn: boolean;
@@ -27,12 +39,21 @@ type AuthContextProps = {
 
 const defaultApiUserData: ApiUser = {
   data: {
-    id: "",
-    username: "",
-    email: "",
-    roles: [],
-    lastLogin: new Date().toISOString(),
-    gold: 0,
+    user: {
+      id: "",
+      username: "",
+      email: "",
+      roles: [],
+      lastLogin: new Date().toISOString(),
+      gold: 0,
+    },
+    heroDetails: {
+      level: 0,
+      experience: 0,
+      neededExp: 0,
+      health: 0,
+      maxHealth: 0,
+    },
   },
   message: "",
 };
@@ -45,7 +66,7 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
     api: userApi,
     fetchData: fetchUserData,
     clearCache,
-  } = useFetch<User>(
+  } = useFetch<ProfileResponseType>(
     {
       url: "profile",
       method: "GET",
@@ -59,7 +80,7 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
   useEffect(() => {
     isLoggedIn ? fetchUserData() : clearCache();
   }, [clearCache, fetchUserData, isLoggedIn]);
-
+  console.log(userApi, "xdd");
   return (
     <AuthContext.Provider
       value={{

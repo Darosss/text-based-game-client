@@ -4,6 +4,13 @@
   justify-content: space-around;
 
   span {
+    margin-left: 0.5rem;
     color: rgb(var(--info-first-rgb));
+  }
+
+  & > div {
+    flex-grow: 1;
+    justify-content: center;
+    display: flex;
   }
 }

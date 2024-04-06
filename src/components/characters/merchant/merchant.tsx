@@ -93,7 +93,8 @@ export const Merchant: FC = () => {
   );
 
   const handleOnBuyItem = (id: string, cost: number) => {
-    if (userData.gold < cost) return toast.error("You do not have enough gold");
+    if (userData.user.gold < cost)
+      return toast.error("You do not have enough gold");
     fetchBackendApi({
       url: `merchants/buy-item/${id}`,
       method: "POST",

@@ -60,7 +60,9 @@ export const MerchantItem: FC<MerchantItemsProps> = ({
   const {
     apiUser: {
       api: {
-        data: { gold },
+        data: {
+          user: { gold },
+        },
       },
     },
   } = useAuthContext();
