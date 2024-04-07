@@ -7,6 +7,7 @@ import { Button } from "@/components/common";
 import { FightReportType } from "@/api/types";
 import { FightReportDisplay } from "@/components/fight-report";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
+import { useAuthContext } from "@/components/auth";
 
 type CurrentChallengeProps = {
   chosenChallenge: ChoosenChallange;
@@ -38,16 +39,21 @@ export const CurrentChallenge: FC<CurrentChallengeProps> = ({
     },
     { manual: true }
   );
+  const {
+    apiUser: { fetchData: fetchUserData },
+  } = useAuthContext();
 
   const remainingTime = useCountdownTimer({
     toTimestamp: chosenChallenge.timestamp,
   });
 
   useEffect(() => {
-    if (remainingTime === 0) {
-      fetchData();
-    }
+    if (remainingTime === 0) fetchData();
   }, [fetchData, remainingTime]);
+
+  useEffect(() => {
+    if (data) fetchUserData();
+  }, [data, fetchUserData]);
 
   return (
     <div className={styles.currentChallengeWrapper}>

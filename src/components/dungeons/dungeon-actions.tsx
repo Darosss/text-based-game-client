@@ -5,6 +5,7 @@ import styles from "./dungeons.module.scss";
 import { useFetch } from "@/hooks/useFetch";
 import { FightReportDisplay } from "@/components/fight-report";
 import { FightReportType } from "@/api/types";
+import { useAuthContext } from "@/components/auth";
 
 type DungeonActionsProps = {
   dungeonLevel: number;
@@ -35,6 +36,10 @@ export const DungeonActions: FC<DungeonActionsProps> = ({
     },
     { manual: true }
   );
+  const {
+    apiUser: { fetchData: fetchUserData },
+  } = useAuthContext();
+
   useEffect(() => {
     const remainingTimeMs = getRemainingTimeFromDateToDate({
       timestamp: Date.now(),
@@ -56,8 +61,11 @@ export const DungeonActions: FC<DungeonActionsProps> = ({
   }, [canFightDate]);
 
   useEffect(() => {
-    if (data) setShowReport(true);
-  }, [data]);
+    if (data) {
+      fetchUserData();
+      setShowReport(true);
+    }
+  }, [data, fetchUserData]);
 
   return (
     <div className={styles.dungeonActionsWrapper}>

@@ -6,14 +6,9 @@ import styles from "./dungeons.module.scss";
 import { DungeonsResponse } from "./types";
 import { DungeonDetails } from "./dungeon-details";
 import { DungeonActions } from "./dungeon-actions";
-import { useAuthContext } from "@/components/auth";
 import { FetchingInfo } from "../common";
 
 export const Dungeons: FC = () => {
-  const {
-    apiUser: { fetchData: fetchUserData },
-  } = useAuthContext();
-
   const {
     api: {
       isPending,
@@ -60,10 +55,7 @@ export const Dungeons: FC = () => {
       <DungeonActions
         dungeonLevel={currentLevel}
         canFightDate={new Date(data.canFightDate)}
-        onConfirmReport={() => {
-          fetchData();
-          fetchUserData();
-        }}
+        onConfirmReport={fetchData}
       />
     </div>
   );

@@ -6,7 +6,6 @@ import { CurrentChallenge } from "./current-challenge";
 import { ChallengeData, ChoosenChallange } from "./types";
 import { FC, useEffect, useState } from "react";
 import { Button, FetchingInfo } from "@/components/common";
-import { useAuthContext } from "@/components/auth";
 
 type SkirmishesResponse = {
   challenges: { [id: string]: ChallengeData };
@@ -17,10 +16,6 @@ type SkirmishesResponse = {
 };
 
 export const SkirmishesList: FC = () => {
-  const {
-    apiUser: { fetchData: fetchUserData },
-  } = useAuthContext();
-
   const {
     api: {
       isPending,
@@ -46,10 +41,7 @@ export const SkirmishesList: FC = () => {
           <CurrentChallenge
             chosenChallenge={data.chosenChallenge}
             chosenChallengeData={data.chosenChallengeData}
-            onConfirmReport={() => {
-              fetchData();
-              fetchUserData();
-            }}
+            onConfirmReport={fetchData}
             onCancel={fetchData}
           />
         ) : (
