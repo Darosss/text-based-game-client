@@ -56,6 +56,7 @@ export const CharacterManagementContextProvider: FC<
 
   if (
     isPending === null ||
+    isPending ||
     (error && !error.includes("You do not have main character yet"))
     //TODO: refactor later -> error.includes as temporary solution.
   ) {
