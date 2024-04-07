@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 import styles from "./progress-bar.module.scss";
 import { Tooltip } from "react-tooltip";
