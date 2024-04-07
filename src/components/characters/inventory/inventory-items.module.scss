@@ -22,6 +22,7 @@
   }
 
   & > div.oneItemWrapper {
+    padding: 0.1rem;
     display: flex;
     @include respond(medium) {
       min-width: 80px;
