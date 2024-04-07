@@ -11,8 +11,6 @@ type ProgressBarProps = {
   className?: string;
 };
 
-const TOOLTIP_ID = "progress-bar-tooltip-id";
-
 export const ProgressBar: FC<ProgressBarProps> = ({
   value,
   maxValue,
@@ -21,6 +19,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
   showPercents,
   className,
 }) => {
+  const TOOLTIP_ID = `${valueName}-${maxValueName}-tooltip-id`;
   return (
     <div
       className={`${styles.progressBarWrapper} ${className ? className : ""}`}
