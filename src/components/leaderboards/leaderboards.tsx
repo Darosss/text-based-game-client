@@ -83,7 +83,7 @@ export const Leaderboards: FC = () => {
           <div> Username </div>
           <div> Value </div>
         </div>
-        {data.data.map((leaderboardData) => (
+        {data.data?.map((leaderboardData) => (
           <div key={leaderboardData.place + leaderboardData.userId}>
             <div>{leaderboardData.place}</div>
             <div>
