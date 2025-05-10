@@ -80,7 +80,6 @@ export const AuthContextProvider: FC<AuthContextProps> = ({ children }) => {
   useEffect(() => {
     isLoggedIn ? fetchUserData() : clearCache();
   }, [clearCache, fetchUserData, isLoggedIn]);
-  console.log(userApi, "xdd");
   return (
     <AuthContext.Provider
       value={{
