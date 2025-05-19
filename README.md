@@ -1,6 +1,12 @@
-# Text based game - frontend
+# Surword - Web Text Based Game | Frontend
 
-Implementation frontend for https://github.com/Darosss/text-based-game-java-spring
+This Spring Boot repository serves as the backbone for a text-based RPG game, providing the necessary structure and functionality to support player progression, rng combat mechanics, and game state management.
+
+_Note: This project is still in development, and as such, many features are subject to significant changes and refinements. Please be aware that the current state of the project may not reflect its final form, and functionalities described here are subject to adjustments and enhancements._
+
+### Connected repositories
+
+Implementation frontend for https://github.com/Darosss/Surword-WebTextBasedGame
 
 ## Getting Started
 
@@ -23,3 +29,7 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Contact
+
+Darosss - darosss12@proton.me
